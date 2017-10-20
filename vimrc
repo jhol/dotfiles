@@ -18,6 +18,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'jeetsukumaran/vim-buffergator' 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-sleuth'
 
 call plug#end()
 
