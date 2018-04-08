@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'embear/vim-localvimrc'
-Plug 'jeetsukumaran/vim-buffergator' 
 Plug 'sirtaj/vim-openscad'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
@@ -35,13 +34,6 @@ let g:ctrlp_working_path_mode = 'r'
 
 " Use a leader instead of the actual named binding
 nmap <leader>p :CtrlP<cr>
-
-
-"
-" Buffergator
-"
-
-let g:buffergator_viewport_split_policy = 'R'
 
 
 "
