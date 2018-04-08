@@ -18,7 +18,10 @@ Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
-" ----- CtrlP -----
+
+"
+" CtrlP
+"
 
 " Setup some default ignores
 let g:ctrlp_custom_ignore = {
@@ -32,18 +35,27 @@ let g:ctrlp_working_path_mode = 'r'
 " Use a leader instead of the actual named binding
 nmap <leader>p :CtrlP<cr>
 
-" ----- Buffergator
+
+"
+" Buffergator
+"
 
 let g:buffergator_viewport_split_policy = 'R'
 
-" ----- AirLine -----
+
+"
+" AirLine
+"
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-" ----- Key Binding -----
+
+"
+" Key Binding
+"
 
 " Close the current buffer and move to the previous one
 nmap <leader>bq :bp <BAR> bd #<CR>
@@ -51,7 +63,10 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-" ----- Disable Arrow Keys -----
+
+"
+" Disable Arrow Keys
+"
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
