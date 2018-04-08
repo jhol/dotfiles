@@ -8,6 +8,7 @@ syntax on
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'jeetsukumaran/vim-buffergator' 
