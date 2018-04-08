@@ -35,6 +35,10 @@ let g:ctrlp_working_path_mode = 'r'
 " Use a leader instead of the actual named binding
 nmap <leader>p :CtrlP<cr>
 
+" Add tmux-style binding for creating splits
+let g:ctrlp_prompt_mappings = {
+  \ 'AcceptSelection("v")': ['<c-v>', '<Bar>', '<RightMouse>'],
+  \ }
 
 "
 " AirLine
