@@ -3,6 +3,8 @@
 "
 
 set hidden
+set undofile
+set undodir=$HOME/.vim/undo
 
 set colorcolumn=120
 hi ColorColumn ctermbg=4
