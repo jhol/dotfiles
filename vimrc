@@ -1,3 +1,9 @@
+"
+" Base Configuration
+"
+
+set hidden
+
 set colorcolumn=120
 hi ColorColumn ctermbg=4
 let g:localvimrc_ask=0
