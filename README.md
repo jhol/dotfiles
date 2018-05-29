@@ -22,3 +22,12 @@ On Ubuntu/Debian family:
 
 2. Install TPM plugins: run tmux, and press <kbd>Ctrl</kbd> + <kbd>B</kbd>,
 <kbd>I</kbd> to install tmux plugins.
+
+### vim
+
+1. Install plug.vim (vim package manager):
+```
+ $ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
+2. Install vim plugins: run vim, and press `:PlugInstall` then `:bd`.
