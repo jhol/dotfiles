@@ -80,3 +80,10 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 noremap <Home> <NOP>
 noremap <End> <NOP>
+
+"
+" Line numbering
+"
+
+set number
+set relativenumber
