@@ -82,6 +82,15 @@ noremap <Home> <NOP>
 noremap <End> <NOP>
 
 "
+" Code folding
+"
+
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
+"
 " Line numbering
 "
 
