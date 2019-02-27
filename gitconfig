@@ -1,0 +1,20 @@
+[user]
+	name = Joel Holdsworth
+	email = joel@airwebreathe.org.uk
+
+[core]
+	editor = vim
+
+[color]
+	diff = true
+	status = true
+	interactive = true
+
+[alias]
+	graph = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+
+[sendemail.airwebreathe]
+	smtpserver = smtp.aa.net.uk
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser = joel@airwebreathe.org.uk
