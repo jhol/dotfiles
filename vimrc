@@ -95,3 +95,9 @@ set foldlevel=2
 "
 
 set number
+
+"
+" netrw file browser
+"
+
+let g:netrw_liststyle = 3
