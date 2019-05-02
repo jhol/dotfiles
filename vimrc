@@ -71,17 +71,6 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-
-"
-" Disable Arrow Keys
-"
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-noremap <Home> <NOP>
-noremap <End> <NOP>
-
 "
 " Code folding
 "
