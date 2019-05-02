@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'embear/vim-localvimrc'
+Plug 'kana/vim-submode'
 Plug 'sirtaj/vim-openscad'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
@@ -101,3 +102,34 @@ set number
 "
 
 let g:netrw_liststyle = 3
+
+"
+" Window Submode
+"
+
+" A message will appear in the message line when we're in a submode and stay there until the mode has existed.
+let g:submode_always_show_submode = 1
+
+" We're taking over the default <C-w> setting. We'll do our best to put back the default functionality.
+call submode#enter_with('Window', 'n', '', '<C-w>')
+
+" Note: <C-c> will also get you out to the mode without this mapping.
+" Note: <C-[> also behaves as <ESC>
+call submode#leave_with('Window', 'n', '', '<ESC>')
+
+" Go through every letter mapping it to <C-w> when in the Windows submode
+for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+\           'n','o','p','q','r','s','t','u','v','w','x','y','z']
+  " maps lowercase, uppercase and <C-key>
+  call submode#map('Window', 'n', '', key, '<C-w>' . key)
+  call submode#map('Window', 'n', '', toupper(key), '<C-w>' .  toupper(key))
+  call submode#map('Window', 'n', '', '<C-' . key . '>', '<C-w>' .  '<C-'.key . '>')
+endfor
+
+" Go through symbols. Sadly, '|', not supported in submode plugin.
+for key in ['=','_','+','-','<','>']
+  call submode#map('Window', 'n', '', key, '<C-w>' . key)
+endfor
+
+" Old way, just in case.
+nnoremap <Leader>w <C-w>
