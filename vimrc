@@ -24,6 +24,12 @@ if has("gui_running")
 endif
 
 "
+" Terminal Configuration
+"
+
+set shell=zsh
+
+"
 " Load Plugins
 "
 
