@@ -35,6 +35,7 @@ set shell=zsh
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'embear/vim-localvimrc'
@@ -48,6 +49,12 @@ Plug 'vim-scripts/SmartCase'
 
 call plug#end()
 
+"
+" Colour Scheme
+"
+
+set termguicolors
+colorscheme base16-tomorrow-night
 
 "
 " CtrlP
