@@ -18,8 +18,10 @@ syntax on
 " GUI Configuration
 "
 
-set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 10
-set guioptions -=T
+if has("gui_running")
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 10
+  set guioptions -=T
+endif
 
 "
 " Load Plugins
