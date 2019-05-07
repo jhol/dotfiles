@@ -54,7 +54,7 @@ call plug#end()
 "
 
 set termguicolors
-colorscheme base16-tomorrow-night
+colorscheme base16-monokai
 
 "
 " CtrlP
