@@ -14,6 +14,17 @@ xnoremap p pgvy
 filetype plugin indent on
 syntax on
 
+"
+" GUI Configuration
+"
+
+set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 10
+set guioptions -=T
+
+"
+" Load Plugins
+"
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'christoomey/vim-tmux-navigator'
