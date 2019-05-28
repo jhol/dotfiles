@@ -44,7 +44,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/BufClose.vim'
 Plug 'vim-scripts/SmartCase'
 
 call plug#end()
@@ -94,6 +93,9 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
+" Close the buffer without closing the split
+nmap <leader>bd :bp\|bd #<CR>
+
 "
 " Code folding
 "
@@ -123,9 +125,3 @@ let g:tinykeymap#timeout = 1000
 
 let g:tinykeymap#map#windows#map = '<C-w>'
 call tinykeymap#Load(['windows'])
-
-"
-" BufClose
-"
-
-nmap <leader>bd :BufClose<CR>
