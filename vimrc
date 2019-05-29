@@ -123,5 +123,8 @@ let g:netrw_liststyle = 3
 
 let g:tinykeymap#timeout = 1000
 
+call tinykeymap#Load(['buffers'])
+call tinykeymap#Load(['tabs'])
+
 let g:tinykeymap#map#windows#map = '<C-w>'
 call tinykeymap#Load(['windows'])
