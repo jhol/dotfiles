@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'embear/vim-localvimrc'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'sirtaj/vim-openscad'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
