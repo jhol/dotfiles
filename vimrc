@@ -112,6 +112,9 @@ set foldlevel=2
 
 set number
 
+" Hide line numbers in terminal buffers
+au BufWinEnter * if &buftype == 'terminal' | setlocal nonumber norelativenumber | endif
+
 "
 " netrw file browser
 "
