@@ -35,8 +35,6 @@ set shell=zsh
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'sirtaj/vim-openscad'
@@ -55,27 +53,6 @@ call plug#end()
 
 colorscheme default
 highlight LineNr ctermfg=darkgrey
-
-"
-" CtrlP
-"
-
-" Setup some default ignores
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-\}
-
-" Use the nearest .git directory as the cwd
-let g:ctrlp_working_path_mode = 'r'
-
-" Use a leader instead of the actual named binding
-nmap <leader>p :CtrlP<cr>
-
-" Add tmux-style binding for creating splits
-let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("v")': ['<c-v>', '<Bar>', '<RightMouse>'],
-  \ }
 
 "
 " AirLine
