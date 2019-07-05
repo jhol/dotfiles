@@ -103,7 +103,7 @@ let g:netrw_liststyle = 3
 " tinykeymap bindings
 "
 
-let g:tinykeymap#timeout = 2000
+let g:tinykeymap#timeout = 1000
 
 call tinykeymap#Load(['buffers'])
 call tinykeymap#Load(['tabs'])
