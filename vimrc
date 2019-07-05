@@ -35,6 +35,7 @@ set shell=zsh
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'airblade/vim-rooter'
 Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'sirtaj/vim-openscad'
