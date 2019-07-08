@@ -38,6 +38,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-rooter'
 Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'sirtaj/vim-openscad'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
@@ -110,3 +112,15 @@ call tinykeymap#Load(['tabs'])
 
 let g:tinykeymap#map#windows#map = '<C-w>'
 call tinykeymap#Load(['windows'])
+
+"
+" fzf
+"
+
+nmap <leader>ff :Files<CR>
+nmap <leader>fg :GFiles<CR>
+nmap <leader>fs :GFiles?<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>fl :BLines<CR>
+nmap <leader>fL :Lines<CR>
+nmap <leader>fa :Ag<CR>
