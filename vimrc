@@ -8,7 +8,6 @@ set undodir=$HOME/.vim/undo
 
 set colorcolumn=120
 hi ColorColumn ctermbg=4
-let g:localvimrc_ask=0
 xnoremap p pgvy
 
 filetype plugin indent on
@@ -101,6 +100,13 @@ au BufWinEnter * if &buftype == 'terminal' | setlocal nonumber norelativenumber 
 "
 
 let g:netrw_liststyle = 3
+
+"
+" localvimrc
+"
+
+let g:localvimrc_persistent=1
+let g:localvimrc_sandbox=0
 
 "
 " tinykeymap bindings
