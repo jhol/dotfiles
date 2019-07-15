@@ -47,6 +47,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/SmartCase'
+Plug 'https://git.danielmoch.com/vim-makejob.git'
 
 call plug#end()
 
@@ -124,3 +125,10 @@ nmap <leader>fb :Buffers<CR>
 nmap <leader>fl :BLines<CR>
 nmap <leader>fL :Lines<CR>
 nmap <leader>fa :Ag<CR>
+
+"
+" Make
+"
+
+nmap <leader>mm :MakeJob<CR>
+nmap <leader>mc :MakeJobStop<CR>
