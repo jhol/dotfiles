@@ -138,3 +138,10 @@ nmap <leader>fa :Ag<CR>
 
 nmap <leader>mm :MakeJob<CR>
 nmap <leader>mc :MakeJobStop<CR>
+
+"
+" vim-fugitive
+"
+
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gs :Gstatus<CR>
