@@ -115,6 +115,7 @@ let g:localvimrc_sandbox=0
 let g:tinykeymap#timeout = 1000
 
 call tinykeymap#Load(['buffers'])
+call tinykeymap#Load(['qfl'])
 call tinykeymap#Load(['tabs'])
 
 let g:tinykeymap#map#windows#map = '<C-w>'
