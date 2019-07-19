@@ -144,5 +144,6 @@ nmap <leader>mc :MakeJobStop<CR>
 " vim-fugitive
 "
 
+nmap <leader>ga :Gwrite<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gs :Gstatus<CR>
