@@ -21,13 +21,6 @@ cd $HOME
   ln -fs $(realpath --relative-to=$HOME ${install_path}/$f) .$f; done
 
 #
-# Configure tmux
-#
-
-tpm_dir=~/.tmux/plugins/tpm
-[ ! -d $tpm_dir ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-#
 # Configure vim
 #
 

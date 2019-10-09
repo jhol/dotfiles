@@ -13,16 +13,6 @@ On Ubuntu/Debian family:
  $ sudo apt install tmux vim zsh
 ```
 
-### tmux
-
-1. Download TPM (tmux package manager):
-```
- $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
-
-2. Install TPM plugins: run tmux, and press <kbd>Ctrl</kbd> + <kbd>B</kbd>,
-<kbd>I</kbd> to install tmux plugins.
-
 ### vim
 
 1. Install plug.vim (vim package manager):
