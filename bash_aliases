@@ -1,0 +1,2 @@
+
+[ -f ~/.aliases ] && source ~/.aliases

@@ -77,7 +77,5 @@ export EDITOR='vim'
 
 export DEFAULT_USER=joel
 
-alias g=git
-alias tvim="vim -c ':term ++curwin'"
-
+[ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
