@@ -39,6 +39,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'rbong/vim-flog'
 Plug 'sirtaj/vim-openscad'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
@@ -147,3 +148,4 @@ nmap <leader>mc :MakeJobStop<CR>
 nmap <leader>ga :Gwrite<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gs :Gstatus<CR>
+nmap <leader>gv :Flog<CR>
