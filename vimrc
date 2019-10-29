@@ -149,3 +149,4 @@ nmap <leader>ga :Gwrite<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gv :Flog<CR>
+nmap <leader>gV :Flog -all<CR>
