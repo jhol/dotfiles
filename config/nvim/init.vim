@@ -2,7 +2,15 @@
 " Base Configuration
 "
 
+set cmdheight=2
 set hidden
+set nobackup
+set nowritebackup
+set shortmess+=c
+set signcolumn=yes
+set updatetime=300
+
+" Undo file
 set undofile
 set undodir=$HOME/.vim/undo
 
@@ -40,6 +48,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rbong/vim-flog'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sirtaj/vim-openscad'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
@@ -152,3 +161,38 @@ nmap <leader>gc :Gcommit<CR>
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gv :Flogsplit<CR>
 nmap <leader>gV :Flogsplit -all<CR>
+
+"
+" coc
+"
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <C-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+nmap <silent> <leader>cp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>cn <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> <leader>cd <Plug>(coc-definition)
+nmap <silent> <leader>cy <Plug>(coc-type-definition)
+nmap <silent> <leader>ci <Plug>(coc-implementation)
+nmap <silent> <leader>cr <Plug>(coc-references)
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
