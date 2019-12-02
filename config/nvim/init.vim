@@ -47,8 +47,8 @@ Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'rakr/vim-one'
 Plug 'rbong/vim-flog'
+Plug 'nanotech/jellybeans.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sirtaj/vim-openscad'
 Plug 'tomtom/tinykeymap_vim'
@@ -71,11 +71,13 @@ if (empty($TMUX))
   endif
 endif
 
-let g:one_allow_italics = 1
-colorscheme one
 set background=dark
+let g:jellybeans_use_term_italics = 1
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': '000000' },
+\}
+colorscheme jellybeans
 highlight LineNr ctermfg=darkgrey
-call one#highlight('Normal', '', 'black', 'none')
 
 let g:terminal_color_0  = '#2e3436'
 let g:terminal_color_1  = '#cc0000'
@@ -99,7 +101,7 @@ let g:terminal_color_15 = '#eeeeec'
 "
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'one'
+let g:airline_theme = 'jellybeans'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
