@@ -6,7 +6,7 @@ set -u
 
 install_path="$(cd "$(dirname "$0")"; pwd -P)"
 
-sudo -v
+sudo true
 
 #
 # Install the tools
