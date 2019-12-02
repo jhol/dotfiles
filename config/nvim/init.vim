@@ -78,6 +78,8 @@ nmap <leader>bl :ls<CR>
 " Close the buffer without closing the split
 nmap <leader>bd :bp\|bd #<CR>
 
+tnoremap <C-w> <C-\><C-n>
+
 "
 " Code folding
 "
