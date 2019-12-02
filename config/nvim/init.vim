@@ -47,6 +47,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'rakr/vim-one'
 Plug 'rbong/vim-flog'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sirtaj/vim-openscad'
@@ -64,8 +65,17 @@ call plug#end()
 " Colour Scheme
 "
 
-colorscheme default
+if (empty($TMUX))
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+let g:one_allow_italics = 1
+colorscheme one
+set background=dark
 highlight LineNr ctermfg=darkgrey
+call one#highlight('Normal', '', 'black', 'none')
 
 "
 " AirLine
