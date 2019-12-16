@@ -58,6 +58,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/errormarker.vim'
 Plug 'vim-scripts/SmartCase'
 
 call plug#end()
@@ -180,7 +181,8 @@ nmap <leader>fa :Ag<CR>
 " AsyncRun
 "
 
-let g:asyncrun_open=10
+let g:asyncrun_auto = "make"
+let g:asyncrun_open = 10
 let g:asyncrun_rootmarks = ['build', '_build', '.git']
 let g:asyncrun_status = ''
 
