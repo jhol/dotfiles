@@ -51,6 +51,7 @@ Plug 'rbong/vim-flog'
 Plug 'nanotech/jellybeans.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sirtaj/vim-openscad'
+Plug 'sheerun/vim-polyglot'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
