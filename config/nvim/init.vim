@@ -226,3 +226,18 @@ nmap <silent> <leader>cr <Plug>(coc-references)
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Configure language servers
+call coc#config('languageserver', {
+  \  'ccls': {
+  \    "command": "ccls",
+  \    "trace.server": "verbose",
+  \    "filetypes": ["c", "cpp", "objc", "objcpp"],
+  \    "rootPatterns": [".ccls-root", "compile_commands.json"],
+  \    "initializationOptions": {
+  \      "cache": {
+  \        "directory": ".ccls-cache"
+  \      }
+  \    }
+  \  }
+  \})
