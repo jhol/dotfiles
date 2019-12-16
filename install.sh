@@ -28,11 +28,28 @@ sudo apt-get install -y -qq \
 
 echo "Installing config symbolic links"
 cd $HOME
-(cd $install_path; git ls-files) | grep -v -e 'install.sh' -e 'README.md' | while read f; do
+(cd $install_path; git ls-files) | grep -v \
+  -e 'bin/' \
+  -e 'install.sh' \
+  -e 'README.md' \
+| while read f; do
   path=.$f
   echo "  $path"
   mkdir -p $(dirname $path)
   ln -fs $(realpath --relative-to=$(dirname $path) ${install_path}/$f) $path;
+done
+
+#
+# Install the tools
+#
+
+echo "Installing tool symbolic links"
+(cd $install_path; git ls-files) | grep \
+  -e 'bin/' \
+| while read f; do
+  echo "  $f"
+  mkdir -p $(dirname $f)
+  ln -fs $(realpath --relative-to=$(dirname $f) ${install_path}/$f) $f;
 done
 
 #
