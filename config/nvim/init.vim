@@ -52,13 +52,13 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sirtaj/vim-openscad'
 Plug 'sheerun/vim-polyglot'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/SmartCase'
-Plug 'https://git.danielmoch.com/vim-makejob.git'
 
 call plug#end()
 
@@ -105,6 +105,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'jellybeans'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
 
 "
@@ -176,11 +177,15 @@ nmap <leader>fL :Lines<CR>
 nmap <leader>fa :Ag<CR>
 
 "
-" Make
+" AsyncRun
 "
 
-nmap <leader>mm :MakeJob<CR>
-nmap <leader>mc :MakeJobStop<CR>
+let g:asyncrun_open=10
+let g:asyncrun_rootmarks = ['build', '_build', '.git']
+let g:asyncrun_status = ''
+
+nmap <leader>mm :AsyncRun -cwd=<root> -program=make<CR>
+nmap <leader>mc :AsyncStop<CR>
 
 "
 " vim-fugitive
