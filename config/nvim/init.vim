@@ -47,8 +47,8 @@ Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'rbong/vim-flog'
-Plug 'nanotech/jellybeans.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sirtaj/vim-openscad'
 Plug 'sheerun/vim-polyglot'
@@ -73,13 +73,10 @@ if (empty($TMUX))
   endif
 endif
 
-set background=dark
-let g:jellybeans_use_term_italics = 1
-let g:jellybeans_overrides = {
-\    'background': { 'guibg': '000000' },
-\}
-colorscheme jellybeans
-highlight LineNr ctermfg=darkgrey
+colorscheme base16-default-dark
+
+call g:Base16hi("Normal", g:base16_gui05, "000000", g:base16_cterm05, g:base16_cterm00, "", "")
+call g:Base16hi("LineNr", g:base16_gui03, "000000", g:base16_cterm03, g:base16_cterm00, "", "")
 
 let g:terminal_color_0  = '#2e3436'
 let g:terminal_color_1  = '#cc0000'
@@ -103,7 +100,7 @@ let g:terminal_color_15 = '#eeeeec'
 "
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'jellybeans'
+let g:airline_theme = 'base16'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
