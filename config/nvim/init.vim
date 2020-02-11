@@ -49,6 +49,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pbrisbin/vim-mkdir'
 Plug 'rbong/vim-flog'
 Plug 'sheerun/vim-polyglot'
 Plug 'sirtaj/vim-openscad'
