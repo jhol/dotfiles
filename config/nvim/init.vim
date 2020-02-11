@@ -43,23 +43,23 @@ set shell=zsh
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-rooter'
+Plug 'chriskempson/base16-vim'
 Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'rbong/vim-flog'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'sirtaj/vim-openscad'
+Plug 'rbong/vim-flog'
 Plug 'sheerun/vim-polyglot'
+Plug 'sirtaj/vim-openscad'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/errormarker.vim'
 Plug 'vim-scripts/SmartCase'
+Plug 'vim-scripts/errormarker.vim'
 
 call plug#end()
 
