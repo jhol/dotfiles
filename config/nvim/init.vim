@@ -156,6 +156,7 @@ let g:localvimrc_sandbox=0
 
 let g:tinykeymap#timeout = 1000
 
+let g:tinykeymap#mapleader = '<leader>'
 call tinykeymap#Load(['buffers'])
 call tinykeymap#Load(['qfl'])
 call tinykeymap#Load(['tabs'])
