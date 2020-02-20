@@ -15,7 +15,6 @@ sudo true
 echo "Installing packages"
 sudo apt-get update
 sudo apt-get install -y -qq \
-  tmux \
   neovim \
   python3-neovim \
   zsh
