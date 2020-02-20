@@ -15,6 +15,7 @@ sudo true
 echo "Installing packages"
 sudo apt-get update
 sudo apt-get install -y -qq \
+  curl \
   neovim \
   python3-neovim \
   zsh
