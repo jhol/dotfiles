@@ -43,6 +43,7 @@ set shell=zsh
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-rooter'
+Plug 'camspiers/lens.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
