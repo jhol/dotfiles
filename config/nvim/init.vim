@@ -248,3 +248,10 @@ call coc#config('languageserver', {
   \    }
   \  }
   \})
+
+"
+" lens.vim
+"
+
+let g:lens#width_resize_min = 20
+let g:lens#width_resize_max = 128
