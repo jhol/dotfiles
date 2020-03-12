@@ -118,6 +118,10 @@ nmap <leader>bl :ls<CR>
 " Close the buffer without closing the split
 nmap <leader>bd :bp\|bd #<CR>
 
+" quick-fix list
+nmap <leader>qo :copen<CR>
+nmap <leader>qc :cclose<CR>
+
 tnoremap <C-Space> <C-\><C-n>
 
 "
