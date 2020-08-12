@@ -22,6 +22,14 @@ filetype plugin indent on
 syntax on
 
 "
+" Fold Configuration
+"
+
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+
+"
 " GUI Configuration
 "
 
