@@ -147,7 +147,7 @@ set foldlevel=2
 " Line numbering
 "
 
-set number
+set number relativenumber
 
 " Hide line numbers in terminal buffers
 au TermOpen * setlocal nonumber norelativenumber
