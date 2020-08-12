@@ -38,6 +38,8 @@ if has("gui_running")
   set guioptions -=T
 endif
 
+let g:GuiFont="Source Code Pro for Powerline:h9"
+
 "
 " Terminal Configuration
 "
