@@ -269,3 +269,21 @@ call coc#config('languageserver', {
 
 let g:lens#width_resize_min = 20
 let g:lens#width_resize_max = 128
+
+"
+" Focus
+"
+
+function! s:Focus()
+  " Close the quickfix list
+  :cclose
+
+  " Close all the vim fugitive windows
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && getbufvar(v:val, "fugitive_type") != ""')
+    silent execute 'bwipeout' buf
+  endfor
+endfunction
+
+command! Focus call s:Focus()
+
+nmap <leader>F :Focus<CR>
