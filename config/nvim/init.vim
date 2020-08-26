@@ -30,17 +30,6 @@ set foldnestmax=10
 set nofoldenable
 
 "
-" GUI Configuration
-"
-
-if has("gui_running")
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 10
-  set guioptions -=T
-endif
-
-let g:GuiFont="Source Code Pro for Powerline:h9"
-
-"
 " Terminal Configuration
 "
 
