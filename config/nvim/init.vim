@@ -57,6 +57,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
+Plug 'vhdirk/vim-cmake'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/SmartCase'
@@ -276,3 +277,10 @@ endfunction
 command! Focus call s:Focus()
 
 nmap <leader>F :Focus<CR>
+
+"
+" vim-cmake
+"
+
+let g:cmake_export_compile_commands = 1
+let g:cmake_ycm_symlinks = 1
