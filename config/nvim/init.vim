@@ -284,3 +284,11 @@ nmap <leader>F :Focus<CR>
 
 let g:cmake_export_compile_commands = 1
 let g:cmake_ycm_symlinks = 1
+
+"
+" neovim-remote
+"
+
+if has('nvim')
+  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+endif

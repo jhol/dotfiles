@@ -18,7 +18,11 @@ sudo apt-get install -y -qq \
   curl \
   neovim \
   python3-neovim \
+  python3-pip \
   zsh
+
+sudo pip3 install \
+  neovim-remote
 
 #
 # Install the configs
