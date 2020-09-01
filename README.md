@@ -1,8 +1,8 @@
-shellrc - jhol's shell configuration
-====================================
+dotfiles - jhol's dot-file configuration
+========================================
 
-Comitting shell config files to a git repository, makes it easy for me to share
-my shell preferences between devices.
+Comitting dot-files config files to a git repository, makes it easy for me to
+share my shell preferences between devices.
 
 Installation
 ------------
