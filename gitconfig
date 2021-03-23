@@ -68,6 +68,7 @@
 	tips = for-each-ref --sort=-committerdate  --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 	report = "!f() { pwd; git status $*; }; f"
 	ignore = "!f() { for a in `echo $*`; do echo $a >> .gitignore; done;}; f"
+  wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 
 [sendemail.airwebreathe]
 	smtpserver = smtp.aa.net.uk
