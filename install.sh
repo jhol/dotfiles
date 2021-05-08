@@ -16,6 +16,7 @@ echo "Installing packages"
 sudo apt-get update
 sudo apt-get install -y -qq \
   curl \
+  kitty \
   neovim \
   python3-neovim \
   python3-pip \
