@@ -22,6 +22,12 @@ filetype plugin indent on
 syntax on
 
 "
+" Mouse Configuraturation
+"
+
+set mouse=a
+
+"
 " Fold Configuration
 "
 
