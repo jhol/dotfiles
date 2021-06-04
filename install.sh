@@ -6,24 +6,39 @@ set -u
 
 install_path="$(cd "$(dirname "$0")"; pwd -P)"
 
-sudo true
-
 #
 # Install the tools
 #
 
 echo "-- Installing packages"
-sudo apt-get update
-sudo apt-get install -y -qq \
-  curl \
-  kitty \
-  neovim \
-  python3-neovim \
-  python3-pip \
-  zsh
 
-sudo pip3 install \
+apt_packages="
+  curl
+  kitty
+  neovim
+  python3-neovim
+  python3-pip
+  zsh
+  "
+
+if ! dpkg -s $apt_packages >/dev/null 2>&1; then
+  sudo apt-get update
+  sudo apt-get install -y -qq $packages
+else
+  echo "  Already Done"
+fi
+
+echo "-- Installing pip packages"
+
+pip_packages="
   neovim-remote
+  "
+
+if ! pip3 show $pip_packages >/dev/null 2>&1; then
+  sudo pip3 install $pip_packages
+else
+  echo "  Already Done"
+fi
 
 #
 # Install the configs
