@@ -77,7 +77,10 @@ vim +'PlugInstall --sync' +qa
 # Configure Zsh
 #
 
-if [ ! -d ${HOME}/.oh-my-zsh ]; then
-  echo "Installing oh-my-zsh"
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh 2>/dev/null)"
+if [ ! -d ${HOME}/.zim ]; then
+  echo "Installing zim"
+  curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 fi
+
+echo "Installing zim packages"
+zsh ${HOME}/.zim/zimfw.zsh install
