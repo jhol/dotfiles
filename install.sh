@@ -12,7 +12,7 @@ sudo true
 # Install the tools
 #
 
-echo "Installing packages"
+echo "-- Installing packages"
 sudo apt-get update
 sudo apt-get install -y -qq \
   curl \
@@ -29,7 +29,7 @@ sudo pip3 install \
 # Install the configs
 #
 
-echo "Installing config symbolic links"
+echo "-- Installing config symbolic links"
 cd $HOME
 (cd $install_path; git ls-files) | grep -v \
   -e 'bin/' \
@@ -46,7 +46,7 @@ done
 # Install the tools
 #
 
-echo "Installing tool symbolic links"
+echo "-- Installing tool symbolic links"
 (cd $install_path; git ls-files) | grep \
   -e 'bin/' \
 | while read f; do
@@ -59,7 +59,7 @@ done
 # Configure neovim
 #
 
-echo "Configuring NeoVim"
+echo "-- Configuring NeoVim"
 
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi
@@ -68,7 +68,7 @@ sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
-echo "Installing vim plugins"
+echo "-- Installing vim plugins"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 2>/dev/null
 vim +'PlugInstall --sync' +qa
@@ -78,9 +78,9 @@ vim +'PlugInstall --sync' +qa
 #
 
 if [ ! -d ${HOME}/.zim ]; then
-  echo "Installing zim"
+  echo "-- Installing zim"
   curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 fi
 
-echo "Installing zim packages"
+echo "-- Installing zim packages"
 zsh ${HOME}/.zim/zimfw.zsh install
