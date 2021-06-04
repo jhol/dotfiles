@@ -76,12 +76,17 @@ done
 
 echo "-- Configuring NeoVim"
 
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --config vi
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --config vim
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-sudo update-alternatives --config editor
+configure_nvim_alternative() {
+  link=/usr/bin/$1
+  if [ "$(readlink -f $link)" != "/usr/bin/nvim" ]; then
+    sudo update-alternatives --install $link vi /usr/bin/nvim 60
+    sudo update-alternatives --config $1
+  fi
+}
+
+configure_nvim_alternative vi
+configure_nvim_alternative vim
+configure_nvim_alternative editor
 
 echo "-- Installing vim plugins"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
