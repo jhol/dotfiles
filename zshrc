@@ -143,3 +143,5 @@ export DEFAULT_USER=joel
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+PWD_COLOR=blue
