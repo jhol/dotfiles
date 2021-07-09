@@ -77,3 +77,6 @@
 	smtpuser = joel@airwebreathe.org.uk
 [init]
 	defaultBranch = master
+
+[include]
+	path = ~/.gitconfig.local
