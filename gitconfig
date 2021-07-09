@@ -75,6 +75,7 @@
 	smtpserverport = 587
 	smtpencryption = tls
 	smtpuser = joel@airwebreathe.org.uk
+
 [init]
 	defaultBranch = master
 
