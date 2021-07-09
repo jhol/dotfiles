@@ -24,7 +24,7 @@ apt_packages="
 
 if ! dpkg -s $apt_packages >/dev/null 2>&1; then
   sudo apt-get update
-  sudo apt-get install -y -qq $packages
+  sudo apt-get install -y -qq $apt_packages
 else
   echo "  Already Done"
 fi
