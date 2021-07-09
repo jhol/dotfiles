@@ -13,6 +13,7 @@ install_path="$(cd "$(dirname "$0")"; pwd -P)"
 echo "-- Installing packages"
 
 apt_packages="
+  cmake
   curl
   kitty
   neovim
