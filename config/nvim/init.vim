@@ -2,7 +2,7 @@
 " Base Configuration
 "
 
-set cmdheight=2
+set cmdheight=1
 set hidden
 set nobackup
 set nowritebackup
