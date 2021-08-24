@@ -54,6 +54,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-sneak'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'rbong/vim-flog'
 Plug 'sheerun/vim-polyglot'
@@ -251,3 +252,14 @@ let g:cmake_ycm_symlinks = 1
 if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 endif
+
+"
+" sneak.vim
+"
+
+let g:sneak#label = 1
+
+" Bind sneak s/S to q/Q, and remap 'record macro' to Ctrl-Q
+nnoremap <C-q> q
+nmap q <Plug>Sneak_s
+nmap Q <Plug>Sneak_S
