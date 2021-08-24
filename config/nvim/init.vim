@@ -121,6 +121,9 @@ let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status
 noremap <C-q> <Nop>
 noremap <C-s> <Nop>
 
+" Hide search highlight
+noremap z/ :nohlsearch<CR>
+
 " Close the buffer without closing the split
 nmap <leader>bd :bp\|bd #<CR>
 
