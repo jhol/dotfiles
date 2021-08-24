@@ -100,7 +100,10 @@ vim +'PlugInstall --sync' +qa
 
 if [ ! -d ${HOME}/.zim ]; then
   echo "-- Installing zim"
+  cp ${HOME}/.zshrc{,.bak}
+  sed -i '/ZIM/d' ${HOME}/.zshrc
   curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+  cp ${HOME}/.zshrc{.bak,}
 fi
 
 echo "-- Installing zim packages"
