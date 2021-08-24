@@ -117,6 +117,10 @@ let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status
 " Key Binding
 "
 
+" Disable XON/XOFF
+noremap <C-q> <Nop>
+noremap <C-s> <Nop>
+
 " Close the buffer without closing the split
 nmap <leader>bd :bp\|bd #<CR>
 
