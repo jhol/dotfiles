@@ -80,8 +80,7 @@ echo "-- Configuring NeoVim"
 configure_nvim_alternative() {
   link=/usr/bin/$1
   if [ "$(readlink -f $link)" != "/usr/bin/nvim" ]; then
-    sudo update-alternatives --remove-all $1 || true
-    sudo update-alternatives --install $link vi /usr/bin/nvim 60
+    sudo update-alternatives --set $1 /usr/bin/nvim
   fi
 }
 
