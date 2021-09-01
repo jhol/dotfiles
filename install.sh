@@ -103,7 +103,13 @@ if [ ! -d ${HOME}/.zim ]; then
   sed -i '/ZIM/d' ${HOME}/.zshrc
   curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
   cp ${HOME}/.zshrc{.bak,}
+else
+  echo "-- Upgrading zim"
+  >/dev/null zsh ${HOME}/.zim/zimfw.zsh upgrade
 fi
 
 echo "-- Installing zim packages"
-zsh ${HOME}/.zim/zimfw.zsh install
+>/dev/null zsh ${HOME}/.zim/zimfw.zsh install
+
+echo "-- Upgrading zim packages"
+>/dev/null zsh ${HOME}/.zim/zimfw.zsh upgrade
