@@ -1,3 +1,4 @@
 
 alias g=git
 alias tvim="vim -c ':term ++curwin'"
+alias cp="cp --reflink=auto --sparse=always"
