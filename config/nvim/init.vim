@@ -68,6 +68,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/SmartCase'
 Plug 'vim-scripts/errormarker.vim'
+Plug 'vim-scripts/zoom.vim'
 
 call plug#end()
 
