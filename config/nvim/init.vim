@@ -58,6 +58,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'rbong/vim-flog'
 Plug 'sheerun/vim-polyglot'
+Plug 'Shirk/vim-gas'
 Plug 'sirtaj/vim-openscad'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tinykeymap_vim'
@@ -103,6 +104,12 @@ let g:terminal_color_12 = '#729fcf'
 let g:terminal_color_13 = '#ad7fa8'
 let g:terminal_color_14 = '#00f5e9'
 let g:terminal_color_15 = '#eeeeec'
+
+"
+" Additional Synax Highlighting
+"
+
+au BufRead,BufNewFile *.s set filetype=gas
 
 "
 " AirLine
