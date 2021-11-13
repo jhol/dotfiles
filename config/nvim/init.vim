@@ -51,10 +51,10 @@ Plug 'airblade/vim-rooter'
 Plug 'camspiers/lens.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'embear/vim-localvimrc'
+Plug 'ggandor/lightspeed.nvim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'justinmk/vim-sneak'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'rbong/vim-flog'
 Plug 'sheerun/vim-polyglot'
@@ -263,12 +263,20 @@ if has('nvim')
 endif
 
 "
-" sneak.vim
+" lighspeed.nvim
 "
 
-let g:sneak#label = 1
-
-" Bind sneak s/S to q/Q, and remap 'record macro' to Ctrl-Q
+" Bind lighspeed s/S to q/Q, and remap 'record macro' to Ctrl-Q
 nnoremap <C-q> q
-nmap q <Plug>Sneak_s
-nmap Q <Plug>Sneak_S
+
+nmap q <Plug>Lightspeed_s
+nmap Q <Plug>Lightspeed_S
+nmap f <Plug>Lightspeed_f
+nmap F <Plug>Lightspeed_F
+nmap t <Plug>Lightspeed_t
+nmap T <Plug>Lightspeed_T
+
+nmap ; <Plug>Lightspeed_;_ft
+vmap ; <Plug>Lightspeed_;_ft
+nmap , <Plug>Lightspeed_,_ft
+vmap , <Plug>Lightspeed_,_ft
