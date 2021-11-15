@@ -57,20 +57,23 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'rbong/vim-flog'
-Plug 'sheerun/vim-polyglot'
 Plug 'Shirk/vim-gas'
 Plug 'sirtaj/vim-openscad'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
 Plug 'vhdirk/vim-cmake'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/SmartCase'
 Plug 'vim-scripts/errormarker.vim'
 Plug 'vim-scripts/zoom.vim'
+
+" Order is important
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-sleuth'
+Plug 'sgur/vim-editorconfig'
 
 call plug#end()
 
