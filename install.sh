@@ -12,50 +12,53 @@ install_path="$(cd "$(dirname "$0")"; pwd -P)"
 
 echo "-- Installing packages"
 
-apt_packages="
-  cmake
-  curl
-  kitty
-  neovim
-  python3-neovim
-  python3-pip
-  zsh
-  "
+install_apt_packages() {
+  if ! dpkg -s "$@" >/dev/null 2>&1; then
+    sudo apt-get update
+    sudo apt-get install -y -qq "$@"
+  else
+    echo "  Already Done"
+  fi
+}
 
-if ! dpkg -s $apt_packages >/dev/null 2>&1; then
-  sudo apt-get update
-  sudo apt-get install -y -qq $apt_packages
-else
-  echo "  Already Done"
-fi
+install_apt_packages \
+  cmake \
+  curl \
+  kitty \
+  neovim \
+  python3-neovim \
+  python3-pip \
+  zsh
 
 echo "-- Installing pip packages"
 
-pip_packages="
-  neovim-remote
-  "
+install_pip_packages() {
+  if ! pip3 show "$@" >/dev/null 2>&1; then
+    sudo pip3 install "$@"
+  else
+    echo "  Already Done"
+  fi
+}
 
-if ! pip3 show $pip_packages >/dev/null 2>&1; then
-  sudo pip3 install $pip_packages
-else
-  echo "  Already Done"
-fi
+install_pip_packages \
+  neovim-remote
+
 
 #
 # Install the configs
 #
 
 echo "-- Installing config symbolic links"
-cd $HOME
-(cd $install_path; git ls-files) | grep -v \
+cd "$HOME"
+(cd "$install_path"; git ls-files) | grep -v \
   -e 'bin/' \
   -e 'install.sh' \
   -e 'README.md' \
-| while read f; do
+| while read -r f; do
   path=.$f
   echo "  $path"
-  mkdir -p $(dirname $path)
-  ln -fs $(realpath --relative-to=$(dirname $path) ${install_path}/$f) $path;
+  mkdir -p "$(dirname "$path")"
+  ln -fs "$(realpath --relative-to="$(dirname "$path")" "${install_path}/$f")" "$path";
 done
 
 #
@@ -63,12 +66,12 @@ done
 #
 
 echo "-- Installing tool symbolic links"
-(cd $install_path; git ls-files) | grep \
+(cd "$install_path"; git ls-files) | grep \
   -e 'bin/' \
-| while read f; do
+| while read -r f; do
   echo "  $f"
-  mkdir -p $(dirname $f)
-  ln -fs $(realpath --relative-to=$(dirname $f) ${install_path}/$f) $f;
+  mkdir -p "$(dirname "$f")"
+  ln -fs "$(realpath --relative-to="$(dirname "$f")" "${install_path}/$f")" "$f";
 done
 
 #
@@ -79,8 +82,8 @@ echo "-- Configuring NeoVim"
 
 configure_nvim_alternative() {
   link=/usr/bin/$1
-  if [ "$(readlink -f $link)" != "/usr/bin/nvim" ]; then
-    sudo update-alternatives --set $1 /usr/bin/nvim
+  if [ "$(readlink -f "$link")" != "/usr/bin/nvim" ]; then
+    sudo update-alternatives --set "$1" /usr/bin/nvim
   fi
 }
 
@@ -97,19 +100,19 @@ nvim +'PlugInstall --sync' +qa
 # Configure Zsh
 #
 
-if [ ! -d ${HOME}/.zim ]; then
+if [ ! -d "${HOME}/.zim" ]; then
   echo "-- Installing zim"
-  cp ${HOME}/.zshrc{,.bak}
-  sed -i '/ZIM/d' ${HOME}/.zshrc
+  cp "${HOME}/.zshrc" "${HOME}/.zshrc.bak"
+  sed -i '/ZIM/d' "${HOME}/.zshrc"
   curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
-  cp ${HOME}/.zshrc{.bak,}
+  cp "${HOME}/.zshrc.bak" "${HOME}/.zshrc"
 else
   echo "-- Upgrading zim"
-  >/dev/null zsh ${HOME}/.zim/zimfw.zsh upgrade
+  >/dev/null zsh "${HOME}/.zim/zimfw.zsh" upgrade
 fi
 
 echo "-- Installing zim packages"
->/dev/null zsh ${HOME}/.zim/zimfw.zsh install
+>/dev/null zsh "${HOME}/.zim/zimfw.zsh" install
 
 echo "-- Upgrading zim packages"
->/dev/null zsh ${HOME}/.zim/zimfw.zsh upgrade
+>/dev/null zsh "${HOME}/.zim/zimfw.zsh" upgrade
