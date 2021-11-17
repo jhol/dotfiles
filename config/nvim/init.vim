@@ -113,7 +113,7 @@ let g:terminal_color_15 = '#eeeeec'
 " Additional Synax Highlighting
 "
 
-au BufRead,BufNewFile *.s set filetype=gas
+au BufRead,BufNewFile *.[sS] set filetype=gas
 
 "
 " AirLine
