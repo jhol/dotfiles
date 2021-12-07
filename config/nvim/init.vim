@@ -221,7 +221,7 @@ nmap <leader>mc :AsyncStop<CR>
 
 nmap <leader>ga :Gwrite<CR>
 nmap <leader>gc :Gcommit<CR>
-nmap <leader>gs :Gstatus<CR>
+nmap <leader>gs :Git<CR>
 nmap <leader>gv :Flogsplit<CR>
 nmap <leader>gV :Flogsplit -all<CR>
 
