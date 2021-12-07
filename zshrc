@@ -8,6 +8,12 @@
 # -----------------
 
 #
+# System
+#
+
+[ -f /etc/profile ] && source /etc/profile
+
+#
 # History
 #
 
@@ -124,7 +130,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # User configuration
 
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
