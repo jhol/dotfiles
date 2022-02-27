@@ -31,16 +31,8 @@ vim.o.foldmethod = "syntax"
 vim.o.foldnestmax = 10
 vim.o.foldenable = false
 
---
 -- Terminal Configuration
---
-
-vim.api.nvim_exec(
-[[
-
-set shell=zsh
-
-]], true)
+vim.o.shell = "zsh"
 
 --
 -- Load Plugins
