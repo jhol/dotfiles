@@ -1,6 +1,9 @@
-"
-" Base Configuration
-"
+--
+-- Base Configuration
+--
+
+vim.api.nvim_exec(
+[[
 
 set cmdheight=1
 set hidden
@@ -21,29 +24,49 @@ xnoremap p pgvy
 filetype plugin indent on
 syntax on
 
-"
-" Mouse Configuraturation
-"
+]], true)
+
+--
+-- Mouse Configuraturation
+--
+
+vim.api.nvim_exec(
+[[
 
 set mouse=a
 
-"
-" Fold Configuration
-"
+]], true)
+
+--
+-- Fold Configuration
+--
+
+vim.api.nvim_exec(
+[[
 
 set foldmethod=syntax
 set foldnestmax=10
 set nofoldenable
 
-"
-" Terminal Configuration
-"
+]], true)
+
+--
+-- Terminal Configuration
+--
+
+vim.api.nvim_exec(
+[[
 
 set shell=zsh
 
-"
-" Load Plugins
-"
+]], true)
+
+--
+-- Load Plugins
+--
+
+vim.api.nvim_exec(
+[[
 
 call plug#begin('~/.vim/plugged')
 
@@ -77,9 +100,14 @@ Plug 'sgur/vim-editorconfig'
 
 call plug#end()
 
-"
-" Colour Scheme
-"
+]], true)
+
+--
+-- Colour Scheme
+--
+
+vim.api.nvim_exec(
+[[
 
 if (empty($TMUX))
   if (has("termguicolors"))
@@ -109,15 +137,25 @@ let g:terminal_color_13 = '#ad7fa8'
 let g:terminal_color_14 = '#00f5e9'
 let g:terminal_color_15 = '#eeeeec'
 
-"
-" Additional Synax Highlighting
-"
+]], true)
+
+--
+-- Additional Synax Highlighting
+--
+
+vim.api.nvim_exec(
+[[
 
 au BufRead,BufNewFile *.[sS] set filetype=gas
 
-"
-" AirLine
-"
+]], true)
+
+--
+-- AirLine
+--
+
+vim.api.nvim_exec(
+[[
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16'
@@ -125,10 +163,14 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
+]], true)
 
-"
-" Key Binding
-"
+--
+-- Key Binding
+--
+
+vim.api.nvim_exec(
+[[
 
 " Disable XON/XOFF
 noremap <C-q> <Nop>
@@ -146,40 +188,65 @@ nmap <leader>qc :cclose<CR>
 
 tnoremap <C-Space> <C-\><C-n>
 
-"
-" Code folding
-"
+]], true)
+
+--
+-- Code folding
+--
+
+vim.api.nvim_exec(
+[[
 
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
 
-"
-" Line numbering
-"
+]], true)
+
+--
+-- Line numbering
+--
+
+vim.api.nvim_exec(
+[[
 
 set number relativenumber
 
 " Hide line numbers in terminal buffers
 au TermOpen * setlocal nonumber norelativenumber
 
-"
-" netrw file browser
-"
+]], true)
+
+--
+-- netrw file browser
+--
+
+vim.api.nvim_exec(
+[[
 
 let g:netrw_liststyle = 3
 
-"
-" localvimrc
-"
+]], true)
+
+--
+-- localvimrc
+--
+
+vim.api.nvim_exec(
+[[
 
 let g:localvimrc_persistent=1
 let g:localvimrc_sandbox=0
 
-"
-" tinykeymap bindings
-"
+]], true)
+
+--
+-- tinykeymap bindings
+--
+
+vim.api.nvim_exec(
+[[
 
 let g:tinykeymap#timeout = 1000
 
@@ -191,9 +258,14 @@ call tinykeymap#Load(['tabs'])
 let g:tinykeymap#map#windows#map = '<C-w>'
 call tinykeymap#Load(['windows'])
 
-"
-" fzf
-"
+]], true)
+
+--
+-- fzf
+--
+
+vim.api.nvim_exec(
+[[
 
 nmap <leader>ff :Files<CR>
 nmap <leader>fg :GFiles<CR>
@@ -203,9 +275,14 @@ nmap <leader>fl :BLines<CR>
 nmap <leader>fL :Lines<CR>
 nmap <leader>fa :Ag<CR>
 
-"
-" AsyncRun
-"
+]], true)
+
+--
+-- AsyncRun
+--
+
+vim.api.nvim_exec(
+[[
 
 let g:asyncrun_auto = "make"
 let g:asyncrun_open = 10
@@ -215,9 +292,14 @@ let g:asyncrun_status = ''
 nmap <leader>mm :AsyncRun -cwd=<root> -program=make<CR>
 nmap <leader>mc :AsyncStop<CR>
 
-"
-" vim-fugitive
-"
+]], true)
+
+--
+-- vim-fugitive
+--
+
+vim.api.nvim_exec(
+[[
 
 nmap <leader>ga :Gwrite<CR>
 nmap <leader>gc :Gcommit<CR>
@@ -225,16 +307,26 @@ nmap <leader>gs :Git<CR>
 nmap <leader>gv :Flogsplit<CR>
 nmap <leader>gV :Flogsplit -all<CR>
 
-"
-" lens.vim
-"
+]], true)
+
+--
+-- lens.vim
+--
+
+vim.api.nvim_exec(
+[[
 
 let g:lens#width_resize_min = 20
 let g:lens#width_resize_max = 128
 
-"
-" Focus
-"
+]], true)
+
+--
+-- Focus
+--
+
+vim.api.nvim_exec(
+[[
 
 function! s:Focus()
   " Close the quickfix list
@@ -250,24 +342,39 @@ command! Focus call s:Focus()
 
 nmap <leader>F :Focus<CR>
 
-"
-" vim-cmake
-"
+]], true)
+
+--
+-- vim-cmake
+--
+
+vim.api.nvim_exec(
+[[
 
 let g:cmake_export_compile_commands = 1
 let g:cmake_ycm_symlinks = 1
 
-"
-" neovim-remote
-"
+]], true)
+
+--
+-- neovim-remote
+--
+
+vim.api.nvim_exec(
+[[
 
 if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 endif
 
-"
-" lighspeed.nvim
-"
+]], true)
+
+--
+-- lighspeed.nvim
+--
+
+vim.api.nvim_exec(
+[[
 
 " Bind lighspeed s/S to q/Q, and remap 'record macro' to Ctrl-Q
 nnoremap <C-q> q
@@ -283,3 +390,5 @@ nmap ; <Plug>Lightspeed_;_ft
 vmap ; <Plug>Lightspeed_;_ft
 nmap , <Plug>Lightspeed_,_ft
 vmap , <Plug>Lightspeed_,_ft
+
+]], true)
