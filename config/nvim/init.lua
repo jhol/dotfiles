@@ -26,18 +26,10 @@ vim.opt.syntax = "on"
 -- Mouse Configuraturation
 vim.o.mouse = "a"
 
---
 -- Fold Configuration
---
-
-vim.api.nvim_exec(
-[[
-
-set foldmethod=syntax
-set foldnestmax=10
-set nofoldenable
-
-]], true)
+vim.o.foldmethod = "syntax"
+vim.o.foldnestmax = 10
+vim.o.foldenable = false
 
 --
 -- Terminal Configuration
