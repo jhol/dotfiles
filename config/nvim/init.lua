@@ -40,7 +40,7 @@ vim.o.shell = "zsh"
 
 local Plug = vim.fn['plug#']
 
-vim.call('plug#begin', '~/.vim/plugged')
+vim.call('plug#begin', '~/.config/nvim/plugged')
 
 Plug('airblade/vim-rooter')
 Plug('camspiers/lens.vim')
