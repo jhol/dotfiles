@@ -38,42 +38,39 @@ vim.o.shell = "zsh"
 -- Load Plugins
 --
 
-vim.api.nvim_exec(
-[[
+local Plug = vim.fn['plug#']
 
-call plug#begin('~/.vim/plugged')
+vim.call('plug#begin', '~/.vim/plugged')
 
-Plug 'airblade/vim-rooter'
-Plug 'camspiers/lens.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'embear/vim-localvimrc'
-Plug 'ggandor/lightspeed.nvim'
-Plug 'jlanzarotta/bufexplorer'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'pbrisbin/vim-mkdir'
-Plug 'rbong/vim-flog'
-Plug 'Shirk/vim-gas'
-Plug 'sirtaj/vim-openscad'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'tomtom/tinykeymap_vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'vhdirk/vim-cmake'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/SmartCase'
-Plug 'vim-scripts/errormarker.vim'
-Plug 'vim-scripts/zoom.vim'
+Plug('airblade/vim-rooter')
+Plug('camspiers/lens.vim')
+Plug('chriskempson/base16-vim')
+Plug('embear/vim-localvimrc')
+Plug('ggandor/lightspeed.nvim')
+Plug('jlanzarotta/bufexplorer')
+Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' })
+Plug('junegunn/fzf.vim')
+Plug('pbrisbin/vim-mkdir')
+Plug('rbong/vim-flog')
+Plug('Shirk/vim-gas')
+Plug('sirtaj/vim-openscad')
+Plug('skywind3000/asyncrun.vim')
+Plug('tomtom/tinykeymap_vim')
+Plug('tpope/vim-fugitive')
+Plug('tpope/vim-repeat')
+Plug('vhdirk/vim-cmake')
+Plug('vim-airline/vim-airline')
+Plug('vim-airline/vim-airline-themes')
+Plug('vim-scripts/SmartCase')
+Plug('vim-scripts/errormarker.vim')
+Plug('vim-scripts/zoom.vim')
 
-" Order is important
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-sleuth'
-Plug 'sgur/vim-editorconfig'
+-- Order is important
+Plug('sheerun/vim-polyglot')
+Plug('tpope/vim-sleuth')
+Plug('sgur/vim-editorconfig')
 
-call plug#end()
-
-]], true)
+vim.call('plug#end')
 
 --
 -- Colour Scheme
