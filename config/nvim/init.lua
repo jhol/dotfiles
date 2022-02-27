@@ -23,16 +23,8 @@ vim.api.nvim_command("filetype plugin indent on")
 
 vim.opt.syntax = "on"
 
---
 -- Mouse Configuraturation
---
-
-vim.api.nvim_exec(
-[[
-
-set mouse=a
-
-]], true)
+vim.o.mouse = "a"
 
 --
 -- Fold Configuration
