@@ -2,28 +2,26 @@
 -- Base Configuration
 --
 
-vim.api.nvim_exec(
-[[
+vim.o.cmdheight = 1
+vim.o.hidden = true
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.signcolumn = "yes"
+vim.o.updatetime = 300
 
-set cmdheight=1
-set hidden
-set nobackup
-set nowritebackup
-set signcolumn=yes
-set updatetime=300
+-- Undo file
+vim.o.undofile = true
+vim.o.undodir = string.format("%s/.vim/undo", vim.env.HOME)
 
-" Undo file
-set undofile
-set undodir=$HOME/.vim/undo
+-- Color Column
+vim.o.colorcolumn = "120"
+vim.api.nvim_command("hi ColorColumn ctermbg=4")
 
-set colorcolumn=120
-hi ColorColumn ctermbg=4
-xnoremap p pgvy
+vim.api.nvim_set_keymap("x", "p", "pgvy", { noremap = true })
 
-filetype plugin indent on
-syntax on
+vim.api.nvim_command("filetype plugin indent on")
 
-]], true)
+vim.opt.syntax = "on"
 
 --
 -- Mouse Configuraturation
