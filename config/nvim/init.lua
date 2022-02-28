@@ -185,18 +185,13 @@ vim.api.nvim_command('call tinykeymap#Load(["windows"])')
 -- fzf
 --
 
-vim.api.nvim_exec(
-[[
-
-nmap <leader>ff :Files<CR>
-nmap <leader>fg :GFiles<CR>
-nmap <leader>fs :GFiles?<CR>
-nmap <leader>fb :Buffers<CR>
-nmap <leader>fl :BLines<CR>
-nmap <leader>fL :Lines<CR>
-nmap <leader>fa :Ag<CR>
-
-]], true)
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>fs', ':GFiles?<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>fb', ':Buffers<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>fl', ':BLines<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>fL', ':Lines<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>fa', ':Ag<CR>', { noremap = false })
 
 --
 -- AsyncRun
