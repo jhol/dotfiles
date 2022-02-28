@@ -265,22 +265,17 @@ end
 -- lighspeed.nvim
 --
 
-vim.api.nvim_exec(
-[[
+-- Bind lighspeed s/S to q/Q, and remap 'record macro' to Ctrl-Q
+vim.api.nvim_set_keymap('n', '<C-q>', 'q', { noremap = true })
 
-" Bind lighspeed s/S to q/Q, and remap 'record macro' to Ctrl-Q
-nnoremap <C-q> q
+vim.api.nvim_set_keymap('n', 'q', '<Plug>Lightspeed_s', { noremap = false })
+vim.api.nvim_set_keymap('n', 'Q', '<Plug>Lightspeed_S', { noremap = false })
+vim.api.nvim_set_keymap('n', 'f', '<Plug>Lightspeed_f', { noremap = false })
+vim.api.nvim_set_keymap('n', 'F', '<Plug>Lightspeed_F', { noremap = false })
+vim.api.nvim_set_keymap('n', 't', '<Plug>Lightspeed_t', { noremap = false })
+vim.api.nvim_set_keymap('n', 'T', '<Plug>Lightspeed_T', { noremap = false })
 
-nmap q <Plug>Lightspeed_s
-nmap Q <Plug>Lightspeed_S
-nmap f <Plug>Lightspeed_f
-nmap F <Plug>Lightspeed_F
-nmap t <Plug>Lightspeed_t
-nmap T <Plug>Lightspeed_T
-
-nmap ; <Plug>Lightspeed_;_ft
-vmap ; <Plug>Lightspeed_;_ft
-nmap , <Plug>Lightspeed_,_ft
-vmap , <Plug>Lightspeed_,_ft
-
-]], true)
+vim.api.nvim_set_keymap('n', ';', '<Plug>Lightspeed_;_ft', { noremap = false })
+vim.api.nvim_set_keymap('v', ';', '<Plug>Lightspeed_;_ft', { noremap = false })
+vim.api.nvim_set_keymap('n', ',', '<Plug>Lightspeed_,_ft', { noremap = false })
+vim.api.nvim_set_keymap('v', ',', '<Plug>Lightspeed_,_ft', { noremap = false })
