@@ -104,12 +104,7 @@ vim.g.terminal_color_15 = '#eeeeec'
 -- Additional Synax Highlighting
 --
 
-vim.api.nvim_exec(
-[[
-
-au BufRead,BufNewFile *.[sS] set filetype=gas
-
-]], true)
+vim.api.nvim_command("au BufRead,BufNewFile *.[sS] set filetype=gas")
 
 --
 -- AirLine
