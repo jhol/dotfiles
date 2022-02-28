@@ -120,26 +120,21 @@ vim.api.nvim_command("let g:airline_section_error = airline#section#create_right
 -- Key Binding
 --
 
-vim.api.nvim_exec(
-[[
+-- Disable XON/XOFF
+vim.api.nvim_set_keymap('', '<C-q>', '', { noremap = true })
+vim.api.nvim_set_keymap('', '<C-s>', '', { noremap = true })
 
-" Disable XON/XOFF
-noremap <C-q> <Nop>
-noremap <C-s> <Nop>
+-- Hide search highlight
+vim.api.nvim_set_keymap('', 'z/', ':nohlsearch<CR>', { noremap = true })
 
-" Hide search highlight
-noremap z/ :nohlsearch<CR>
+-- Close the buffer without closing the split
+vim.api.nvim_set_keymap('n', '<leader>bd', ':bp\\|bd #<CR>', { noremap = false })
 
-" Close the buffer without closing the split
-nmap <leader>bd :bp\|bd #<CR>
+-- Quick-fix list
+vim.api.nvim_set_keymap('n', '<leader>qo', ':copen<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>qc', ':cclose<CR>', { noremap = false })
 
-" quick-fix list
-nmap <leader>qo :copen<CR>
-nmap <leader>qc :cclose<CR>
-
-tnoremap <C-Space> <C-\><C-n>
-
-]], true)
+vim.api.nvim_set_keymap('t', '<C-Space>', '<C-\\><C-n>', { noremap = true })
 
 --
 -- Code folding
