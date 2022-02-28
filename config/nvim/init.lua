@@ -241,9 +241,10 @@ endfunction
 
 command! Focus call s:Focus()
 
-nmap <leader>F :Focus<CR>
-
 ]], true)
+
+vim.api.nvim_set_keymap('n', '<leader>F', ':Focus<CR>', { noremap = false })
+
 
 --
 -- vim-cmake
