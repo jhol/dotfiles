@@ -219,13 +219,8 @@ vim.api.nvim_set_keymap('n', '<leader>gV', ':Flogsplit -all<CR>', { noremap = fa
 -- lens.vim
 --
 
-vim.api.nvim_exec(
-[[
-
-let g:lens#width_resize_min = 20
-let g:lens#width_resize_max = 128
-
-]], true)
+vim.g['lens#width_resize_min'] = 20
+vim.g['lens#width_resize_max'] = 128
 
 --
 -- Focus
