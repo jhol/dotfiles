@@ -197,18 +197,13 @@ vim.api.nvim_set_keymap('n', '<leader>fa', ':Ag<CR>', { noremap = false })
 -- AsyncRun
 --
 
-vim.api.nvim_exec(
-[[
+vim.g.asyncrun_auto = 'make'
+vim.g.asyncrun_open = 10
+vim.g.asyncrun_rootmarks = {'build', '_build', '.git'}
+vim.g.asyncrun_status = ''
 
-let g:asyncrun_auto = "make"
-let g:asyncrun_open = 10
-let g:asyncrun_rootmarks = ['build', '_build', '.git']
-let g:asyncrun_status = ''
-
-nmap <leader>mm :AsyncRun -cwd=<root> -program=make<CR>
-nmap <leader>mc :AsyncStop<CR>
-
-]], true)
+vim.api.nvim_set_keymap('n', '<leader>mm', ':AsyncRun -cwd=<root> -program=make<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>mc', ':AsyncStop<CR>', { noremap = false })
 
 --
 -- vim-fugitive
