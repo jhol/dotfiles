@@ -149,15 +149,10 @@ vim.o.foldlevel = 2
 -- Line numbering
 --
 
-vim.api.nvim_exec(
-[[
+vim.api.nvim_command('set number relativenumber')
 
-set number relativenumber
-
-" Hide line numbers in terminal buffers
-au TermOpen * setlocal nonumber norelativenumber
-
-]], true)
+-- Hide line numbers in terminal buffers
+vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 
 --
 -- netrw file browser
