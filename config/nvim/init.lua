@@ -171,20 +171,15 @@ vim.g.localvimrc_sandbox = false
 -- tinykeymap bindings
 --
 
-vim.api.nvim_exec(
-[[
+vim.g['tinykeymap#timeout'] = 1000
 
-let g:tinykeymap#timeout = 1000
+vim.g['tinykeymap#mapleader'] = '<leader>'
+vim.api.nvim_command('call tinykeymap#Load(["buffers"])')
+vim.api.nvim_command('call tinykeymap#Load(["qfl"])')
+vim.api.nvim_command('call tinykeymap#Load(["tabs"])')
 
-let g:tinykeymap#mapleader = '<leader>'
-call tinykeymap#Load(['buffers'])
-call tinykeymap#Load(['qfl'])
-call tinykeymap#Load(['tabs'])
-
-let g:tinykeymap#map#windows#map = '<C-w>'
-call tinykeymap#Load(['windows'])
-
-]], true)
+vim.g['tinykeymap#map#windows#map'] = '<C-w>'
+vim.api.nvim_command('call tinykeymap#Load(["windows"])')
 
 --
 -- fzf
