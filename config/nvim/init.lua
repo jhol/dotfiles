@@ -250,13 +250,8 @@ vim.api.nvim_set_keymap('n', '<leader>F', ':Focus<CR>', { noremap = false })
 -- vim-cmake
 --
 
-vim.api.nvim_exec(
-[[
-
-let g:cmake_export_compile_commands = 1
-let g:cmake_ycm_symlinks = 1
-
-]], true)
+vim.g.cmake_export_compile_commands = true
+vim.g.cmake_ycm_symlinks = true
 
 --
 -- neovim-remote
