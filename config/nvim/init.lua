@@ -158,12 +158,7 @@ vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 -- netrw file browser
 --
 
-vim.api.nvim_exec(
-[[
-
-let g:netrw_liststyle = 3
-
-]], true)
+vim.api.nvim_command('let g:netrw_liststyle = 3')
 
 --
 -- localvimrc
