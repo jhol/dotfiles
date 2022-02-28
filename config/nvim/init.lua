@@ -257,14 +257,9 @@ vim.g.cmake_ycm_symlinks = true
 -- neovim-remote
 --
 
-vim.api.nvim_exec(
-[[
-
-if has('nvim')
-  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-endif
-
-]], true)
+if vim.fn.has('nvim') then
+  vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait'
+end
 
 --
 -- lighspeed.nvim
