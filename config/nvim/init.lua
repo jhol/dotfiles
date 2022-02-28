@@ -101,7 +101,7 @@ vim.g.terminal_color_14 = '#00f5e9'
 vim.g.terminal_color_15 = '#eeeeec'
 
 --
--- Additional Synax Highlighting
+-- Additional Syntax Highlighting
 --
 
 vim.api.nvim_command("au BufRead,BufNewFile *.[sS] set filetype=gas")
@@ -137,7 +137,7 @@ vim.api.nvim_set_keymap('n', '<leader>qc', ':cclose<CR>', { noremap = false })
 vim.api.nvim_set_keymap('t', '<C-Space>', '<C-\\><C-n>', { noremap = true })
 
 --
--- Code folding
+-- Code Folding
 --
 
 vim.o.foldmethod = 'indent'
@@ -146,7 +146,7 @@ vim.o.foldenable = false
 vim.o.foldlevel = 2
 
 --
--- Line numbering
+-- Line Numbering
 --
 
 vim.api.nvim_command('set number relativenumber')
@@ -155,7 +155,7 @@ vim.api.nvim_command('set number relativenumber')
 vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 
 --
--- netrw file browser
+-- netrw File Browser
 --
 
 vim.api.nvim_command('let g:netrw_liststyle = 3')
@@ -168,7 +168,7 @@ vim.g.localvimrc_persistent = true
 vim.g.localvimrc_sandbox = false
 
 --
--- tinykeymap bindings
+-- tinykeymap Bindings
 --
 
 vim.g['tinykeymap#timeout'] = 1000
@@ -262,7 +262,7 @@ if vim.fn.has('nvim') then
 end
 
 --
--- lighspeed.nvim
+-- lightspeed.nvim
 --
 
 -- Bind lighspeed s/S to q/Q, and remap 'record macro' to Ctrl-Q
