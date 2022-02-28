@@ -140,15 +140,10 @@ vim.api.nvim_set_keymap('t', '<C-Space>', '<C-\\><C-n>', { noremap = true })
 -- Code folding
 --
 
-vim.api.nvim_exec(
-[[
-
-set foldmethod=indent
-set foldnestmax=10
-set nofoldenable
-set foldlevel=2
-
-]], true)
+vim.o.foldmethod = 'indent'
+vim.o.foldnestmax = 10
+vim.o.foldenable = false
+vim.o.foldlevel = 2
 
 --
 -- Line numbering
