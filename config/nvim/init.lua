@@ -209,16 +209,11 @@ vim.api.nvim_set_keymap('n', '<leader>mc', ':AsyncStop<CR>', { noremap = false }
 -- vim-fugitive
 --
 
-vim.api.nvim_exec(
-[[
-
-nmap <leader>ga :Gwrite<CR>
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gs :Git<CR>
-nmap <leader>gv :Flogsplit<CR>
-nmap <leader>gV :Flogsplit -all<CR>
-
-]], true)
+vim.api.nvim_set_keymap('n', '<leader>ga', ':Gwrite<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>gc', ':Gcommit<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>gv', ':Flogsplit<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>gV', ':Flogsplit -all<CR>', { noremap = false })
 
 --
 -- lens.vim
