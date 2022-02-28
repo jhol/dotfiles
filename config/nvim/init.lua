@@ -50,6 +50,7 @@ Plug('ggandor/lightspeed.nvim')
 Plug('jlanzarotta/bufexplorer')
 Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' })
 Plug('junegunn/fzf.vim')
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('pbrisbin/vim-mkdir')
 Plug('rbong/vim-flog')
 Plug('Shirk/vim-gas')
@@ -66,7 +67,6 @@ Plug('vim-scripts/errormarker.vim')
 Plug('vim-scripts/zoom.vim')
 
 -- Order is important
-Plug('sheerun/vim-polyglot')
 Plug('tpope/vim-sleuth')
 Plug('sgur/vim-editorconfig')
 
@@ -99,6 +99,20 @@ vim.g.terminal_color_12 = '#729fcf'
 vim.g.terminal_color_13 = '#ad7fa8'
 vim.g.terminal_color_14 = '#00f5e9'
 vim.g.terminal_color_15 = '#eeeeec'
+
+--
+-- Tree Sitter
+--
+
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = 'maintained',
+  sync_install = false,
+
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false
+  }
+}
 
 --
 -- Additional Syntax Highlighting

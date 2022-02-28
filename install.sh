@@ -24,7 +24,10 @@ install_apt_packages() {
 install_apt_packages \
   cmake \
   curl \
+  g++ \
   kitty \
+  libtree-sitter-dev \
+  libtree-sitter0 \
   neovim \
   python3-neovim \
   python3-pip \
@@ -94,7 +97,9 @@ configure_nvim_alternative editor
 echo "-- Installing vim plugins"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 2>/dev/null
-nvim +'PlugInstall --sync' +qa
+nvim \
+  +'PlugInstall --sync' \
+  +qa
 
 #
 # Configure Zsh
