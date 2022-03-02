@@ -37,10 +37,15 @@ install_apt_packages \
 echo "-- Installing pip packages"
 
 install_pip_packages() {
-  if ! pip3 show "$@" >/dev/null 2>&1; then
-    sudo pip3 install "$@"
-  else
-    echo "  Already Done"
+  local missing=()
+  for pkg in "$@"; do
+    if ! pip3 show "$pkg" >/dev/null 2>&1; then
+      missing+=("$pkg")
+    fi
+  done
+
+  if [ ${#missing[@]} -gt 0 ]; then
+    sudo pip3 install "${missing[@]}"
   fi
 }
 
