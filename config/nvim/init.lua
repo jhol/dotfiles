@@ -17,8 +17,6 @@ vim.o.undodir = string.format("%s/.vim/undo", vim.env.HOME)
 vim.o.colorcolumn = "120"
 vim.api.nvim_command("hi ColorColumn ctermbg=4")
 
-vim.api.nvim_set_keymap("x", "p", "pgvy", { noremap = true })
-
 vim.api.nvim_command("filetype plugin indent on")
 
 vim.opt.syntax = "on"
