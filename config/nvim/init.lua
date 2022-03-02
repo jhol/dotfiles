@@ -305,3 +305,13 @@ for _, lsp in pairs(servers) do
     }
   }
 end
+
+--
+-- Nuake
+--
+
+vim.g.nuake_position = 'left'
+
+vim.api.nvim_set_keymap('n', '<F4>', '<cmd>Nuake<CR>', { noremap = true })
+vim.api.nvim_set_keymap('i', '<F4>', '<C-\\><C-n><cmd>Nuake<CR>', { noremap = true })
+vim.api.nvim_set_keymap('t', '<F4>', '<C-\\><C-n><cmd>Nuake<CR>', { noremap = true })
