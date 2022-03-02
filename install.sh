@@ -22,6 +22,7 @@ install_apt_packages() {
 }
 
 install_apt_packages \
+  ccls \
   cmake \
   curl \
   g++ \
@@ -50,7 +51,8 @@ install_pip_packages() {
 }
 
 install_pip_packages \
-  neovim-remote
+  neovim-remote \
+  pyright
 
 
 #

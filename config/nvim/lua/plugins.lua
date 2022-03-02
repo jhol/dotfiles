@@ -9,6 +9,7 @@ require('packer').startup(function()
   use 'jlanzarotta/bufexplorer'
   use { 'junegunn/fzf', run = 'cd ~/.fzf; ./install --all' }
   use 'junegunn/fzf.vim'
+  use 'neovim/nvim-lspconfig'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'pbrisbin/vim-mkdir'
   use 'rbong/vim-flog'
