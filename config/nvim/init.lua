@@ -35,40 +35,9 @@ vim.o.shell = "zsh"
 --
 -- Load Plugins
 --
+--
 
-local Plug = vim.fn['plug#']
-
-vim.call('plug#begin', '~/.config/nvim/plugged')
-
-Plug('airblade/vim-rooter')
-Plug('camspiers/lens.vim')
-Plug('chriskempson/base16-vim')
-Plug('embear/vim-localvimrc')
-Plug('ggandor/lightspeed.nvim')
-Plug('jlanzarotta/bufexplorer')
-Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' })
-Plug('junegunn/fzf.vim')
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
-Plug('pbrisbin/vim-mkdir')
-Plug('rbong/vim-flog')
-Plug('Shirk/vim-gas')
-Plug('sirtaj/vim-openscad')
-Plug('skywind3000/asyncrun.vim')
-Plug('tomtom/tinykeymap_vim')
-Plug('tpope/vim-fugitive')
-Plug('tpope/vim-repeat')
-Plug('vhdirk/vim-cmake')
-Plug('vim-airline/vim-airline')
-Plug('vim-airline/vim-airline-themes')
-Plug('vim-scripts/SmartCase')
-Plug('vim-scripts/errormarker.vim')
-Plug('vim-scripts/zoom.vim')
-
--- Order is important
-Plug('tpope/vim-sleuth')
-Plug('sgur/vim-editorconfig')
-
-vim.call('plug#end')
+require('plugins')
 
 --
 -- Colour Scheme

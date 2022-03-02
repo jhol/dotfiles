@@ -25,6 +25,7 @@ install_apt_packages \
   cmake \
   curl \
   g++ \
+  git \
   kitty \
   libtree-sitter-dev \
   libtree-sitter0 \
@@ -95,11 +96,17 @@ configure_nvim_alternative vim
 configure_nvim_alternative editor
 
 echo "-- Installing vim plugins"
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 2>/dev/null
+
+packer_nvim_dir=$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
+if [ ! -d "$packer_nvim_dir" ]; then
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+      "$packer_nvim_dir"
+fi
+
 nvim \
-  +'PlugInstall --sync' \
-  +qa
+  -u "$HOME"/.config/nvim/lua/plugins.lua \
+  -c 'autocmd User PackerComplete ++once qa' \
+  -c 'PackerSync'
 
 #
 # Configure Zsh
