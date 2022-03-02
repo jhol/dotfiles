@@ -145,8 +145,8 @@ vim.api.nvim_command('let g:netrw_liststyle = 3')
 -- localvimrc
 --
 
-vim.g.localvimrc_persistent = true
-vim.g.localvimrc_sandbox = false
+vim.g.localvimrc_persistent = 1
+vim.g.localvimrc_sandbox = 0
 
 --
 -- tinykeymap Bindings
