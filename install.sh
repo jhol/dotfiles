@@ -45,7 +45,9 @@ install_pip_packages() {
     fi
   done
 
-  if [ ${#missing[@]} -gt 0 ]; then
+  if [ ${#missing[@]} -eq 0 ]; then
+    echo "  Already Done"
+  else
     sudo pip3 install "${missing[@]}"
   fi
 }
