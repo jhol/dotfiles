@@ -292,6 +292,7 @@ end
 
 local servers = {
   'ccls',
+  'cmake',
   'pyright'
 }
 

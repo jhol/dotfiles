@@ -53,6 +53,7 @@ install_pip_packages() {
 }
 
 install_pip_packages \
+  cmake-language-server \
   neovim-remote \
   pyright
 
