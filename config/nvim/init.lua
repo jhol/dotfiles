@@ -270,7 +270,7 @@ vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', op
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
-local on_attach = function(client, bufnr)
+lsp_on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -291,14 +291,13 @@ local on_attach = function(client, bufnr)
 end
 
 local servers = {
-  'ccls',
   'cmake',
   'pyright'
 }
 
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
+    on_attach = lsp_on_attach,
     flags = {
       -- This will be the default in neovim 0.7+
       debounce_text_changes = 150,
