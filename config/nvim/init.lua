@@ -35,7 +35,6 @@ vim.o.shell = "zsh"
 --
 -- Load Plugins
 --
---
 
 require('plugins')
 
