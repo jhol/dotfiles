@@ -12,7 +12,11 @@ require('packer').startup(function()
   use 'junegunn/fzf.vim'
   use 'Lenovsky/nuake'
   use 'neovim/nvim-lspconfig'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    commit = '808473cfbb41ef07b57397100f3593d7a6aa788f'
+  }
   use 'pbrisbin/vim-mkdir'
   use 'rbong/vim-flog'
   use 'Shirk/vim-gas'
