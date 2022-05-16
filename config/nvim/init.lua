@@ -325,3 +325,5 @@ vim.api.nvim_set_keymap('t', '<F4>', '<C-\\><C-n><cmd>Nuake<CR>', { noremap = tr
 vim.g.zoomer_amount = 0.5
 vim.api.nvim_set_keymap('n', '+', '<cmd>ZoomIn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '-', '<cmd>ZoomOut<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-ScrollWheelUp>', '<cmd>ZoomIn<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-ScrollWheelDown>', '<cmd>ZoomOut<CR>', { noremap = true })
