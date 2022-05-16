@@ -317,3 +317,11 @@ vim.g.nuake_position = 'left'
 vim.api.nvim_set_keymap('n', '<F4>', '<cmd>Nuake<CR>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<F4>', '<C-\\><C-n><cmd>Nuake<CR>', { noremap = true })
 vim.api.nvim_set_keymap('t', '<F4>', '<C-\\><C-n><cmd>Nuake<CR>', { noremap = true })
+
+--
+-- zoomer.vim
+--
+
+vim.g.zoomer_amount = 0.5
+vim.api.nvim_set_keymap('n', '+', '<cmd>ZoomIn<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '-', '<cmd>ZoomOut<CR>', { noremap = true })
