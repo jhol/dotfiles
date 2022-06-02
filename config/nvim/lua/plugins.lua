@@ -18,6 +18,7 @@ require('packer').startup(function()
     commit = '808473cfbb41ef07b57397100f3593d7a6aa788f'
   }
   use 'pbrisbin/vim-mkdir'
+  use 'peterhoeg/vim-qml'
   use 'rbong/vim-flog'
   use 'Shirk/vim-gas'
   use 'sirtaj/vim-openscad'
