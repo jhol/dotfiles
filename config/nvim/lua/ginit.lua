@@ -6,7 +6,7 @@
 -- Font
 --
 
-vim.call('GuiFont', 'Source Code Pro for Powerline:h8')
+vim.call('GuiFont', 'Source Code Pro for Powerline:h7.5')
 
 --
 -- Disable the GUI tab-line
