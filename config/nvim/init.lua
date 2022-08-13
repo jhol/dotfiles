@@ -238,6 +238,7 @@ vim.g.cmake_ycm_symlinks = true
 --
 
 if vim.fn.has('nvim') then
+  vim.env.NVIM_LISTEN_ADDRESS = vim.v.servername
   vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait'
 end
 
