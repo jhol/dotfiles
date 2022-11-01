@@ -16,7 +16,7 @@ require('packer').startup(function()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    commit = '808473cfbb41ef07b57397100f3593d7a6aa788f'
+    commit = 'b9bcbf8d73b5a6c3e04922936b5fc500b436d4f5'
   }
   use 'pbrisbin/vim-mkdir'
   use 'peterhoeg/vim-qml'
