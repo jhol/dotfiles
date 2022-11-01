@@ -81,12 +81,6 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 --
--- Additional Syntax Highlighting
---
-
-vim.api.nvim_command("au BufRead,BufNewFile *.[sS] set filetype=gas")
-
---
 -- AirLine
 --
 
