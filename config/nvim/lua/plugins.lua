@@ -11,6 +11,7 @@ require('packer').startup(function()
   use { 'junegunn/fzf', run = 'cd ~/.fzf; ./install --all' }
   use 'junegunn/fzf.vim'
   use 'Lenovsky/nuake'
+  use 'LnL7/vim-nix'
   use 'neovim/nvim-lspconfig'
   use {
     'nvim-treesitter/nvim-treesitter',
