@@ -7,58 +7,6 @@ set -u
 install_path="$(cd "$(dirname "$0")"; pwd -P)"
 
 #
-# Install the tools
-#
-
-echo "-- Installing packages"
-
-install_apt_packages() {
-  if ! dpkg -s "$@" >/dev/null 2>&1; then
-    sudo apt-get update
-    sudo apt-get install -y -qq "$@"
-  else
-    echo "  Already Done"
-  fi
-}
-
-install_apt_packages \
-  ccls \
-  cmake \
-  curl \
-  g++ \
-  git \
-  kitty \
-  libtree-sitter-dev \
-  libtree-sitter0 \
-  neovim \
-  python3-neovim \
-  python3-pip \
-  zsh
-
-echo "-- Installing pip packages"
-
-install_pip_packages() {
-  local missing=()
-  for pkg in "$@"; do
-    if ! pip3 show "$pkg" >/dev/null 2>&1; then
-      missing+=("$pkg")
-    fi
-  done
-
-  if [ ${#missing[@]} -eq 0 ]; then
-    echo "  Already Done"
-  else
-    sudo pip3 install "${missing[@]}"
-  fi
-}
-
-install_pip_packages \
-  cmake-language-server \
-  neovim-remote \
-  pyright
-
-
-#
 # Install the configs
 #
 
@@ -91,19 +39,6 @@ done
 #
 # Configure neovim
 #
-
-echo "-- Configuring NeoVim"
-
-configure_nvim_alternative() {
-  link=/usr/bin/$1
-  if [ "$(readlink -f "$link")" != "/usr/bin/nvim" ]; then
-    sudo update-alternatives --set "$1" /usr/bin/nvim
-  fi
-}
-
-configure_nvim_alternative vi
-configure_nvim_alternative vim
-configure_nvim_alternative editor
 
 echo "-- Installing vim plugins"
 
