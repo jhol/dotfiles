@@ -3,7 +3,7 @@
 	email = joel@airwebreathe.org.uk
 
 [core]
-	editor = vim
+	editor = nvim
 
 [color]
 	diff = true
