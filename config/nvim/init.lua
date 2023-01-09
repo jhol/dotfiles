@@ -80,6 +80,8 @@ require 'nvim-treesitter.configs'.setup {
   }
 }
 
+vim.api.nvim_command("highlight Error guibg=#572321")
+
 --
 -- AirLine
 --
