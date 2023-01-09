@@ -33,6 +33,14 @@ vim.o.foldenable = false
 vim.o.shell = "zsh"
 
 --
+-- Configure NeoVide
+--
+
+if vim.g.neovide then
+  require('neovide')
+end
+
+--
 -- Load Plugins
 --
 
