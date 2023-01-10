@@ -6,7 +6,7 @@
 -- Font
 --
 
-vim.o.guifont = 'Source Code Pro for Powerline:h8.0';
+vim.o.guifont = 'Source Code Pro SemiBold:h7.5:#e-subpixelantialias:#h-normal';
 
 --
 -- Animation
