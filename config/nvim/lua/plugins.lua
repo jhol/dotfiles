@@ -5,7 +5,6 @@ require('packer').startup(function()
   use 'camspiers/lens.vim'
   use 'chriskempson/base16-vim'
   use 'embear/vim-localvimrc'
-  use 'ggandor/lightspeed.nvim'
   use 'jenterkin/vim-autosource'
   use 'jlanzarotta/bufexplorer'
   use { 'junegunn/fzf', run = 'cd ~/.fzf; ./install --all' }

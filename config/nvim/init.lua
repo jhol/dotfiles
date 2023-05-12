@@ -247,25 +247,6 @@ if vim.fn.has('nvim') then
 end
 
 --
--- lightspeed.nvim
---
-
--- Bind lighspeed s/S to q/Q, and remap 'record macro' to Ctrl-Q
-vim.api.nvim_set_keymap('n', '<C-q>', 'q', { noremap = true })
-
-vim.api.nvim_set_keymap('n', 'q', '<Plug>Lightspeed_s', { noremap = false })
-vim.api.nvim_set_keymap('n', 'Q', '<Plug>Lightspeed_S', { noremap = false })
-vim.api.nvim_set_keymap('n', 'f', '<Plug>Lightspeed_f', { noremap = false })
-vim.api.nvim_set_keymap('n', 'F', '<Plug>Lightspeed_F', { noremap = false })
-vim.api.nvim_set_keymap('n', 't', '<Plug>Lightspeed_t', { noremap = false })
-vim.api.nvim_set_keymap('n', 'T', '<Plug>Lightspeed_T', { noremap = false })
-
-vim.api.nvim_set_keymap('n', ';', '<Plug>Lightspeed_;_ft', { noremap = false })
-vim.api.nvim_set_keymap('v', ';', '<Plug>Lightspeed_;_ft', { noremap = false })
-vim.api.nvim_set_keymap('n', ',', '<Plug>Lightspeed_,_ft', { noremap = false })
-vim.api.nvim_set_keymap('v', ',', '<Plug>Lightspeed_,_ft', { noremap = false })
-
---
 -- LSP
 --
 
