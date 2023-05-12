@@ -31,7 +31,6 @@ require('packer').startup(function()
   use 'vim-airline/vim-airline-themes'
   use 'vim-scripts/SmartCase'
   use 'vim-scripts/errormarker.vim'
-  use 'jhol/zoomer.vim'
 
   -- Order is important
   use 'tpope/vim-sleuth'
