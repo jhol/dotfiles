@@ -12,15 +12,12 @@ install_path="$(cd "$(dirname "$0")"; pwd -P)"
 
 echo "-- Installing config symbolic links"
 cd "$HOME"
-(cd "$install_path"; git ls-files) | grep -v \
-  -e 'bin/' \
-  -e 'install.sh' \
-  -e 'README.md' \
-| while read -r f; do
+(cd "$install_path/dotfiles"; git ls-files) | \
+while read -r f; do
   path=.$f
   echo "  $path"
-  mkdir -p "$(dirname "$path")"
-  ln -fs "$(realpath --relative-to="$(dirname "$path")" "${install_path}/$f")" "$path";
+  mkdir -p "${HOME}/$(dirname "$path")"
+  ln -fs "$(realpath --relative-to="$(dirname "$path")" "${install_path}/dotfiles/$f")" "${HOME}/$path";
 done
 
 #
