@@ -65,9 +65,6 @@ vim.g.terminal_color_15 = '#eeeeec'
 --
 
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = 'all',
-  sync_install = false,
-
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false
