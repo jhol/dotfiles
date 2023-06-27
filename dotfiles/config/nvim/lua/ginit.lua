@@ -12,7 +12,7 @@ vim.call('GuiFont', 'Source Code Pro for Powerline:h7.5')
 -- Disable the GUI tab-line
 --
 
-vim.call('rpcnotify', 0, 'Gui', 'Option', 'Tabline', 0)
+vim.rpcnotify(0, 'Gui', 'Option', 'Tabline', 0)
 
 --
 -- Full Screen Toggle
