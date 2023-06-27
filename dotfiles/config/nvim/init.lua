@@ -1,4 +1,10 @@
 --
+-- Configure GUIs
+--
+
+require('ginit')
+
+--
 -- Configure NeoVide
 --
 
