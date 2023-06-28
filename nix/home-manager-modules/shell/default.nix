@@ -10,14 +10,22 @@ in
   config = lib.mkIf cfg.enable (
     let
       historySize = 10000;
+
+      shellAliases = {
+        g = "git";
+        tvim = "vim -c ':term ++curwin'";
+        cp = "cp --reflink=auto --sparse=always";
+      };
     in
     {
       programs.bash = {
-        inherit historySize;
+        inherit historySize shellAliases;
         enable = true;
       };
 
       programs.zsh = {
+        inherit shellAliases;
+
         enable = true;
 
         history.size = historySize;
