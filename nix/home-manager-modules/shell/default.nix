@@ -59,6 +59,17 @@ in
         ];
 
         initExtra = ''
+          #
+          # Key Bindings
+          #
+
+          bindkey "^[[1;5D" backward-word
+          bindkey "^[[1;5C" forward-word
+
+          #
+          # Powerlevel9k
+          #
+
           source "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme"
           source "${./p10k.zsh}"
         '';
