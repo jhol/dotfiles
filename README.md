@@ -1,14 +1,13 @@
-dotfiles - jhol's dot-file configuration
-========================================
-
-Comitting dot-files config files to a git repository, makes it easy for me to
-share my shell preferences between devices.
+dotfiles - jhol's Nix home-manager modules
+==========================================
 
 Installation
 ------------
 
-On Ubuntu/Debian family:
+In `home.nix`:
 
 ```
- $ ./install.sh
+{ flakeInputs, self, config, pkgs, ... }: {
+  modules.jhol-dotfiles.all.enable = true;
+}
 ```
