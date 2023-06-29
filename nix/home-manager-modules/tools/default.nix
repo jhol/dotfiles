@@ -11,7 +11,7 @@ in
     home = {
       sessionPath = [ "$HOME/.local/bin" ];
       file.".local/bin" = {
-        source = ../../bin;
+        source = ./bin;
         recursive = true;
         executable = true;
       };
