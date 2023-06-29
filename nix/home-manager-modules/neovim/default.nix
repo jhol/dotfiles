@@ -139,7 +139,7 @@ in
     };
 
     home.file."${config.xdg.configHome}/nvim/lua" = {
-      source = ../../dotfiles/config/nvim/lua;
+      source = ./lua;
       recursive = true;
     };
   };
