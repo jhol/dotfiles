@@ -63,6 +63,12 @@ in
           source "${./p10k.zsh}"
         '';
       };
+
+      programs.fzf = {
+        enable = true;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+      };
     }
   );
 }
