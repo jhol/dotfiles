@@ -110,6 +110,25 @@ in
           };
           meta.homepage = "https://github.com/tomtom/tinykeymap_vim/";
         })
+
+        {
+          plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
+            pname = "which-key.nvim";
+            version = "2023-06-19";
+            src = pkgs.fetchFromGitHub {
+              owner = "folke";
+              repo = "which-key.nvim";
+              rev = "d871f2b664afd5aed3dc1d1573bef2fb24ce0484";
+              sha256 = "00078wm0j2d2yzfqr1lvc7iawkzznbfzf7gq3c0g497pzhvhgl2q";
+            };
+            meta.homepage = "https://github.com/folke/which-key.nvim/";
+          };
+          type = "lua";
+          config = ''
+            vim.api.nvim_set_option("timeoutlen", 300)
+            require("which-key").setup({})
+          '';
+        }
       ];
 
       extraLuaConfig = ''
