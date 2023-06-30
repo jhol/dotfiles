@@ -46,16 +46,6 @@ require 'nvim-treesitter.configs'.setup {
 vim.api.nvim_command("highlight Error guibg=#572321")
 
 --
--- AirLine
---
-
-vim.g.airline_powerline_fonts = 1
-vim.g.airline_theme = 'base16'
-vim.g['airline#extensions#tabline#enabled'] = 1
-vim.g['airline#extensions#tabline#fnamemod'] = ':t'
-vim.api.nvim_command("let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])")
-
---
 -- Key Binding
 --
 
