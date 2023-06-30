@@ -19,7 +19,6 @@ in
 
       plugins = with pkgs.vimPlugins; [
         asyncrun-vim
-        base16-vim
         bufexplorer
         fzf-vim
         lens-vim
@@ -127,6 +126,46 @@ in
           config = ''
             vim.api.nvim_set_option("timeoutlen", 300)
             require("which-key").setup({})
+          '';
+        }
+
+        {
+          plugin = nvim-base16;
+          type = "lua";
+          config = ''
+            --
+            -- Colour Scheme
+            --
+
+            require('base16-colorscheme').setup({
+                base00 = '#000000', base01 = '#282828', base02 = '#383838', base03 = '#585858',
+                base04 = '#b8b8b8', base05 = '#d8d8d8', base06 = '#e8e8e8', base07 = '#f8f8f8',
+                base08 = '#ab4642', base09 = '#dc9656', base0A = '#f7ca88', base0B = '#a1b56c',
+                base0C = '#86c1b9', base0D = '#7cafc2', base0E = '#ba8baf', base0F = '#a16946'
+              })
+
+            vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#585858', bold = false })
+            vim.api.nvim_set_hl(0, 'LineNr', { fg='#585858', bold = false })
+            vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#585858', bold = true })
+
+            vim.o.termguicolors = (not vim.env.TMUX and vim.fn.has('termguicolors') == 1)
+
+            vim.g.terminal_color_0  = '#2e3436'
+            vim.g.terminal_color_1  = '#cc0000'
+            vim.g.terminal_color_2  = '#4e9a06'
+            vim.g.terminal_color_3  = '#c4a000'
+            vim.g.terminal_color_4  = '#3465a4'
+            vim.g.terminal_color_5  = '#75507b'
+            vim.g.terminal_color_6  = '#0b939b'
+            vim.g.terminal_color_7  = '#d3d7cf'
+            vim.g.terminal_color_8  = '#555753'
+            vim.g.terminal_color_9  = '#ef2929'
+            vim.g.terminal_color_10 = '#8ae234'
+            vim.g.terminal_color_11 = '#fce94f'
+            vim.g.terminal_color_12 = '#729fcf'
+            vim.g.terminal_color_13 = '#ad7fa8'
+            vim.g.terminal_color_14 = '#00f5e9'
+            vim.g.terminal_color_15 = '#eeeeec'
           '';
         }
       ];
