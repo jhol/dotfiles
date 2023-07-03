@@ -84,18 +84,6 @@ vim.g.localvimrc_persistent = 1
 vim.g.localvimrc_sandbox = 0
 
 --
--- fzf
---
-
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>fs', ':GFiles?<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>fb', ':Buffers<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>fl', ':BLines<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>fL', ':Lines<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>fa', ':Ag<CR>', { noremap = false })
-
---
 -- AsyncRun
 --
 

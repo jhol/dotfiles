@@ -20,7 +20,6 @@ in
       plugins = with pkgs.vimPlugins; [
         asyncrun-vim
         bufexplorer
-        fzf-vim
         lens-vim
         nvim-lspconfig
         editorconfig-vim
@@ -125,6 +124,23 @@ in
           '';
         }
 
+        {
+          plugin = fzf-vim;
+          type = "lua";
+          config = ''
+            --
+            -- fzf
+            --
+
+            vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fs', ':GFiles?<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fb', ':Buffers<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fl', ':BLines<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fL', ':Lines<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fa', ':Ag<CR>', { noremap = false })
+          '';
+        }
 
         {
           plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
