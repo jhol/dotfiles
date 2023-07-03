@@ -84,20 +84,6 @@ vim.g.localvimrc_persistent = 1
 vim.g.localvimrc_sandbox = 0
 
 --
--- tinykeymap Bindings
---
-
-vim.g['tinykeymap#timeout'] = 1000
-
-vim.g['tinykeymap#mapleader'] = '<leader>'
-vim.api.nvim_command('call tinykeymap#Load(["buffers"])')
-vim.api.nvim_command('call tinykeymap#Load(["qfl"])')
-vim.api.nvim_command('call tinykeymap#Load(["tabs"])')
-
-vim.g['tinykeymap#map#windows#map'] = '<C-w>'
-vim.api.nvim_command('call tinykeymap#Load(["windows"])')
-
---
 -- fzf
 --
 
