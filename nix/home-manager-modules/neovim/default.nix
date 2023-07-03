@@ -375,23 +375,23 @@ in
               local wk = require("which-key")
 
               wk.register({
-                ['<C-k>'] = { vim.lsp.buf.signature_help(), "LSP Signature Help" },
+                ['<C-k>'] = { vim.lsp.buf.signature_help, "LSP Signature Help" },
                 ['<space>'] = {
-                  D = { vim.lsp.buf.type_definition(), "LSP Type Definitions" },
-                  ["ca"] = { vim.lsp.buf.code_action(), "LSP Code Action" },
-                  f = { vim.lsp.buf.format(), "LSP Formatting" },
-                  ["rn"] = { vim.lsp.buf.rename(), "LSP Rename" },
+                  D = { vim.lsp.buf.type_definition, "LSP Type Definitions" },
+                  ["ca"] = { vim.lsp.buf.code_action, "LSP Code Action" },
+                  f = { vim.lsp.buf.format, "LSP Formatting" },
+                  ["rn"] = { vim.lsp.buf.rename, "LSP Rename" },
                   w = {
-                    a = { vim.lsp.buf.add_workspace_folder(), "LSP Add Workspace Folder" },
-                    l = { vim.lsp.buf.list_workspace_folders(), "LSP List Workspace Folders" }
+                    a = { vim.lsp.buf.add_workspace_folder, "LSP Add Workspace Folder" },
+                    l = { vim.lsp.buf.list_workspace_folders, "LSP List Workspace Folders" }
                   },
                 },
-                K = { vim.lsp.buf.hover(), "LSP Hover" },
+                K = { vim.lsp.buf.hover, "LSP Hover" },
                 g = {
-                  D = { vim.lsp.buf.declaration(), "LSP Declaration" },
-                  d = { vim.lsp.buf.definition(), "LSP Definition" },
-                  i = { vim.lsp.buf.implementation(), "LSP Implementation" },
-                  r = { vim.lsp.buf.references(), "LSP References" }
+                  D = { vim.lsp.buf.declaration, "LSP Declaration" },
+                  d = { vim.lsp.buf.definition, "LSP Definition" },
+                  i = { vim.lsp.buf.implementation, "LSP Implementation" },
+                  r = { vim.lsp.buf.references, "LSP References" }
                 }
               });
 
