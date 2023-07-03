@@ -33,19 +33,6 @@ vim.o.foldenable = false
 vim.o.shell = "zsh"
 
 --
--- Tree Sitter
---
-
-require 'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false
-  }
-}
-
-vim.api.nvim_command("highlight Error guibg=#572321")
-
---
 -- Key Binding
 --
 

@@ -23,7 +23,6 @@ in
         fzf-vim
         lens-vim
         nvim-lspconfig
-        nvim-treesitter.withAllGrammars
         editorconfig-vim
         vim-flog
         vim-fugitive
@@ -215,6 +214,25 @@ in
         }
 
         nvim-web-devicons
+
+        {
+          plugin = nvim-treesitter.withAllGrammars;
+          type = "lua";
+          config = ''
+            --
+            -- Tree Sitter
+            --
+
+            require 'nvim-treesitter.configs'.setup {
+              highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false
+              }
+            }
+
+            vim.api.nvim_command("highlight Error guibg=#572321")
+          '';
+        }
       ];
 
       extraLuaConfig = ''
