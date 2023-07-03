@@ -77,16 +77,6 @@ vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 vim.api.nvim_command('let g:netrw_liststyle = 3')
 
 --
--- vim-fugitive
---
-
-vim.api.nvim_set_keymap('n', '<leader>ga', ':Gwrite<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>gc', ':Gcommit<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>gv', ':Flogsplit<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>gV', ':Flogsplit -all<CR>', { noremap = false })
-
---
 -- lens.vim
 --
 

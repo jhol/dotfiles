@@ -23,7 +23,6 @@ in
         nvim-lspconfig
         editorconfig-vim
         vim-flog
-        vim-fugitive
         mkdir-nvim
         vim-nix
         openscad-nvim
@@ -168,6 +167,22 @@ in
 
             vim.api.nvim_set_keymap("n", "<leader>mm", ":AsyncRun -cwd=<root> -program=make<CR>", { noremap = false })
             vim.api.nvim_set_keymap("n", "<leader>mc", ":AsyncStop<CR>", { noremap = false })
+          '';
+        }
+
+        {
+          plugin = vim-fugitive;
+          type = "lua";
+          config = ''
+            --
+            -- vim-fugitive
+            --
+
+            vim.api.nvim_set_keymap('n', '<leader>ga', ':Gwrite<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gc', ':Gcommit<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gv', ':Flogsplit<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gV', ':Flogsplit -all<CR>', { noremap = false })
           '';
         }
 
