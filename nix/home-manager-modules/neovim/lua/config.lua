@@ -77,13 +77,6 @@ vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 vim.api.nvim_command('let g:netrw_liststyle = 3')
 
 --
--- lens.vim
---
-
-vim.g['lens#width_resize_min'] = 20
-vim.g['lens#width_resize_max'] = 128
-
---
 -- Focus
 --
 

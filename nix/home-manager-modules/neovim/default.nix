@@ -19,7 +19,6 @@ in
 
       plugins = with pkgs.vimPlugins; [
         bufexplorer
-        lens-vim
         nvim-lspconfig
         editorconfig-vim
         vim-flog
@@ -183,6 +182,19 @@ in
             vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>gv', ':Flogsplit<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>gV', ':Flogsplit -all<CR>', { noremap = false })
+          '';
+        }
+
+        {
+          plugin = lens-vim;
+          type = "lua";
+          config = ''
+            --
+            -- lens.vim
+            --
+
+            vim.g['lens#width_resize_min'] = 20
+            vim.g['lens#width_resize_max'] = 128
           '';
         }
 
