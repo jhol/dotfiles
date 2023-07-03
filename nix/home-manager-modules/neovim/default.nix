@@ -18,7 +18,6 @@ in
       enable = true;
 
       plugins = with pkgs.vimPlugins; [
-        asyncrun-vim
         bufexplorer
         lens-vim
         nvim-lspconfig
@@ -151,6 +150,24 @@ in
             vim.api.nvim_set_keymap('n', '<leader>fl', ':BLines<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>fL', ':Lines<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>fa', ':Ag<CR>', { noremap = false })
+          '';
+        }
+
+        {
+          plugin = asyncrun-vim;
+          type = "lua";
+          config = ''
+            --
+            -- AsyncRun
+            --
+
+            vim.g.asyncrun_auto = "make"
+            vim.g.asyncrun_open = 10
+            vim.g.asyncrun_rootmarks = {"build", "_build", ".git"}
+            vim.g.asyncrun_status = ""
+
+            vim.api.nvim_set_keymap("n", "<leader>mm", ":AsyncRun -cwd=<root> -program=make<CR>", { noremap = false })
+            vim.api.nvim_set_keymap("n", "<leader>mc", ":AsyncStop<CR>", { noremap = false })
           '';
         }
 

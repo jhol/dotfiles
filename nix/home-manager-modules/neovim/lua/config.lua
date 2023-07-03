@@ -77,18 +77,6 @@ vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 vim.api.nvim_command('let g:netrw_liststyle = 3')
 
 --
--- AsyncRun
---
-
-vim.g.asyncrun_auto = 'make'
-vim.g.asyncrun_open = 10
-vim.g.asyncrun_rootmarks = {'build', '_build', '.git'}
-vim.g.asyncrun_status = ''
-
-vim.api.nvim_set_keymap('n', '<leader>mm', ':AsyncRun -cwd=<root> -program=make<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>mc', ':AsyncStop<CR>', { noremap = false })
-
---
 -- vim-fugitive
 --
 
