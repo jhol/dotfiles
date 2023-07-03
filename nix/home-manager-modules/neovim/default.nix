@@ -25,7 +25,6 @@ in
         editorconfig-vim
         vim-flog
         vim-fugitive
-        vim-localvimrc
         mkdir-nvim
         vim-nix
         openscad-nvim
@@ -93,6 +92,19 @@ in
           };
           meta.homepage = "https://github.com/Shirk/vim-gas/";
         })
+
+        {
+          plugin = vim-localvimrc;
+          type = "lua";
+          config = ''
+            --
+            -- localvimrc
+            --
+
+            vim.g.localvimrc_persistent = 1
+            vim.g.localvimrc_sandbox = 0
+          '';
+        }
 
         {
           plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {

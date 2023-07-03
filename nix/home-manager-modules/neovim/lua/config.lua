@@ -77,13 +77,6 @@ vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 vim.api.nvim_command('let g:netrw_liststyle = 3')
 
 --
--- localvimrc
---
-
-vim.g.localvimrc_persistent = 1
-vim.g.localvimrc_sandbox = 0
-
---
 -- AsyncRun
 --
 
