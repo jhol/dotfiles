@@ -67,18 +67,6 @@ in
         })
 
         (pkgs.vimUtils.buildVimPluginFrom2Nix {
-          pname = "vim-cmake";
-          version = "2021-06-25";
-          src = pkgs.fetchFromGitHub {
-            owner = "vhdirk";
-            repo = "vim-cmake";
-            rev = "d4a6d1836987b933b064ba8ce5f3f0040a976880";
-            sha256 = "1xhak5cdnh0mg0w1hy0y4pgwaz9gcw1x1pbxidfxz0w903d0x5zw";
-          };
-          meta.homepage = "https://github.com/vhdirk/vim-cmake/";
-        })
-
-        (pkgs.vimUtils.buildVimPluginFrom2Nix {
           pname = "vim-gas";
           version = "2022-03-07";
           src = pkgs.fetchFromGitHub {
@@ -195,6 +183,29 @@ in
 
             vim.g['lens#width_resize_min'] = 20
             vim.g['lens#width_resize_max'] = 128
+          '';
+        }
+
+        {
+          plugin = (pkgs.vimUtils.buildVimPluginFrom2Nix {
+            pname = "vim-cmake";
+            version = "2021-06-25";
+            src = pkgs.fetchFromGitHub {
+              owner = "vhdirk";
+              repo = "vim-cmake";
+              rev = "d4a6d1836987b933b064ba8ce5f3f0040a976880";
+              sha256 = "1xhak5cdnh0mg0w1hy0y4pgwaz9gcw1x1pbxidfxz0w903d0x5zw";
+            };
+            meta.homepage = "https://github.com/vhdirk/vim-cmake/";
+          });
+          type = "lua";
+          config = ''
+            --
+            -- vim-cmake
+            --
+
+            vim.g.cmake_export_compile_commands = true
+            vim.g.cmake_ycm_symlinks = true
           '';
         }
 
