@@ -416,9 +416,36 @@ in
       ];
 
       extraLuaConfig = ''
+        --
+        -- Neovide Configuration
+        --
+
         if vim.g.neovide then
-          require('neovide')
+          -- Font
+          vim.o.guifont = 'SauceCodePro NF:h7.5:#e-subpixelantialias:#h-normal';
+
+          -- Animation
+          vim.g.neovide_refresh_rate = 60;
+          vim.g.neovide_cursor_animation_length = 0.01;
+
+          -- Full Screen Toggle
+          vim.api.nvim_exec(
+          [[
+
+          function! s:GuiFullScreenToggle()
+            let g:neovide_fullscreen=!g:neovide_fullscreen
+          endfunction
+
+          command! GuiFullScreenToggle call s:GuiFullScreenToggle()
+
+          ]], true)
+
+          vim.api.nvim_set_keymap('n', '<F11>', ':GuiFullScreenToggle<CR>', { noremap = false })
         end
+
+        --
+        -- Main Configuration
+        --
 
         require('config')
       '';
