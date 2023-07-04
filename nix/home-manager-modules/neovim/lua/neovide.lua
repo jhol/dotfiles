@@ -6,7 +6,7 @@
 -- Font
 --
 
-vim.o.guifont = 'Source Code Pro SemiBold:h7.5:#e-subpixelantialias:#h-normal';
+vim.o.guifont = 'SauceCodePro NF:h7.5:#e-subpixelantialias:#h-normal';
 
 --
 -- Animation
