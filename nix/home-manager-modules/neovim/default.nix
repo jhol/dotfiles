@@ -5,6 +5,24 @@ in
 {
   options.modules.jhol-dotfiles.neovim = {
     enable = lib.mkEnableOption "Enable Neovim configuration";
+
+    neovide = {
+      fontName = lib.mkOption {
+        type = lib.types.str;
+        default = "SauceCodePro NF";
+        description = lib.mdDoc ''
+          The Neovide font face name.
+        '';
+      };
+
+      fontSize = lib.mkOption {
+        type = lib.types.either lib.types.float lib.types.ints.positive;
+        default = 7.5;
+        description = lib.mdDoc ''
+          The Neovide font face size.
+        '';
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -422,7 +440,7 @@ in
 
         if vim.g.neovide then
           -- Font
-          vim.o.guifont = 'SauceCodePro NF:h7.5:#e-subpixelantialias:#h-normal';
+          vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-subpixelantialias:#h-normal';
 
           -- Animation
           vim.g.neovide_refresh_rate = 60;
