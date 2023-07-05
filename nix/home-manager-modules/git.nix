@@ -10,6 +10,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
+      package = pkgs.gitFull;
 
       userName = "Joel Holdsworth";
       userEmail = "joel@airwebreathe.org.uk";
