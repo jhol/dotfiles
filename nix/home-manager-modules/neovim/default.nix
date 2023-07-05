@@ -22,6 +22,22 @@ in
           The Neovide font face size.
         '';
       };
+
+      fontAntiAliasing = lib.mkOption {
+        type = lib.types.enum [ "antialias" "subpixelantialias" "alias" ];
+        default = "subpixelantialias";
+        description = lib.mdDoc ''
+          The Neovide font anti-aliasing method.
+        '';
+      };
+
+      fontHinting = lib.mkOption {
+        type = lib.types.enum [ "full" "normal" "slight" "none" ];
+        default = "normal";
+        description = lib.mdDoc ''
+          The Neovide font hinting.
+        '';
+      };
     };
   };
 
@@ -440,7 +456,7 @@ in
 
         if vim.g.neovide then
           -- Font
-          vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-subpixelantialias:#h-normal';
+          vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-${cfg.neovide.fontAntiAliasing}:#h-${cfg.neovide.fontHinting}';
 
           -- Animation
           vim.g.neovide_refresh_rate = 60;
