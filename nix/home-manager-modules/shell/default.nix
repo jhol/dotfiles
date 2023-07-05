@@ -71,7 +71,11 @@ in
           #
 
           source "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme"
-          source "${./p10k.zsh}"
+          if [ "$TERM" = "linux" ]; then
+            source "${./p10k-linux.zsh}"
+          else
+            source "${./p10k.zsh}"
+          fi
         '';
       };
 
