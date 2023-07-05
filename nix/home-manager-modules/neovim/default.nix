@@ -33,7 +33,7 @@ in
 
       fontHinting = lib.mkOption {
         type = lib.types.enum [ "full" "normal" "slight" "none" ];
-        default = "normal";
+        default = "none";
         description = lib.mdDoc ''
           The Neovide font hinting.
         '';
