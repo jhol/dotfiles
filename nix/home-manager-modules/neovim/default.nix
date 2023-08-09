@@ -277,8 +277,8 @@ in
               })
 
             vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#585858', bold = false })
-            vim.api.nvim_set_hl(0, 'LineNr', { fg='#585858', bold = false })
-            vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#585858', bold = true })
+            vim.api.nvim_set_hl(0, 'LineNr', { fg='#585858', bold = true })
+            vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#585858', bold = false })
 
             vim.o.termguicolors = (not vim.env.TMUX and vim.fn.has('termguicolors') == 1)
 
