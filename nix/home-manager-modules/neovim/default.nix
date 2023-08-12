@@ -45,7 +45,7 @@ in
     home.packages = with pkgs; [
       neovide
       neovim-remote
-      neovim-qt
+      (neovim-qt.override { neovim = config.programs.neovim.finalPackage; })
     ];
 
     programs.neovim = {
