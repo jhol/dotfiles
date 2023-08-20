@@ -162,13 +162,13 @@ in
             -- fzf
             --
 
-            vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fs', ':GFiles?<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fb', ':Buffers<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fl', ':BLines<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fL', ':Lines<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fa', ':Ag<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>ff', '<Cmd>Files<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fg', '<Cmd>GFiles<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fs', '<Cmd>GFiles?<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fb', '<Cmd>Buffers<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fl', '<Cmd>BLines<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fL', '<Cmd>Lines<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>fa', '<Cmd>Ag<CR>', { noremap = false })
           '';
         }
 
@@ -185,8 +185,8 @@ in
             vim.g.asyncrun_rootmarks = {"build", "_build", ".git"}
             vim.g.asyncrun_status = ""
 
-            vim.api.nvim_set_keymap("n", "<leader>mm", ":AsyncRun -cwd=<root> -program=make<CR>", { noremap = false })
-            vim.api.nvim_set_keymap("n", "<leader>mc", ":AsyncStop<CR>", { noremap = false })
+            vim.api.nvim_set_keymap("n", "<leader>mm", "<Cmd>AsyncRun -cwd=<root> -program=make<CR>", { noremap = false })
+            vim.api.nvim_set_keymap("n", "<leader>mc", "<Cmd>AsyncStop<CR>", { noremap = false })
           '';
         }
 
@@ -198,11 +198,11 @@ in
             -- vim-fugitive
             --
 
-            vim.api.nvim_set_keymap('n', '<leader>ga', ':Gwrite<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gc', ':Gcommit<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gv', ':Flogsplit<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gV', ':Flogsplit -all<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>ga', '<Cmd>Gwrite<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gc', '<Cmd>Gcommit<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gs', '<Cmd>Git<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gv', '<Cmd>Flogsplit<CR>', { noremap = false })
+            vim.api.nvim_set_keymap('n', '<leader>gV', '<Cmd>Flogsplit -all<CR>', { noremap = false })
           '';
         }
 
@@ -378,29 +378,29 @@ in
             --
 
             local opts = { noremap=true, silent=true }
-            vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-            vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-            vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+            vim.api.nvim_set_keymap('n', '<space>e', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
+            vim.api.nvim_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+            vim.api.nvim_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+            vim.api.nvim_set_keymap('n', '<space>q', '<Cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
             lsp_on_attach = function(client, bufnr)
               -- Enable completion triggered by <c-x><c-o>
               vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
               -- Mappings.
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<Cmd>lua vim.lsp.buf.format()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
 
               -- Use LSP as the handler for omnifunc
               vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -474,7 +474,7 @@ in
 
           ]], true)
 
-          vim.api.nvim_set_keymap('n', '<F11>', ':GuiFullScreenToggle<CR>', { noremap = false })
+          vim.api.nvim_set_keymap('n', '<F11>', '<Cmd>GuiFullScreenToggle<CR>', { noremap = false })
         end
 
         --
