@@ -3,13 +3,18 @@ let
   cfg = config.modules.jhol-dotfiles.neovim;
 in
 {
-  options.modules.jhol-dotfiles.neovim = {
+  options.modules.jhol-dotfiles.neovim = let
+    default.font = {
+      name = "SauceCodePro Nerd Font";
+      size = 8;
+    };
+  in {
     enable = lib.mkEnableOption "Enable Neovim configuration";
 
     neovide = {
       fontName = lib.mkOption {
         type = lib.types.str;
-        default = "SauceCodePro NF";
+        default = default.font.name;
         description = lib.mdDoc ''
           The Neovide font face name.
         '';
@@ -17,7 +22,7 @@ in
 
       fontSize = lib.mkOption {
         type = lib.types.either lib.types.float lib.types.ints.positive;
-        default = 7.5;
+        default = default.font.size;
         description = lib.mdDoc ''
           The Neovide font face size.
         '';
@@ -36,6 +41,24 @@ in
         default = "none";
         description = lib.mdDoc ''
           The Neovide font hinting.
+        '';
+      };
+    };
+
+    neovim-qt = {
+      fontName = lib.mkOption {
+        type = lib.types.str;
+        default = default.font.name;
+        description = lib.mdDoc ''
+          The Neovim-Qt font face name.
+        '';
+      };
+
+      fontSize = lib.mkOption {
+        type = lib.types.ints.positive;
+        default = default.font.size;
+        description = lib.mdDoc ''
+          The Neovim-Qt font face size.
         '';
       };
     };
@@ -472,9 +495,18 @@ in
 
       extraLuaConfig = ''
         --
-        -- Neovide Configuration
+        -- GUI Configuration
         --
 
+        -- Font
+        if (vim.fn.exists('GuiFont') == 1) then
+          vim.cmd('GuiFont', '${cfg.neovim-qt.fontName}:h${builtins.toString cfg.neovim-qt.fontSize}')
+        end
+
+        -- Disable the GUI tab-line
+        vim.rpcnotify(0, 'Gui', 'Option', 'Tabline', 0)
+
+        -- Neovide Configuration
         if vim.g.neovide then
           -- Font
           vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-${cfg.neovide.fontAntiAliasing}:#h-${cfg.neovide.fontHinting}';
@@ -482,8 +514,10 @@ in
           -- Animation
           vim.g.neovide_refresh_rate = 60;
           vim.g.neovide_cursor_animation_length = 0.01;
+        end
 
-          -- Full Screen Toggle
+        -- Full Screen Toggle
+        if vim.g.neovide then
           vim.api.nvim_exec(
           [[
 
@@ -495,15 +529,34 @@ in
 
           ]], true)
 
-          vim.api.nvim_set_keymap('n', '<F11>', '<Cmd>GuiFullScreenToggle<CR>', { noremap = false })
+        else
+          vim.api.nvim_exec(
+          [[
 
-          -- Update which-key
-          local wk = require("which-key")
+          let g:GuiWindowFullScreen = 0
 
-          wk.register({
-            ['<F11>'] = { '<Cmd>GuiFullScreenToggle<CR>', 'Toggle Full Screen' }
-          })
+          function! s:GuiFullScreenToggle()
+            if g:GuiWindowFullScreen == 0
+              call rpcnotify(0, 'Gui', 'WindowFullScreen', 1)
+            else
+              call rpcnotify(0, 'Gui', 'WindowFullScreen', 0)
+            endif
+          endfunction
+
+          command! GuiFullScreenToggle call s:GuiFullScreenToggle()
+
+          ]], true)
+
         end
+
+        vim.api.nvim_set_keymap('n', '<F11>', '<Cmd>GuiFullScreenToggle<CR>', { noremap = false })
+
+        -- Update which-key
+        local wk = require("which-key")
+
+        wk.register({
+          ['<F11>'] = { '<Cmd>GuiFullScreenToggle<CR>', 'Toggle Full Screen' }
+        })
 
         --
         -- Main Configuration
