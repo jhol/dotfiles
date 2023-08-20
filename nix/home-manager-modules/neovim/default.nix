@@ -169,6 +169,22 @@ in
             vim.api.nvim_set_keymap('n', '<leader>fl', '<Cmd>BLines<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>fL', '<Cmd>Lines<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>fa', '<Cmd>Ag<CR>', { noremap = false })
+
+            -- Update which-key
+            local wk = require("which-key")
+
+            wk.register({
+              ['<leader>f'] = {
+                name = '+fzf',
+                f = { '<Cmd>Files<CR>', 'FZF File Search' },
+                g = { '<Cmd>GFiles<CR>', 'FZF Git File Search' },
+                s = { '<Cmd>GFiles?<CR>', 'FZF Git Status Search' },
+                b = { '<Cmd>Buffers<CR>', 'FZF Buffer Search' },
+                l = { '<Cmd>BLines<CR>', 'FZF Buffer Search' },
+                L = { '<Cmd>Lines<CR>', 'FZF All Buffers Search' },
+                f = { '<Cmd>Ag<CR>', 'FZF Silver Searcher Ag Search' }
+              }
+            });
           '';
         }
 
@@ -187,6 +203,17 @@ in
 
             vim.api.nvim_set_keymap("n", "<leader>mm", "<Cmd>AsyncRun -cwd=<root> -program=make<CR>", { noremap = false })
             vim.api.nvim_set_keymap("n", "<leader>mc", "<Cmd>AsyncStop<CR>", { noremap = false })
+
+            -- Update which-key
+            local wk = require("which-key")
+
+            wk.register({
+              ['<leader>m'] = {
+                name = '+make',
+                m = { '<Cmd>AsyncRun -cwd=<root> -program=make<CR>', 'Make' },
+                c = { '<Cmd>AsyncStop<CR>', 'Cancel Make' }
+              }
+            });
           '';
         }
 
@@ -203,6 +230,20 @@ in
             vim.api.nvim_set_keymap('n', '<leader>gs', '<Cmd>Git<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>gv', '<Cmd>Flogsplit<CR>', { noremap = false })
             vim.api.nvim_set_keymap('n', '<leader>gV', '<Cmd>Flogsplit -all<CR>', { noremap = false })
+
+            -- Update which-key
+            local wk = require("which-key")
+
+            wk.register({
+              ['<leader>g'] = {
+                name = '+git',
+                a = { '<Cmd>Gwrite<CR>', 'Git Add File' },
+                c = { '<Cmd>Gcommit<CR>', 'Git Commit' },
+                s = { '<Cmd>Git<CR>', 'Git Status' },
+                v = { '<Cmd>Flogsplit<CR>', 'Git Visualize Branch' },
+                V = { '<Cmd>Flogsplit -all<CR>', 'Git Visualize All Branches' }
+              }
+            });
           '';
         }
 
@@ -445,6 +486,16 @@ in
                 }
               }
             end
+
+            -- Update which-key
+            local wk = require("which-key")
+
+            wk.register({
+              ['<space>e'] = { vim.diagnostic.open_float, 'Buffer Diagnostics' },
+              ['[d'] = { vim.diagnostic.goto_prev, 'Previous Diagnostic' },
+              [']d'] = { vim.diagnostic.goto_next, 'Next Diagnostic' },
+              ['<space>q'] = { vim.diagnostic.setloclist, 'Add Buffer Diagnostics to Location List' }
+            })
           '';
         }
       ];
@@ -475,6 +526,13 @@ in
           ]], true)
 
           vim.api.nvim_set_keymap('n', '<F11>', '<Cmd>GuiFullScreenToggle<CR>', { noremap = false })
+
+          -- Update which-key
+          local wk = require("which-key")
+
+          wk.register({
+            ['<F11>'] = { '<Cmd>GuiFullScreenToggle<CR>', 'Toggle Full Screen' }
+          })
         end
 
         --
