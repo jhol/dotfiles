@@ -125,36 +125,6 @@ in
         }
 
         {
-          plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = "tinykeymap";
-            version = "2019-03-15";
-            src = pkgs.fetchFromGitHub {
-              owner = "tomtom";
-              repo = "tinykeymap_vim";
-              rev = "be48fc729244f84c2d293c3db18420e7f5d74bb8";
-              sha256 = "1w4zplg0mbiv9jp70cnzb1aw5xx3x8ibnm38vsapvspzy9h8ygqx";
-            };
-            meta.homepage = "https://github.com/tomtom/tinykeymap_vim/";
-          };
-          type = "lua";
-          config = ''
-            --
-            -- tinykeymap Bindings
-            --
-
-            vim.g['tinykeymap#timeout'] = 1000
-
-            vim.g['tinykeymap#mapleader'] = '<leader>'
-            vim.api.nvim_command('call tinykeymap#Load(["buffers"])')
-            vim.api.nvim_command('call tinykeymap#Load(["qfl"])')
-            vim.api.nvim_command('call tinykeymap#Load(["tabs"])')
-
-            vim.g['tinykeymap#map#windows#map'] = '<C-w>'
-            vim.api.nvim_command('call tinykeymap#Load(["windows"])')
-          '';
-        }
-
-        {
           plugin = fzf-vim;
           type = "lua";
           config = ''
