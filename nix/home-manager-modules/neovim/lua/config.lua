@@ -52,6 +52,31 @@ vim.api.nvim_set_keymap('n', '<leader>qc', ':cclose<CR>', { noremap = false })
 
 vim.api.nvim_set_keymap('t', '<C-Space>', '<C-\\><C-n>', { noremap = true })
 
+-- Window Navigation
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = false })
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = false })
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = false })
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = false })
+vim.api.nvim_set_keymap('n', '<A-h>', '<C-w><', { noremap = false })
+vim.api.nvim_set_keymap('n', '<A-j>', '<C-w>+', { noremap = false })
+vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>-', { noremap = false })
+vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<cr>', '<C-w>w', { noremap = false })
+
+local wk = require("which-key")
+
+wk.register({
+  ['<C-h>'] = { '<C-w>h', 'Go to the left window' },
+  ['<C-j>'] = { '<C-w>j', 'Go to the up window' },
+  ['<C-k>'] = { '<C-w>k', 'Go to the down window' },
+  ['<C-l>'] = { '<C-w>l', 'Go to the right window' },
+  ['<A-h>'] = { '<C-w><', 'Decrease width' },
+  ['<A-j>'] = { '<C-w>+', 'Increase height' },
+  ['<A-k>'] = { '<C-w>-', 'Decrease height' },
+  ['<A-l>'] = { '<C-w>>', 'Increase width' },
+  ['<cr>'] = { '<C-w>w', 'Switch windows' }
+})
+
 --
 -- Code Folding
 --
