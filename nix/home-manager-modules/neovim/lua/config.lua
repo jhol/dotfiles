@@ -116,6 +116,10 @@ function! s:Focus()
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && getbufvar(v:val, "fugitive_type") != ""')
     silent execute 'bwipeout' buf
   endfor
+
+  " Close NERDTree
+  NERDTreeClose
+
 endfunction
 
 command! Focus call s:Focus()
