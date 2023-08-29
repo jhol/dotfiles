@@ -12,7 +12,7 @@ in
       enable = true;
 
       font = {
-        package = pkgs.nerdfonts;
+        package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; });
         name = "SauceCodePro Nerd Font";
         size = 8;
       };
