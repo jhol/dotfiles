@@ -81,6 +81,8 @@ in
         mkdir-nvim
         vim-nix
         openscad-nvim
+        nvim-web-devicons
+        vim-devicons
         vim-qml
         vim-repeat
         vim-rooter
@@ -382,8 +384,6 @@ in
           '';
         }
 
-        nvim-web-devicons
-
         {
           plugin = nvim-treesitter.withAllGrammars;
           type = "lua";
@@ -488,6 +488,16 @@ in
               ['[d'] = { vim.diagnostic.goto_prev, 'Previous Diagnostic' },
               [']d'] = { vim.diagnostic.goto_next, 'Next Diagnostic' },
               ['<space>q'] = { vim.diagnostic.setloclist, 'Add Buffer Diagnostics to Location List' }
+            })
+          '';
+        }
+
+        {
+          plugin = nerdtree;
+          type = "lua";
+          config = ''
+            require("which-key").register({
+              ['<leader>n'] = { '<Cmd>NERDTreeToggle<CR>', 'Toggle NERDTree' },
             })
           '';
         }
