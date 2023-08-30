@@ -63,9 +63,7 @@ vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>-', { noremap = false })
 vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>>', { noremap = false })
 vim.api.nvim_set_keymap('n', '<cr>', '<C-w>w', { noremap = false })
 
-local wk = require("which-key")
-
-wk.register({
+require("which-key").register({
   ['<C-h>'] = { '<C-w>h', 'Go to the left window' },
   ['<C-j>'] = { '<C-w>j', 'Go to the up window' },
   ['<C-k>'] = { '<C-w>k', 'Go to the down window' },

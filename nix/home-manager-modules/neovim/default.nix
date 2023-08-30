@@ -166,9 +166,7 @@ in
             vim.api.nvim_set_keymap('n', '<leader>fa', '<Cmd>Ag<CR>', { noremap = false })
 
             -- Update which-key
-            local wk = require("which-key")
-
-            wk.register({
+            require("which-key").register({
               ['<leader>f'] = {
                 name = '+fzf',
                 f = { '<Cmd>Files<CR>', 'FZF File Search' },
@@ -200,9 +198,7 @@ in
             vim.api.nvim_set_keymap("n", "<leader>mc", "<Cmd>AsyncStop<CR>", { noremap = false })
 
             -- Update which-key
-            local wk = require("which-key")
-
-            wk.register({
+            require("which-key").register({
               ['<leader>m'] = {
                 name = '+make',
                 m = { '<Cmd>AsyncRun -cwd=<root> -program=make<CR>', 'Make' },
@@ -227,9 +223,7 @@ in
             vim.api.nvim_set_keymap('n', '<leader>gV', '<Cmd>Flogsplit -all<CR>', { noremap = false })
 
             -- Update which-key
-            local wk = require("which-key")
-
-            wk.register({
+            require("which-key").register({
               ['<leader>g'] = {
                 name = '+git',
                 a = { '<Cmd>Gwrite<CR>', 'Git Add File' },
@@ -440,9 +434,7 @@ in
               vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
               -- Update which-key
-              local wk = require("which-key")
-
-              wk.register({
+              require("which-key").register({
                 ['<C-k>'] = { vim.lsp.buf.signature_help, "LSP Signature Help" },
                 ['<space>'] = {
                   D = { vim.lsp.buf.type_definition, "LSP Type Definitions" },
@@ -481,9 +473,7 @@ in
             end
 
             -- Update which-key
-            local wk = require("which-key")
-
-            wk.register({
+            require("which-key").register({
               ['<space>e'] = { vim.diagnostic.open_float, 'Buffer Diagnostics' },
               ['[d'] = { vim.diagnostic.goto_prev, 'Previous Diagnostic' },
               [']d'] = { vim.diagnostic.goto_next, 'Next Diagnostic' },
@@ -562,9 +552,7 @@ in
         vim.api.nvim_set_keymap('n', '<F11>', '<Cmd>GuiFullScreenToggle<CR>', { noremap = false })
 
         -- Update which-key
-        local wk = require("which-key")
-
-        wk.register({
+        require("which-key").register({
           ['<F11>'] = { '<Cmd>GuiFullScreenToggle<CR>', 'Toggle Full Screen' }
         })
 
