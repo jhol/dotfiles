@@ -157,15 +157,6 @@ in
             -- fzf
             --
 
-            vim.api.nvim_set_keymap('n', '<leader>ff', '<Cmd>Files<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fg', '<Cmd>GFiles<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fs', '<Cmd>GFiles?<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fb', '<Cmd>Buffers<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fl', '<Cmd>BLines<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fL', '<Cmd>Lines<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>fa', '<Cmd>Ag<CR>', { noremap = false })
-
-            -- Update which-key
             require("which-key").register({
               ['<leader>f'] = {
                 name = '+fzf',
@@ -175,7 +166,7 @@ in
                 b = { '<Cmd>Buffers<CR>', 'FZF Buffer Search' },
                 l = { '<Cmd>BLines<CR>', 'FZF Buffer Search' },
                 L = { '<Cmd>Lines<CR>', 'FZF All Buffers Search' },
-                f = { '<Cmd>Ag<CR>', 'FZF Silver Searcher Ag Search' }
+                a = { '<Cmd>Ag<CR>', 'FZF Silver Searcher Ag Search' }
               }
             });
           '';
