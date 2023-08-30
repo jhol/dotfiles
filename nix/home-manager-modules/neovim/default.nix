@@ -185,10 +185,6 @@ in
             vim.g.asyncrun_rootmarks = {"build", "_build", ".git"}
             vim.g.asyncrun_status = ""
 
-            vim.api.nvim_set_keymap("n", "<leader>mm", "<Cmd>AsyncRun -cwd=<root> -program=make<CR>", { noremap = false })
-            vim.api.nvim_set_keymap("n", "<leader>mc", "<Cmd>AsyncStop<CR>", { noremap = false })
-
-            -- Update which-key
             require("which-key").register({
               ['<leader>m'] = {
                 name = '+make',
@@ -207,13 +203,6 @@ in
             -- vim-fugitive
             --
 
-            vim.api.nvim_set_keymap('n', '<leader>ga', '<Cmd>Gwrite<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gc', '<Cmd>Gcommit<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gs', '<Cmd>Git<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gv', '<Cmd>Flogsplit<CR>', { noremap = false })
-            vim.api.nvim_set_keymap('n', '<leader>gV', '<Cmd>Flogsplit -all<CR>', { noremap = false })
-
-            -- Update which-key
             require("which-key").register({
               ['<leader>g'] = {
                 name = '+git',
@@ -548,8 +537,6 @@ in
           ]], true)
 
         end
-
-        vim.api.nvim_set_keymap('n', '<F11>', '<Cmd>GuiFullScreenToggle<CR>', { noremap = false })
 
         -- Update which-key
         require("which-key").register({
