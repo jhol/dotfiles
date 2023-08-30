@@ -486,8 +486,17 @@ in
           plugin = nerdtree;
           type = "lua";
           config = ''
+            -- Update directery when cwd changes
+            vim.g.NERDTreeChDirMode = 2
+
+            -- Close after opening a file or bookmark
+            vim.g.NERDTreeQuitOnOpen = 3
+
+            -- Redefine :Ex
+            vim.cmd('command! Ex NERDTree')
+
             require("which-key").register({
-              ['<leader>n'] = { '<Cmd>NERDTreeToggle<CR>', 'Toggle NERDTree' },
+              ['<leader>n'] = { '<Cmd>NERDTree<CR>', 'Show NERDTree' },
             })
           '';
         }
