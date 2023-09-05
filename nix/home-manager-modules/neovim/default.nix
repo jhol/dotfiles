@@ -208,6 +208,7 @@ in
                 name = '+git',
                 a = { '<Cmd>Gwrite<CR>', 'Git Add File' },
                 c = { '<Cmd>Gcommit<CR>', 'Git Commit' },
+                p = { '<Cmd>Git add -p<CR>', 'Git Add Patch' },
                 s = { '<Cmd>Git<CR>', 'Git Status' },
                 v = { '<Cmd>Flogsplit<CR>', 'Git Visualize Branch' },
                 V = { '<Cmd>Flogsplit -all<CR>', 'Git Visualize All Branches' }
