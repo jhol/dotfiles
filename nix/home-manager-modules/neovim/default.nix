@@ -467,17 +467,35 @@ in
           plugin = nerdtree;
           type = "lua";
           config = ''
-            -- Update directery when cwd changes
-            vim.g.NERDTreeChDirMode = 2
+            -- Define NERDTreeToggleInCurDir command
+            vim.api.nvim_exec(
+            [[
+
+            function! s:NERDTreeToggleInCurDir()
+              " If NERDTree is open in the current buffer
+              if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+                exe ":NERDTreeClose"
+              else
+                if (expand("%:t") != "")
+                  exe ":NERDTreeFind"
+                else
+                  exe ":NERDTreeToggle"
+                endif
+              endif
+            endfunction
+
+            command! NERDTreeToggleInCurDir call s:NERDTreeToggleInCurDir()
+
+            ]], true)
 
             -- Close after opening a file or bookmark
             vim.g.NERDTreeQuitOnOpen = 3
 
             -- Redefine :Ex
-            vim.cmd('command! Ex NERDTree')
+            vim.cmd('command! Ex NERDTreeToggleInCurDir')
 
             require("which-key").register({
-              ['<leader>n'] = { '<Cmd>NERDTree<CR>', 'Show NERDTree' },
+              ['<leader>n'] = { '<Cmd>NERDTreeToggleInCurDir<CR>', 'Toggle NERDTree' },
             })
           '';
         }
