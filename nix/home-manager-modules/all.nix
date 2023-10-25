@@ -14,6 +14,7 @@ in
       shell.enable = true;
       terminal.enable = true;
       tools.enable = true;
+      web-browsers.enable = true;
     };
   };
 }
