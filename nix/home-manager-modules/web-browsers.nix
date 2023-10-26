@@ -82,8 +82,10 @@ in
     programs.chromium = {
       enable = true;
       extensions = [
+        { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; }  # DuckDuckGo Privacy Essentials
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }  # uBlock Origin
         { id = "oboonakemofpalcgghocfoadofidjkkk"; }  # KeePassXC-Browser
+        { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; }  # Privacy Badger
       ] ++ cfg.extraChromiumExtensions;
     };
   };
