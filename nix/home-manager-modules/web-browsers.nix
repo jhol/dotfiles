@@ -18,6 +18,7 @@ in
       extensions = [
         { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; }  # DuckDuckGo Privacy Essentials
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }  # uBlock Origin
+        { id = "edibdbjcniadpccecjdfdjjppcpchdlm"; }  # I still don't care about cookies
         { id = "fnaicdffflnofjppbagibeoednhnbjhg"; }  # Floccus
         { id = "oboonakemofpalcgghocfoadofidjkkk"; }  # KeePassXC-Browser
         { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; }  # Privacy Badger
@@ -55,6 +56,7 @@ in
         extensions = with nurPkgs.repos.rycee.firefox-addons; [
           duckduckgo-privacy-essentials
           floccus
+          istilldontcareaboutcookies
           keepassxc-browser
           privacy-badger
           ublock-origin
