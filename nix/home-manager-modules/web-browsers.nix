@@ -75,10 +75,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      firefox
-    ];
-
     programs.chromium = {
       enable = true;
       extensions = [
@@ -87,6 +83,10 @@ in
         { id = "oboonakemofpalcgghocfoadofidjkkk"; }  # KeePassXC-Browser
         { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; }  # Privacy Badger
       ] ++ cfg.extraChromiumExtensions;
+    };
+
+    programs.firefox = {
+      enable = true;
     };
   };
 }
