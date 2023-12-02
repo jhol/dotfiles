@@ -38,9 +38,9 @@ in
 
         enableAutosuggestions = true;
         enableCompletion = true;
-        enableSyntaxHighlighting = true;
         enableVteIntegration = true;
         historySubstringSearch.enable = true;
+        syntaxHighlighting.enable = true;
 
         plugins = [
           {
