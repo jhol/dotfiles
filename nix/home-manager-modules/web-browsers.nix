@@ -28,16 +28,15 @@ in
     programs.firefox = {
       enable = true;
 
-      # TODO: Enable once 23.11 is release
-      #policies =  {
-      #  DisablePocket = true;
-      #  DisplayBookmarksToolbar = false;
-      #  DontCheckDefaultBrowser = true;
-      #  OfferToSaveLogins = false;
-      #  NewTabPage = false;
-      #  NoDefaultBookmarks = true;
-      #  PasswordManagerEnable = false;
-      #};
+      policies =  {
+        DisablePocket = true;
+        DisplayBookmarksToolbar = false;
+        DontCheckDefaultBrowser = true;
+        OfferToSaveLogins = false;
+        NewTabPage = false;
+        NoDefaultBookmarks = true;
+        PasswordManagerEnable = false;
+      };
 
       profiles.jhol = {
         name = "jhol";
