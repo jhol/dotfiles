@@ -39,6 +39,7 @@ in
         lsd = "ls-files -d";
         lso = "ls-files -o";
         lls = "!f() { for a in `git lsm`; do git ss | rg $a; done; for a in `git lsu`; do git ss | rg $a; done; for a in `git lsd`; do git ss | rg $a; done; }; f";
+        logstr = "log -p -S";
         merc = "merge --no-ff";
         merff = "merge --ff";
         merffo = "merge --ff-only";
