@@ -84,6 +84,8 @@ in
           interactive = true;
         };
 
+        column.ui = "auto";
+
         init.defaultBranch = "master";
 
         sendemail.airwebreathe = {
