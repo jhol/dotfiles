@@ -87,6 +87,8 @@ in
 
         column.ui = "auto";
 
+        commit.gpgsign = lib.mkDefault true;
+
         init.defaultBranch = "master";
 
         sendemail.airwebreathe = {
@@ -95,6 +97,8 @@ in
           smtpencryption = "tls";
           smtpuser = "joel@airwebreathe.org.uk";
         };
+
+        user.signingkey = "D874562DDC99D889";
       };
     };
 
