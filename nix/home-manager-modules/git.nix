@@ -13,6 +13,7 @@ in
       package = pkgs.gitFull;
 
       userName = "Joel Holdsworth";
+      userEmail = lib.mkDefault "joel@airwebreathe.org.uk";
 
       aliases = {
         graph = "log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative";
@@ -98,7 +99,7 @@ in
           smtpuser = "joel@airwebreathe.org.uk";
         };
 
-        user.signingkey = "D874562DDC99D889";
+        user.signingkey = lib.mkDefault "D874562DDC99D889";
       };
     };
 
