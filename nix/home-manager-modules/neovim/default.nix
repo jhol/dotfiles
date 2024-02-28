@@ -209,7 +209,7 @@ in
         }
 
         {
-          plugin = nvim-base16;
+          plugin = base16-nvim;
           type = "lua";
           config = ''
             --
