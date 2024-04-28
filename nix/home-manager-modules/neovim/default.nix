@@ -84,7 +84,6 @@ in
         openscad-nvim
         vim-autosource
         vim-devicons
-        vim-flog
         vim-gas
         vim-nix
         vim-qml
@@ -152,6 +151,20 @@ in
         }
 
         {
+          plugin = vim-flog;
+          type = "lua";
+          config = ''
+            require("which-key").register({
+              ['<leader>g'] = {
+                name = '+git',
+                v = { '<Cmd>Flogsplit<CR>', 'Git Visualize Branch' },
+                V = { '<Cmd>Flogsplit -all<CR>', 'Git Visualize All Branches' }
+              }
+            });
+          '';
+        }
+
+        {
           plugin = vim-fugitive;
           type = "lua";
           config = ''
@@ -166,8 +179,6 @@ in
                 c = { '<Cmd>Gcommit<CR>', 'Git Commit' },
                 p = { '<Cmd>Git add -p<CR>', 'Git Add Patch' },
                 s = { '<Cmd>Git<CR>', 'Git Status' },
-                v = { '<Cmd>Flogsplit<CR>', 'Git Visualize Branch' },
-                V = { '<Cmd>Flogsplit -all<CR>', 'Git Visualize All Branches' }
               }
             });
           '';
