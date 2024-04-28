@@ -118,6 +118,7 @@ in
                 a = { '<Cmd>Telescope live_grep<CR>', 'Telescope Grep Search' },
                 b = { '<Cmd>Telescope buffers<CR>', 'Telescope Buffer Search' },
                 f = { '<Cmd>Telescope find_files<CR>', 'Telescope File Search' },
+                q = { '<Cmd>Telescope command_history<CR>', 'Telescope Command History Search' },
               }
             });
           '';
