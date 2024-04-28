@@ -105,23 +105,19 @@ in
         }
 
         {
-          plugin = fzf-vim;
+          plugin = telescope-nvim;
           type = "lua";
           config = ''
             --
-            -- fzf
+            -- telescope.nvim
             --
 
             require("which-key").register({
               ['<leader>f'] = {
-                name = '+fzf',
-                f = { '<Cmd>Files<CR>', 'FZF File Search' },
-                g = { '<Cmd>GFiles<CR>', 'FZF Git File Search' },
-                s = { '<Cmd>GFiles?<CR>', 'FZF Git Status Search' },
-                b = { '<Cmd>Buffers<CR>', 'FZF Buffer Search' },
-                l = { '<Cmd>BLines<CR>', 'FZF Buffer Search' },
-                L = { '<Cmd>Lines<CR>', 'FZF All Buffers Search' },
-                a = { '<Cmd>Ag<CR>', 'FZF Silver Searcher Ag Search' }
+                name = '+telescope',
+                a = { '<Cmd>Telescope live_grep<CR>', 'Telescope Grep Search' },
+                b = { '<Cmd>Telescope buffers<CR>', 'Telescope Buffer Search' },
+                f = { '<Cmd>Telescope find_files<CR>', 'Telescope File Search' },
               }
             });
           '';
@@ -517,11 +513,12 @@ in
       '';
 
       extraPackages = with pkgs; [
+        fd
         ccls
         cmake-language-server
         neovim-remote
         nodePackages.pyright
-        silver-searcher
+        ripgrep
         tree-sitter
       ];
 
