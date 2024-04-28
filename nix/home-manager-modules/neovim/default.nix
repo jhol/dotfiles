@@ -88,7 +88,6 @@ in
         vim-nix
         vim-qml
         vim-repeat
-        vim-rooter
         vim-sleuth
 
         {
@@ -441,6 +440,18 @@ in
             require("which-key").register({
               ['<leader>n'] = { '<Cmd>NERDTreeToggleInCurDir<CR>', 'Toggle NERDTree' },
             })
+          '';
+        }
+
+        {
+          plugin = vim-rooter;
+          type = "lua";
+          config = ''
+            --
+            -- vim-rooter
+            --
+
+            vim.g.rooter_patterns = {'.git'};
           '';
         }
       ];
