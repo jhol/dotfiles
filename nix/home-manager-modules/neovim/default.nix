@@ -379,6 +379,7 @@ in
                   ["p"] = "PullPopup",
                   ["r"] = "RebasePopup",
                   ["v"] = "RevertPopup",
+                  ["w"] = "WorktreePopup",
                 },
                 status = {
                   ["q"] = "Close",
@@ -394,9 +395,9 @@ in
                   ["<c-s>"] = "StageAll",
                   ["u"] = "Unstage",
                   ["U"] = "UnstageStaged",
-                  ["d"] = "DiffAtFile",
                   ["$"] = "CommandHistory",
                   ["#"] = "Console",
+                  ["Y"] = "YankSelected",
                   ["<c-r>"] = "RefreshBuffer",
                   ["<enter>"] = "GoToFile",
                   ["<c-v>"] = "VSplitOpen",
