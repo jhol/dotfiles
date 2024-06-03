@@ -36,7 +36,7 @@ in
           KEYTIMEOUT = 1;
         };
 
-        enableAutosuggestions = true;
+        autosuggestion.enable = true;
         enableCompletion = true;
         enableVteIntegration = true;
         historySubstringSearch.enable = true;
