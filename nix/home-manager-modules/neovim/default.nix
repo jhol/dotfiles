@@ -238,17 +238,38 @@ in
               console_timeout = 2000,
               auto_show_console = true,
               status = {
+                show_head_commit_hash = true,
                 recent_commit_count = 10,
+                HEAD_padding = 10,
+                mode_padding = 3,
+                mode_text = {
+                  M = "modified",
+                  N = "new file",
+                  A = "added",
+                  D = "deleted",
+                  C = "copied",
+                  U = "updated",
+                  R = "renamed",
+                  DD = "unmerged",
+                  AU = "unmerged",
+                  UD = "unmerged",
+                  UA = "unmerged",
+                  DU = "unmerged",
+                  AA = "unmerged",
+                  UU = "unmerged",
+                  ["?"] = "",
+                },
               },
               commit_editor = {
                 kind = "auto",
+                show_staged_diff = true,
               },
               commit_select_view = {
                 kind = "tab",
               },
               commit_view = {
                 kind = "vsplit",
-                verify_commit = os.execute("which gpg") == 0, -- Can be set to true or false, otherwise we try to find the binary
+                verify_commit = vim.fn.executable("gpg") == 1, -- Can be set to true or false, otherwise we try to find the binary
               },
               log_view = {
                 kind = "tab",
@@ -335,6 +356,10 @@ in
                   ["<c-c><c-c>"] = "Submit",
                   ["<c-c><c-k>"] = "Abort",
                 },
+                commit_editor_I = {
+                  ["<c-c><c-c>"] = "Submit",
+                  ["<c-c><c-k>"] = "Abort",
+                },
                 rebase_editor = {
                   ["p"] = "Pick",
                   ["r"] = "Reword",
@@ -350,18 +375,12 @@ in
                   ["gj"] = "MoveDown",
                   ["<c-c><c-c>"] = "Submit",
                   ["<c-c><c-k>"] = "Abort",
+                  ["[c"] = "OpenOrScrollUp",
+                  ["]c"] = "OpenOrScrollDown",
                 },
-                finder = {
-                  ["<cr>"] = "Select",
-                  ["<c-c>"] = "Close",
-                  ["<esc>"] = "Close",
-                  ["<c-n>"] = "Next",
-                  ["<c-p>"] = "Previous",
-                  ["<down>"] = "Next",
-                  ["<up>"] = "Previous",
-                  ["<tab>"] = "MultiselectToggleNext",
-                  ["<s-tab>"] = "MultiselectTogglePrevious",
-                  ["<c-j>"] = "NOP",
+                rebase_editor_I = {
+                  ["<c-c><c-c>"] = "Submit",
+                  ["<c-c><c-k>"] = "Abort",
                 },
                 popup = {
                   ["?"] = "HelpPopup",
@@ -372,6 +391,7 @@ in
                   ["X"] = "ResetPopup",
                   ["Z"] = "StashPopup",
                   ["b"] = "BranchPopup",
+                  ["B"] = "BisectPopup",
                   ["c"] = "CommitPopup",
                   ["f"] = "FetchPopup",
                   ["l"] = "LogPopup",
@@ -393,10 +413,10 @@ in
                   ["s"] = "Stage",
                   ["S"] = "StageUnstaged",
                   ["<c-s>"] = "StageAll",
+                  ["K"] = "Untrack",
                   ["u"] = "Unstage",
                   ["U"] = "UnstageStaged",
                   ["$"] = "CommandHistory",
-                  ["#"] = "Console",
                   ["Y"] = "YankSelected",
                   ["<c-r>"] = "RefreshBuffer",
                   ["<enter>"] = "GoToFile",
@@ -405,6 +425,8 @@ in
                   ["<c-t>"] = "TabOpen",
                   ["{"] = "GoToPreviousHunkHeader",
                   ["}"] = "GoToNextHunkHeader",
+                  ["[c"] = "OpenOrScrollUp",
+                  ["]c"] = "OpenOrScrollDown",
                 },
               },
             }
