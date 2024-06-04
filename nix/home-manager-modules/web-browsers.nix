@@ -36,6 +36,17 @@ in
         NewTabPage = false;
         NoDefaultBookmarks = true;
         PasswordManagerEnable = false;
+        FirefoxHome = {
+          Highlights = false;
+          Snippets = false;
+          SponsoredPocket = false;
+          SponsoredTopSites = false;
+          Locked = true;
+        };
+        FirefoxSuggest = {
+          SponsoredSuggestions = true;
+          Locked = true;
+        };
       };
 
       profiles.jhol = {
