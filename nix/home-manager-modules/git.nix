@@ -92,11 +92,14 @@ in
 
         init.defaultBranch = "master";
 
-        sendemail.airwebreathe = {
+        sendemail.airwebreathe = let
+          from = "joel@airwebreathe.org.uk";
+        in {
+          inherit from;
           smtpserver = "smtp.aa.net.uk";
           smtpserverport = 587;
           smtpencryption = "tls";
-          smtpuser = "joel@airwebreathe.org.uk";
+          smtpuser = from;
         };
 
         user.signingkey = lib.mkDefault "D874562DDC99D889";
