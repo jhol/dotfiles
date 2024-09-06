@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.modules.jhol-dotfiles.shell;
 in
@@ -32,7 +37,10 @@ in
 
         localVariables = {
           ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=13,underline";
-          ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];
+          ZSH_AUTOSUGGEST_STRATEGY = [
+            "history"
+            "completion"
+          ];
           KEYTIMEOUT = 1;
         };
 

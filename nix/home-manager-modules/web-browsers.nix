@@ -1,5 +1,12 @@
-{ flakeInputs, lib, pkgs, config, ... }:
-with lib; let
+{
+  flakeInputs,
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+let
   cfg = config.modules.jhol-dotfiles.web-browsers;
 in
 {
@@ -7,71 +14,74 @@ in
     enable = mkEnableOption "Enable Web Browsers";
   };
 
-  config = mkIf cfg.enable (let
-    nurPkgs = import flakeInputs.nur {
-      inherit pkgs;
-      nurpkgs = import flakeInputs.nixpkgs { system = pkgs.system; };
-    };
-  in {
-    programs.chromium = {
-      enable = true;
-      extensions = [
-        { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; }  # DuckDuckGo Privacy Essentials
-        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }  # uBlock Origin
-        { id = "edibdbjcniadpccecjdfdjjppcpchdlm"; }  # I still don't care about cookies
-        { id = "fnaicdffflnofjppbagibeoednhnbjhg"; }  # Floccus
-        { id = "oboonakemofpalcgghocfoadofidjkkk"; }  # KeePassXC-Browser
-        { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; }  # Privacy Badger
-      ];
-    };
-
-    programs.firefox = {
-      enable = true;
-
-      policies =  {
-        DisablePocket = true;
-        DisplayBookmarksToolbar = false;
-        DontCheckDefaultBrowser = true;
-        OfferToSaveLogins = false;
-        NewTabPage = false;
-        NoDefaultBookmarks = true;
-        PasswordManagerEnable = false;
-        FirefoxHome = {
-          Highlights = false;
-          Snippets = false;
-          SponsoredPocket = false;
-          SponsoredTopSites = false;
-          Locked = true;
-        };
-        FirefoxSuggest = {
-          SponsoredSuggestions = true;
-          Locked = true;
-        };
+  config = mkIf cfg.enable (
+    let
+      nurPkgs = import flakeInputs.nur {
+        inherit pkgs;
+        nurpkgs = import flakeInputs.nixpkgs { system = pkgs.system; };
+      };
+    in
+    {
+      programs.chromium = {
+        enable = true;
+        extensions = [
+          { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; } # DuckDuckGo Privacy Essentials
+          { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
+          { id = "edibdbjcniadpccecjdfdjjppcpchdlm"; } # I still don't care about cookies
+          { id = "fnaicdffflnofjppbagibeoednhnbjhg"; } # Floccus
+          { id = "oboonakemofpalcgghocfoadofidjkkk"; } # KeePassXC-Browser
+          { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; } # Privacy Badger
+        ];
       };
 
-      profiles.jhol = {
-        name = "jhol";
-        isDefault = true;
+      programs.firefox = {
+        enable = true;
 
-        search = {
-          force = true;
-          default = "DuckDuckGo";
-          engines = {
-            "Amazon.co.uk".metaData.hidden = true;
-            "Bing".metaData.hidden = true;
-            "eBay".metaData.hidden = true;
+        policies = {
+          DisablePocket = true;
+          DisplayBookmarksToolbar = false;
+          DontCheckDefaultBrowser = true;
+          OfferToSaveLogins = false;
+          NewTabPage = false;
+          NoDefaultBookmarks = true;
+          PasswordManagerEnable = false;
+          FirefoxHome = {
+            Highlights = false;
+            Snippets = false;
+            SponsoredPocket = false;
+            SponsoredTopSites = false;
+            Locked = true;
+          };
+          FirefoxSuggest = {
+            SponsoredSuggestions = true;
+            Locked = true;
           };
         };
 
-        extensions = with nurPkgs.repos.rycee.firefox-addons; [
-          duckduckgo-privacy-essentials
-          floccus
-          istilldontcareaboutcookies
-          keepassxc-browser
-          privacy-badger
-          ublock-origin
-        ];
+        profiles.jhol = {
+          name = "jhol";
+          isDefault = true;
+
+          search = {
+            force = true;
+            default = "DuckDuckGo";
+            engines = {
+              "Amazon.co.uk".metaData.hidden = true;
+              "Bing".metaData.hidden = true;
+              "eBay".metaData.hidden = true;
+            };
+          };
+
+          extensions = with nurPkgs.repos.rycee.firefox-addons; [
+            duckduckgo-privacy-essentials
+            floccus
+            istilldontcareaboutcookies
+            keepassxc-browser
+            privacy-badger
+            ublock-origin
+          ];
+        };
       };
-    };
-  });
+    }
+  );
 }

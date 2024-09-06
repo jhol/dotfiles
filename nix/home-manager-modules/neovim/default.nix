@@ -1,68 +1,84 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.modules.jhol-dotfiles.neovim;
 in
 {
-  options.modules.jhol-dotfiles.neovim = let
-    default.font = {
-      name = "SauceCodePro Nerd Font";
-      size = 8;
+  options.modules.jhol-dotfiles.neovim =
+    let
+      default.font = {
+        name = "SauceCodePro Nerd Font";
+        size = 8;
+      };
+    in
+    {
+      enable = lib.mkEnableOption "Enable Neovim configuration";
+
+      neovide = {
+        fontName = lib.mkOption {
+          type = lib.types.str;
+          default = default.font.name;
+          description = lib.mdDoc ''
+            The Neovide font face name.
+          '';
+        };
+
+        fontSize = lib.mkOption {
+          type = lib.types.either lib.types.float lib.types.ints.positive;
+          default = default.font.size;
+          description = lib.mdDoc ''
+            The Neovide font face size.
+          '';
+        };
+
+        fontAntiAliasing = lib.mkOption {
+          type = lib.types.enum [
+            "antialias"
+            "subpixelantialias"
+            "alias"
+          ];
+          default = "subpixelantialias";
+          description = lib.mdDoc ''
+            The Neovide font anti-aliasing method.
+          '';
+        };
+
+        fontHinting = lib.mkOption {
+          type = lib.types.enum [
+            "full"
+            "normal"
+            "slight"
+            "none"
+          ];
+          default = "none";
+          description = lib.mdDoc ''
+            The Neovide font hinting.
+          '';
+        };
+      };
+
+      neovim-qt = {
+        fontName = lib.mkOption {
+          type = lib.types.str;
+          default = default.font.name;
+          description = lib.mdDoc ''
+            The Neovim-Qt font face name.
+          '';
+        };
+
+        fontSize = lib.mkOption {
+          type = lib.types.ints.positive;
+          default = default.font.size;
+          description = lib.mdDoc ''
+            The Neovim-Qt font face size.
+          '';
+        };
+      };
     };
-  in {
-    enable = lib.mkEnableOption "Enable Neovim configuration";
-
-    neovide = {
-      fontName = lib.mkOption {
-        type = lib.types.str;
-        default = default.font.name;
-        description = lib.mdDoc ''
-          The Neovide font face name.
-        '';
-      };
-
-      fontSize = lib.mkOption {
-        type = lib.types.either lib.types.float lib.types.ints.positive;
-        default = default.font.size;
-        description = lib.mdDoc ''
-          The Neovide font face size.
-        '';
-      };
-
-      fontAntiAliasing = lib.mkOption {
-        type = lib.types.enum [ "antialias" "subpixelantialias" "alias" ];
-        default = "subpixelantialias";
-        description = lib.mdDoc ''
-          The Neovide font anti-aliasing method.
-        '';
-      };
-
-      fontHinting = lib.mkOption {
-        type = lib.types.enum [ "full" "normal" "slight" "none" ];
-        default = "none";
-        description = lib.mdDoc ''
-          The Neovide font hinting.
-        '';
-      };
-    };
-
-    neovim-qt = {
-      fontName = lib.mkOption {
-        type = lib.types.str;
-        default = default.font.name;
-        description = lib.mdDoc ''
-          The Neovim-Qt font face name.
-        '';
-      };
-
-      fontSize = lib.mkOption {
-        type = lib.types.ints.positive;
-        default = default.font.size;
-        description = lib.mdDoc ''
-          The Neovim-Qt font face size.
-        '';
-      };
-    };
-  };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [

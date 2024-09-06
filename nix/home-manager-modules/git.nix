@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.modules.jhol-dotfiles.git;
 in
@@ -92,15 +97,17 @@ in
 
         init.defaultBranch = "master";
 
-        sendemail.airwebreathe = let
-          from = "joel@airwebreathe.org.uk";
-        in {
-          inherit from;
-          smtpserver = "smtp.aa.net.uk";
-          smtpserverport = 587;
-          smtpencryption = "tls";
-          smtpuser = from;
-        };
+        sendemail.airwebreathe =
+          let
+            from = "joel@airwebreathe.org.uk";
+          in
+          {
+            inherit from;
+            smtpserver = "smtp.aa.net.uk";
+            smtpserverport = 587;
+            smtpencryption = "tls";
+            smtpuser = from;
+          };
 
         user.signingkey = lib.mkDefault "D874562DDC99D889";
       };
@@ -109,28 +116,36 @@ in
     systemd.user = {
       services =
         let
-          serviceCommand = { name, command }: {
-            Unit = {
-              Wants = "${name}.timer";
+          serviceCommand =
+            { name, command }:
+            {
+              Unit = {
+                Wants = "${name}.timer";
+              };
+
+              Service = {
+                Type = "oneshot";
+                ExecStart = command;
+              };
+
+              Install = {
+                WantedBy = [ "multi-user.target" ];
+              };
             };
 
-            Service = {
-              Type = "oneshot";
-              ExecStart = command;
+          serviceGit =
+            { time }:
+            serviceCommand {
+              name = "git-${time}";
+              command =
+                let
+                  git = config.programs.git.package;
+                in
+                (
+                  "${git}/libexec/git-core/git --exec-path=${git}/libexec/git-core/ for-each-repo "
+                  + "--config=maintenance.repo maintenance run --schedule=${time}"
+                );
             };
-
-            Install = {
-              WantedBy = [ "multi-user.target" ];
-            };
-          };
-
-          serviceGit = { time }: serviceCommand {
-            name = "git-${time}";
-            command = let
-              git = config.programs.git.package;
-            in ("${git}/libexec/git-core/git --exec-path=${git}/libexec/git-core/ for-each-repo " +
-              "--config=maintenance.repo maintenance run --schedule=${time}");
-          };
         in
         {
           git-hourly = serviceGit { time = "hourly"; };
@@ -140,21 +155,23 @@ in
 
       timers =
         let
-          timer = { name, onCalendar }: {
-            Unit = {
-              Requires = "${name}.service";
-            };
+          timer =
+            { name, onCalendar }:
+            {
+              Unit = {
+                Requires = "${name}.service";
+              };
 
-            Timer = {
-              OnCalendar = onCalendar;
-              AccuracySec = "12h";
-              Persistent = true;
-            };
+              Timer = {
+                OnCalendar = onCalendar;
+                AccuracySec = "12h";
+                Persistent = true;
+              };
 
-            Install = {
-              WantedBy = [ "timers.target" ];
+              Install = {
+                WantedBy = [ "timers.target" ];
+              };
             };
-          };
         in
         {
           git-hourly = timer {
