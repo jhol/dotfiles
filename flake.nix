@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.05";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
@@ -32,5 +33,14 @@
     in
     {
       homeManagerModules = listModules ./nix/home-manager-modules;
-    };
+    }
+    // attrs.flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        formatter = pkgs.nixfmt-rfc-style;
+      }
+    );
 }
