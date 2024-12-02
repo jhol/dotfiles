@@ -433,12 +433,12 @@ in
             function! s:NERDTreeToggleInCurDir()
               " If NERDTree is open in the current buffer
               if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-                exe ":NERDTreeClose"
+                exe "<cmd>NERDTreeClose"
               else
                 if (expand("%:t") != "")
-                  exe ":NERDTreeFind"
+                  exe "<cmd>NERDTreeFind"
                 else
-                  exe ":NERDTreeToggle"
+                  exe "<cmd>NERDTreeToggle"
                 endif
               endif
             endfunction
