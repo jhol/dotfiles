@@ -534,7 +534,7 @@ in
         ccls
         cmake-language-server
         neovim-remote
-        nodePackages.pyright
+        pyright
         ripgrep
         tree-sitter
       ];
