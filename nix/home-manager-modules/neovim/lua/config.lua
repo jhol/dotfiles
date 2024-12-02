@@ -41,14 +41,14 @@ vim.api.nvim_set_keymap('', '<C-q>', '', { noremap = true })
 vim.api.nvim_set_keymap('', '<C-s>', '', { noremap = true })
 
 -- Hide search highlight
-vim.api.nvim_set_keymap('', 'z/', '<cmd>nohlsearch<CR>', { noremap = true })
+vim.api.nvim_set_keymap('', 'z/', '<cmd>nohlsearch<cr>', { noremap = true })
 
 -- Close the buffer without closing the split
-vim.api.nvim_set_keymap('n', '<leader>bd', '<cmd>bp\\|bd #<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>bd', '<cmd>bp\\|bd #<cr>', { noremap = false })
 
 -- Quick-fix list
-vim.api.nvim_set_keymap('n', '<leader>qo', '<cmd>copen<CR>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>qc', '<cmd>cclose<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>qo', '<cmd>copen<cr>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>qc', '<cmd>cclose<cr>', { noremap = false })
 
 vim.api.nvim_set_keymap('t', '<C-Space>', '<C-\\><C-n>', { noremap = true })
 
@@ -114,7 +114,7 @@ command! Focus call s:Focus()
 
 ]], true)
 
-vim.api.nvim_set_keymap('n', '<leader>F', '<cmd>Focus<CR>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<leader>F', '<cmd>Focus<cr>', { noremap = false })
 
 
 --

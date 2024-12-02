@@ -130,10 +130,10 @@ in
             require("which-key").register({
               ['<leader>f'] = {
                 name = '+telescope',
-                a = { '<cmd>Telescope live_grep<CR>', 'Telescope Grep Search' },
-                b = { '<cmd>Telescope buffers<CR>', 'Telescope Buffer Search' },
-                f = { '<cmd>Telescope find_files<CR>', 'Telescope File Search' },
-                q = { '<cmd>Telescope command_history<CR>', 'Telescope Command History Search' },
+                a = { '<cmd>Telescope live_grep<cr>', 'Telescope Grep Search' },
+                b = { '<cmd>Telescope buffers<cr>', 'Telescope Buffer Search' },
+                f = { '<cmd>Telescope find_files<cr>', 'Telescope File Search' },
+                q = { '<cmd>Telescope command_history<cr>', 'Telescope Command History Search' },
               }
             });
           '';
@@ -155,8 +155,8 @@ in
             require("which-key").register({
               ['<leader>m'] = {
                 name = '+make',
-                m = { '<cmd>AsyncRun -cwd=<root> -program=make<CR>', 'Make' },
-                c = { '<cmd>AsyncStop<CR>', 'Cancel Make' }
+                m = { '<cmd>AsyncRun -cwd=<root> -program=make<cr>', 'Make' },
+                c = { '<cmd>AsyncStop<cr>', 'Cancel Make' }
               }
             });
           '';
@@ -169,8 +169,8 @@ in
             require("which-key").register({
               ['<leader>g'] = {
                 name = '+git',
-                v = { '<cmd>Flogsplit<CR>', 'Git Visualize Branch' },
-                V = { '<cmd>Flogsplit -all<CR>', 'Git Visualize All Branches' }
+                v = { '<cmd>Flogsplit<cr>', 'Git Visualize Branch' },
+                V = { '<cmd>Flogsplit -all<cr>', 'Git Visualize All Branches' }
               }
             });
           '';
@@ -187,10 +187,10 @@ in
             require("which-key").register({
               ['<leader>g'] = {
                 name = '+git',
-                a = { '<cmd>Gwrite<CR>', 'Git Add File' },
-                c = { '<cmd>Gcommit<CR>', 'Git Commit' },
-                p = { '<cmd>Git add -p<CR>', 'Git Add Patch' },
-                s = { '<cmd>Git<CR>', 'Git Status' },
+                a = { '<cmd>Gwrite<cr>', 'Git Add File' },
+                c = { '<cmd>Gcommit<cr>', 'Git Commit' },
+                p = { '<cmd>Git add -p<cr>', 'Git Add Patch' },
+                s = { '<cmd>Git<cr>', 'Git Status' },
               }
             });
           '';
@@ -346,29 +346,29 @@ in
             --
 
             local opts = { noremap=true, silent=true }
-            vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-            vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-            vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+            vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+            vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
+            vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+            vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
 
             lsp_on_attach = function(client, bufnr)
               -- Enable completion triggered by <c-x><c-o>
               vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
               -- Mappings.
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
 
               -- Use LSP as the handler for omnifunc
               vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -454,7 +454,7 @@ in
             vim.cmd('command! Ex NERDTreeToggleInCurDir')
 
             require("which-key").register({
-              ['<leader>n'] = { '<cmd>NERDTreeToggleInCurDir<CR>', 'Toggle NERDTree' },
+              ['<leader>n'] = { '<cmd>NERDTreeToggleInCurDir<cr>', 'Toggle NERDTree' },
             })
           '';
         }
@@ -533,7 +533,7 @@ in
 
         -- Update which-key
         require("which-key").register({
-          ['<F11>'] = { '<cmd>GuiFullScreenToggle<CR>', 'Toggle Full Screen' }
+          ['<F11>'] = { '<cmd>GuiFullScreenToggle<cr>', 'Toggle Full Screen' }
         })
 
         --
