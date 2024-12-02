@@ -127,14 +127,12 @@ in
             -- telescope.nvim
             --
 
-            require("which-key").register({
-              ['<leader>f'] = {
-                name = '+telescope',
-                a = { '<cmd>Telescope live_grep<cr>', 'Telescope Grep Search' },
-                b = { '<cmd>Telescope buffers<cr>', 'Telescope Buffer Search' },
-                f = { '<cmd>Telescope find_files<cr>', 'Telescope File Search' },
-                q = { '<cmd>Telescope command_history<cr>', 'Telescope Command History Search' },
-              }
+            require("which-key").add({
+              { '<leader>f', group = 'telescope' },
+              { '<leader>fa', '<cmd>Telescope live_grep<cr>', desc = 'Telescope Grep Search' },
+              { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'Telescope Buffer Search' },
+              { '<leader>ff', '<cmd>Telescope find_files<cr>', desc = 'Telescope File Search' },
+              { '<leader>fq', '<cmd>Telescope command_history<cr>', desc = 'Telescope Command History Search' }
             });
           '';
         }
@@ -152,12 +150,10 @@ in
             vim.g.asyncrun_rootmarks = {"build", "_build", ".git"}
             vim.g.asyncrun_status = ""
 
-            require("which-key").register({
-              ['<leader>m'] = {
-                name = '+make',
-                m = { '<cmd>AsyncRun -cwd=<root> -program=make<cr>', 'Make' },
-                c = { '<cmd>AsyncStop<cr>', 'Cancel Make' }
-              }
+            require("which-key").add({
+              { '<leader>m', group = 'make' },
+              { '<leader>mm', '<cmd>AsyncRun -cwd=<root> -program=make<cr>', desc = 'Make' },
+              { '<leader>mc', '<cmd>AsyncStop<cr>', desc = 'Cancel Make' }
             });
           '';
         }
@@ -166,12 +162,10 @@ in
           plugin = vim-flog;
           type = "lua";
           config = ''
-            require("which-key").register({
-              ['<leader>g'] = {
-                name = '+git',
-                v = { '<cmd>Flogsplit<cr>', 'Git Visualize Branch' },
-                V = { '<cmd>Flogsplit -all<cr>', 'Git Visualize All Branches' }
-              }
+            require("which-key").add({
+              { '<leader>g', group = 'git' },
+              { '<leader>gv', '<cmd>Flogsplit<cr>', desc = 'Git Visualize Branch' },
+              { '<leader>gV', '<cmd>Flogsplit -all<cr>', desc = 'Git Visualize All Branches' }
             });
           '';
         }
@@ -184,14 +178,12 @@ in
             -- vim-fugitive
             --
 
-            require("which-key").register({
-              ['<leader>g'] = {
-                name = '+git',
-                a = { '<cmd>Gwrite<cr>', 'Git Add File' },
-                c = { '<cmd>Gcommit<cr>', 'Git Commit' },
-                p = { '<cmd>Git add -p<cr>', 'Git Add Patch' },
-                s = { '<cmd>Git<cr>', 'Git Status' },
-              }
+            require("which-key").add({
+              { '<leader>g', group = 'git' },
+              { '<leader>ga', '<cmd>Gwrite<cr>', desc = 'Git Add File' },
+              { '<leader>gc', '<cmd>Gcommit<cr>', desc = 'Git Commit' },
+              { '<leader>gp', '<cmd>Git add -p<cr>', desc = 'Git Add Patch' },
+              { '<leader>gs', '<cmd>Git<cr>', desc = 'Git Status' }
             });
           '';
         }
@@ -374,25 +366,19 @@ in
               vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
               -- Update which-key
-              require("which-key").register({
-                ['<C-k>'] = { vim.lsp.buf.signature_help, "LSP Signature Help" },
-                ['<space>'] = {
-                  D = { vim.lsp.buf.type_definition, "LSP Type Definitions" },
-                  ["ca"] = { vim.lsp.buf.code_action, "LSP Code Action" },
-                  f = { vim.lsp.buf.format, "LSP Formatting" },
-                  ["rn"] = { vim.lsp.buf.rename, "LSP Rename" },
-                  w = {
-                    a = { vim.lsp.buf.add_workspace_folder, "LSP Add Workspace Folder" },
-                    l = { vim.lsp.buf.list_workspace_folders, "LSP List Workspace Folders" }
-                  },
-                },
-                K = { vim.lsp.buf.hover, "LSP Hover" },
-                g = {
-                  D = { vim.lsp.buf.declaration, "LSP Declaration" },
-                  d = { vim.lsp.buf.definition, "LSP Definition" },
-                  i = { vim.lsp.buf.implementation, "LSP Implementation" },
-                  r = { vim.lsp.buf.references, "LSP References" }
-                }
+              require("which-key").add({
+                { '<C-k>', vim.lsp.buf.signature_help, desc = "LSP Signature Help" },
+                { '<space>D', vim.lsp.buf.type_definition, desc = "LSP Type Definitions" },
+                { '<space>ca', vim.lsp.buf.code_action, desc = "LSP Code Action" },
+                { '<space>f', vim.lsp.buf.format, desc = "LSP Formatting" },
+                { '<space>rn', vim.lsp.buf.rename, desc = "LSP Rename" },
+                { '<space>wa', vim.lsp.buf.add_workspace_folder, desc = "LSP Add Workspace Folder" },
+                { '<space>wl', vim.lsp.buf.list_workspace_folders, desc = "LSP List Workspace Folders" },
+                { 'K', vim.lsp.buf.hover, desc = "LSP Hover" },
+                { 'gD', vim.lsp.buf.declaration, desc = "LSP Declaration" },
+                { 'gd', vim.lsp.buf.definition, desc = "LSP Definition" },
+                { 'gi', vim.lsp.buf.implementation, desc = "LSP Implementation" },
+                { 'gr', vim.lsp.buf.references, desc = "LSP References" }
               });
 
             end
@@ -413,11 +399,11 @@ in
             end
 
             -- Update which-key
-            require("which-key").register({
-              ['<space>e'] = { vim.diagnostic.open_float, 'Buffer Diagnostics' },
-              ['[d'] = { vim.diagnostic.goto_prev, 'Previous Diagnostic' },
-              [']d'] = { vim.diagnostic.goto_next, 'Next Diagnostic' },
-              ['<space>q'] = { vim.diagnostic.setloclist, 'Add Buffer Diagnostics to Location List' }
+            require("which-key").add({
+              { '<space>e', vim.diagnostic.open_float, desc = 'Buffer Diagnostics' },
+              { '[d', vim.diagnostic.goto_prev, desc = 'Previous Diagnostic' },
+              { ']d', vim.diagnostic.goto_next, desc = 'Next Diagnostic' },
+              { '<space>q', vim.diagnostic.setloclist, desc = 'Add Buffer Diagnostics to Location List' }
             })
           '';
         }
@@ -433,12 +419,12 @@ in
             function! s:NERDTreeToggleInCurDir()
               " If NERDTree is open in the current buffer
               if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-                exe "<cmd>NERDTreeClose"
+                exe ":NERDTreeClose"
               else
                 if (expand("%:t") != "")
-                  exe "<cmd>NERDTreeFind"
+                  exe ":NERDTreeFind"
                 else
-                  exe "<cmd>NERDTreeToggle"
+                  exe ":NERDTreeToggle"
                 endif
               endif
             endfunction
@@ -453,8 +439,8 @@ in
             -- Redefine :Ex
             vim.cmd('command! Ex NERDTreeToggleInCurDir')
 
-            require("which-key").register({
-              ['<leader>n'] = { '<cmd>NERDTreeToggleInCurDir<cr>', 'Toggle NERDTree' },
+            require("which-key").add({
+              { '<leader>n', '<cmd>NERDTreeToggleInCurDir<cr>', desc = 'Toggle NERDTree' }
             })
           '';
         }
@@ -532,8 +518,8 @@ in
         end
 
         -- Update which-key
-        require("which-key").register({
-          ['<F11>'] = { '<cmd>GuiFullScreenToggle<cr>', 'Toggle Full Screen' }
+        require("which-key").add({
+          { "<F11>", "<cmd>GuiFullScreenToggle<cr>", desc = "Toggle Full Screen" }
         })
 
         --

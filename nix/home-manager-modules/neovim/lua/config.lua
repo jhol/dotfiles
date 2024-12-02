@@ -53,16 +53,16 @@ vim.api.nvim_set_keymap('n', '<leader>qc', '<cmd>cclose<cr>', { noremap = false 
 vim.api.nvim_set_keymap('t', '<C-Space>', '<C-\\><C-n>', { noremap = true })
 
 -- Window Navigation
-require("which-key").register({
-  ['<C-h>'] = { '<C-w>h', 'Go to the left window' },
-  ['<C-j>'] = { '<C-w>j', 'Go to the up window' },
-  ['<C-k>'] = { '<C-w>k', 'Go to the down window' },
-  ['<C-l>'] = { '<C-w>l', 'Go to the right window' },
-  ['<A-h>'] = { '<C-w><', 'Decrease width' },
-  ['<A-j>'] = { '<C-w>+', 'Increase height' },
-  ['<A-k>'] = { '<C-w>-', 'Decrease height' },
-  ['<A-l>'] = { '<C-w>>', 'Increase width' },
-  ['<cr>'] = { '<C-w>w', 'Switch windows' }
+require("which-key").add({
+  { '<C-h>', '<C-w>h', desc = 'Go to the left window' },
+  { '<C-j>', '<C-w>j', desc = 'Go to the up window' },
+  { '<C-k>', '<C-w>k', desc = 'Go to the down window' },
+  { '<C-l>', '<C-w>l', desc = 'Go to the right window' },
+  { '<A-h>', '<C-w><', desc = 'Decrease width' },
+  { '<A-j>', '<C-w>+', desc = 'Increase height' },
+  { '<A-k>', '<C-w>-', desc = 'Decrease height' },
+  { '<A-l>', '<C-w>>', desc = 'Increase width' },
+  { '<cr>', '<C-w>w', desc = 'Switch windows' }
 })
 
 --
