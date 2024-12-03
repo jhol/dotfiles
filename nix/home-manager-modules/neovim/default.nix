@@ -12,7 +12,7 @@ in
     let
       default.font = {
         name = "SauceCodePro Nerd Font";
-        size = 8;
+        size = 7.5;
       };
     in
     {
@@ -71,7 +71,7 @@ in
         };
 
         fontSize = lib.mkOption {
-          type = lib.types.ints.positive;
+          type = lib.types.either lib.types.float lib.types.ints.positive;
           default = default.font.size;
           description = lib.mdDoc ''
             The Neovim-Qt font face size.
