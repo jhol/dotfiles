@@ -24,6 +24,11 @@ in
       description = "Default user email to use.";
     };
 
+    gpgSigningKey = mkOption {
+      type = types.nullOr types.str;
+      default = "ADD90F52FCE3C8EB";
+      description = "GPG Commit Signing Key";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -217,7 +222,7 @@ in
 
         signing = {
           backend = "gpg";
-          key = "ADD90F52FCE3C8EB";
+          key = cfg.gpgSigningKey;
         };
 
         git.sign-on-push = true;
