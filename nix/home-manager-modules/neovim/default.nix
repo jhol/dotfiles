@@ -183,6 +183,7 @@ in
               { '<leader>ga', '<cmd>Gwrite<cr>', desc = 'Git Add File' },
               { '<leader>gc', '<cmd>Gcommit<cr>', desc = 'Git Commit' },
               { '<leader>gp', '<cmd>Git add -p<cr>', desc = 'Git Add Patch' },
+              { '<leader>gr', '<cmd>Git rebase --continue<cr>', desc = 'Git Rebase Continue' },
               { '<leader>gs', '<cmd>Git<cr>', desc = 'Git Status' }
             });
           '';
