@@ -95,6 +95,7 @@ in
         bufexplorer
         editorconfig-vim
         errormarker-vim
+        mini-icons
         mkdir-nvim
         nvim-web-devicons
         openscad-nvim
