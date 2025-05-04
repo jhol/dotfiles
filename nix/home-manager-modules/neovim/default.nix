@@ -159,18 +159,6 @@ in
         }
 
         {
-          plugin = vim-flog;
-          type = "lua";
-          config = ''
-            require("which-key").add({
-              { '<leader>g', group = 'git' },
-              { '<leader>gv', '<cmd>Flogsplit<cr>', desc = 'Git Visualize Branch' },
-              { '<leader>gV', '<cmd>Flogsplit -all<cr>', desc = 'Git Visualize All Branches' }
-            });
-          '';
-        }
-
-        {
           plugin = vim-fugitive;
           type = "lua";
           config = ''
@@ -185,6 +173,17 @@ in
               { '<leader>gp', '<cmd>Git add -p<cr>', desc = 'Git Add Patch' },
               { '<leader>gr', '<cmd>Git rebase --continue<cr>', desc = 'Git Rebase Continue' },
               { '<leader>gs', '<cmd>Git<cr>', desc = 'Git Status' }
+            });
+          '';
+        }
+
+        {
+          plugin = vim-flog;
+          type = "lua";
+          config = ''
+            require("which-key").add({
+              { '<leader>gv', '<cmd>Flogsplit<cr>', desc = 'Git Visualize Branch' },
+              { '<leader>gV', '<cmd>Flogsplit -all<cr>', desc = 'Git Visualize All Branches' }
             });
           '';
         }
