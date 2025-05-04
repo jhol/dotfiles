@@ -65,7 +65,7 @@ require("which-key").add({
   { '<A-j>', '<C-w>+', desc = 'Increase height' },
   { '<A-k>', '<C-w>-', desc = 'Decrease height' },
   { '<A-l>', '<C-w>>', desc = 'Increase width' },
-  { '<cr>', '<C-w>w', desc = 'Switch windows' }
+  { '<A-w>', '<C-w>w', desc = 'Switch windows' }
 })
 
 --
