@@ -36,6 +36,9 @@ vim.o.shell = "zsh"
 -- Key Binding
 --
 
+-- Disable Help
+vim.api.nvim_set_keymap('', '<F1>', '', { noremap = true })
+
 -- Disable XON/XOFF
 vim.api.nvim_set_keymap('', '<C-q>', '', { noremap = true })
 vim.api.nvim_set_keymap('', '<C-s>', '', { noremap = true })
