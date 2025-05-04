@@ -43,20 +43,13 @@ vim.api.nvim_set_keymap('', '<F1>', '', { noremap = true })
 vim.api.nvim_set_keymap('', '<C-q>', '', { noremap = true })
 vim.api.nvim_set_keymap('', '<C-s>', '', { noremap = true })
 
--- Hide search highlight
-vim.api.nvim_set_keymap('', 'z/', '<cmd>nohlsearch<cr>', { noremap = true })
-
--- Close the buffer without closing the split
-vim.api.nvim_set_keymap('n', '<leader>bd', '<cmd>bp\\|bd #<cr>', { noremap = false })
-
--- Quick-fix list
-vim.api.nvim_set_keymap('n', '<leader>qo', '<cmd>copen<cr>', { noremap = false })
-vim.api.nvim_set_keymap('n', '<leader>qc', '<cmd>cclose<cr>', { noremap = false })
-
-vim.api.nvim_set_keymap('t', '<C-Space>', '<C-\\><C-n>', { noremap = true })
-
 -- Window Navigation
 require("which-key").add({
+  { 'z/', '<cmd>nohlsearch<cr>', desc = 'Clear search hightlight' },
+  { '<leader>bd', '<cmd>bp\\|bd #<cr>', desc = 'Close buffer, keep split' },
+  { '<leader>qo', '<cmd>copen<cr>', desc = 'Open quickfix list' },
+  { '<leader>qc', '<cmd>cclose<cr>', desc = 'Close quickfix list' },
+  { '<C-Space>', '<C-\\><C-n>', mode = 't', desc = 'Exit terminal escape mode' },
   { '<C-h>', '<C-w>h', desc = 'Go to the left window' },
   { '<C-j>', '<C-w>j', desc = 'Go to the up window' },
   { '<C-k>', '<C-w>k', desc = 'Go to the down window' },
