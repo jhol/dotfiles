@@ -331,6 +331,35 @@ in
         }
 
         {
+          plugin = nvim-treesitter-textobjects;
+          type = "lua";
+          config = ''
+            --
+            -- Tree Sitter Text Objects
+            --
+
+            require 'nvim-treesitter.configs'.setup {
+              textobjects = {
+                swap = {
+                  enable = true,
+                  swap_next = {
+                    ["g>"] = "@parameter.inner",
+                  },
+                  swap_previous = {
+                    ["g<"] = "@parameter.inner",
+                  },
+                },
+              },
+            }
+
+            require("which-key").add({
+              { 'g>', desc = 'Swap Next' },
+              { 'g<', desc = 'Swap Previous' }
+            })
+          '';
+        }
+
+        {
           plugin = nvim-lspconfig;
           type = "lua";
           config = ''
