@@ -210,8 +210,11 @@ in
                 { '<leader>gG', '<cmd>Git config unset commit.gpgsign<cr>', desc = 'Restore GPG signing' },
                 { '<leader>gl', '<cmd>Git log --decorate<cr>', desc = 'Git Log' },
                 { '<leader>gp', '<cmd>Git add -p<cr>', desc = 'Git Add Patch' },
-                { '<leader>gr', '<cmd>Git rebase --continue<cr>', desc = 'Git Rebase Continue' },
-                { '<leader>gs', '<cmd>Git<cr>', desc = 'Git Status' }
+                { '<leader>gs', '<cmd>Git<cr>', desc = 'Git Status' },
+
+                { '<leader>gr', group = 'git rebase' },
+                { '<leader>gra', '<cmd>Git rebase --abort<cr>', desc = 'Git Rebase Abort' },
+                { '<leader>grc', '<cmd>Git rebase --continue<cr>', desc = 'Git Rebase Continue' }
               });
             '';
           }
