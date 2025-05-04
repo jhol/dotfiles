@@ -171,6 +171,7 @@ in
               { '<leader>g', group = 'git' },
               { '<leader>ga', '<cmd>Gwrite<cr>', desc = 'Git Add File' },
               { '<leader>gc', '<cmd>Git commit<cr>', desc = 'Git Commit' },
+              { '<leader>gd', '<cmd>Git diff<cr>', desc = 'Git Diff' },
               { '<leader>gl', '<cmd>Git log --decorate<cr>', desc = 'Git Log' },
               { '<leader>gp', '<cmd>Git add -p<cr>', desc = 'Git Add Patch' },
               { '<leader>gr', '<cmd>Git rebase --continue<cr>', desc = 'Git Rebase Continue' },
