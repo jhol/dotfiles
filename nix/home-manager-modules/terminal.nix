@@ -17,7 +17,7 @@ in
       enable = true;
 
       font = {
-        package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; });
+        package = pkgs.nerd-fonts.sauce-code-pro;
         name = "SauceCodePro Nerd Font";
         size = 8;
       };

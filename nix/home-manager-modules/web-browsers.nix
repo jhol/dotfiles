@@ -64,15 +64,15 @@ in
 
           search = {
             force = true;
-            default = "DuckDuckGo";
+            default = "ddg";
             engines = {
-              "Amazon.co.uk".metaData.hidden = true;
-              "Bing".metaData.hidden = true;
-              "eBay".metaData.hidden = true;
+              "amazon-co-uk".metaData.hidden = true;
+              "bing".metaData.hidden = true;
+              "ebay".metaData.hidden = true;
             };
           };
 
-          extensions = with nurPkgs.repos.rycee.firefox-addons; [
+          extensions.packages = with nurPkgs.repos.rycee.firefox-addons; [
             duckduckgo-privacy-essentials
             floccus
             istilldontcareaboutcookies
