@@ -28,7 +28,6 @@ in
         enable = true;
         extensions = [
           { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; } # DuckDuckGo Privacy Essentials
-          { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
           { id = "edibdbjcniadpccecjdfdjjppcpchdlm"; } # I still don't care about cookies
           { id = "fnaicdffflnofjppbagibeoednhnbjhg"; } # Floccus
           { id = "oboonakemofpalcgghocfoadofidjkkk"; } # KeePassXC-Browser
