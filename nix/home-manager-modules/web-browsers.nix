@@ -22,6 +22,8 @@ in
       };
     in
     {
+      programs.brave.enable = true;
+
       programs.chromium = {
         enable = true;
         extensions = [
