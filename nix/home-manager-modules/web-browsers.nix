@@ -20,17 +20,23 @@ in
         inherit pkgs;
         nurpkgs = import flakeInputs.nixpkgs { system = pkgs.system; };
       };
-    in
-    {
-      programs.brave.enable = true;
 
-      programs.chromium = {
-        enable = true;
-        extensions = [
+      chromiumExtensions = [
           { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; } # DuckDuckGo Privacy Essentials
           { id = "edibdbjcniadpccecjdfdjjppcpchdlm"; } # I still don't care about cookies
           { id = "fnaicdffflnofjppbagibeoednhnbjhg"; } # Floccus
           { id = "oboonakemofpalcgghocfoadofidjkkk"; } # KeePassXC-Browser
+      ];
+    in
+    {
+      programs.brave = {
+        enable = true;
+        extensions = chromiumExtensions;
+      };
+
+      programs.chromium = {
+        enable = true;
+        extensions = chromiumExtensions ++ [
           { id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp"; } # Privacy Badger
         ];
       };
