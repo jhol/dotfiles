@@ -483,6 +483,16 @@ in
         }
 
         {
+          plugin = undotree;
+          type = "lua";
+          config = ''
+            require("which-key").add({
+              { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'Toggle undotree' }
+            })
+          '';
+        }
+
+        {
           plugin = vim-rooter;
           type = "lua";
           config = ''
