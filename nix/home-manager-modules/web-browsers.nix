@@ -18,7 +18,9 @@ in
     let
       nurPkgs = import flakeInputs.nur {
         inherit pkgs;
-        nurpkgs = import flakeInputs.nixpkgs { system = pkgs.system; };
+        nurpkgs = import flakeInputs.nixpkgs {
+          inherit (pkgs.stdenv.hostPlatform) system;
+        };
       };
 
       chromiumExtensions = [
