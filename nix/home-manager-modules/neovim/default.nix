@@ -380,60 +380,57 @@ in
             vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
             vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
 
-            lsp_on_attach = function(client, bufnr)
-              -- Enable completion triggered by <c-x><c-o>
-              vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-              -- Mappings.
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-
-              -- Use LSP as the handler for omnifunc
-              vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-              -- Update which-key
-              require("which-key").add({
-                { '<C-k>', vim.lsp.buf.signature_help, desc = "LSP Signature Help" },
-                { '<space>D', vim.lsp.buf.type_definition, desc = "LSP Type Definitions" },
-                { '<space>ca', vim.lsp.buf.code_action, desc = "LSP Code Action" },
-                { '<space>f', vim.lsp.buf.format, desc = "LSP Formatting" },
-                { '<space>rn', vim.lsp.buf.rename, desc = "LSP Rename" },
-                { '<space>wa', vim.lsp.buf.add_workspace_folder, desc = "LSP Add Workspace Folder" },
-                { '<space>wl', vim.lsp.buf.list_workspace_folders, desc = "LSP List Workspace Folders" },
-                { 'K', vim.lsp.buf.hover, desc = "LSP Hover" },
-                { 'gD', vim.lsp.buf.declaration, desc = "LSP Declaration" },
-                { 'gd', vim.lsp.buf.definition, desc = "LSP Definition" },
-                { 'gi', vim.lsp.buf.implementation, desc = "LSP Implementation" },
-                { 'gr', vim.lsp.buf.references, desc = "LSP References" }
-              });
-
-            end
-
             local servers = {
-              'cmake',
-              'pyright'
+              cmake = true,
+              pyright = true
             }
 
-            for _, lsp in pairs(servers) do
-              require('lspconfig')[lsp].setup {
-                on_attach = lsp_on_attach,
-                flags = {
-                  -- This will be the default in neovim 0.7+
-                  debounce_text_changes = 150,
-                }
-              }
-            end
+            vim.api.nvim_create_autocmd("LspAttach", {
+              callback = function(args)
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                if not client or not servers[client] then
+                  return
+                end
+
+                -- Enable completion triggered by <c-x><c-o>
+                vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+                -- Mappings.
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+
+                -- Use LSP as the handler for omnifunc
+                vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+                -- Update which-key
+                require("which-key").add({
+                  { '<C-k>', vim.lsp.buf.signature_help, desc = "LSP Signature Help" },
+                  { '<space>D', vim.lsp.buf.type_definition, desc = "LSP Type Definitions" },
+                  { '<space>ca', vim.lsp.buf.code_action, desc = "LSP Code Action" },
+                  { '<space>f', vim.lsp.buf.format, desc = "LSP Formatting" },
+                  { '<space>rn', vim.lsp.buf.rename, desc = "LSP Rename" },
+                  { '<space>wa', vim.lsp.buf.add_workspace_folder, desc = "LSP Add Workspace Folder" },
+                  { '<space>wl', vim.lsp.buf.list_workspace_folders, desc = "LSP List Workspace Folders" },
+                  { 'K', vim.lsp.buf.hover, desc = "LSP Hover" },
+                  { 'gD', vim.lsp.buf.declaration, desc = "LSP Declaration" },
+                  { 'gd', vim.lsp.buf.definition, desc = "LSP Definition" },
+                  { 'gi', vim.lsp.buf.implementation, desc = "LSP Implementation" },
+                  { 'gr', vim.lsp.buf.references, desc = "LSP References" }
+                });
+
+              end,
+            })
 
             -- Update which-key
             require("which-key").add({
