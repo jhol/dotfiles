@@ -483,6 +483,8 @@ in
           plugin = undotree;
           type = "lua";
           config = ''
+            vim.g.undotree_SetFocusWhenToggle = 1
+
             require("which-key").add({
               { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'Toggle undotree' }
             })
