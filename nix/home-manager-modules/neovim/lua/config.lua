@@ -104,6 +104,9 @@ function! s:Focus()
   " Close NERDTree
   NERDTreeClose
 
+  " Close undotree
+  UndotreeHide
+
 endfunction
 
 command! Focus call s:Focus()
