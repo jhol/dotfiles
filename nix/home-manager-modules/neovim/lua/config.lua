@@ -97,7 +97,14 @@ function! s:Focus()
   :cclose
 
   " Close all the vim fugitive windows
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && getbufvar(v:val, "fugitive_type") != ""')
+  for buf in filter(
+      \ range(1, bufnr('$')),
+      \ 'bufexists(v:val)
+      \ && (
+      \     getbufvar(v:val, "fugitive_type") != ""
+      \  || getbufvar(v:val, "&filetype") ==# "floggraph"
+      \    )'
+      \ )
     silent execute 'bwipeout' buf
   endfor
 
