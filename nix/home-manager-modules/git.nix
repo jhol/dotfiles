@@ -213,6 +213,10 @@ in
         };
     };
 
+    home.packages = with pkgs; [
+      git-filter-repo
+    ];
+
     programs.jujutsu = {
       enable = true;
 
