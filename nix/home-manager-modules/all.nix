@@ -14,6 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     modules.jhol-dotfiles = {
+      ai-tools.enable = true;
       git.enable = true;
       neovim.enable = true;
       shell.enable = true;
