@@ -22,25 +22,14 @@ in
 {
   options.modules.jhol-dotfiles.ai-tools = {
     enable = lib.mkEnableOption "Enable AI Tools";
-
-    opencodePackage = lib.mkOption {
-      type = lib.types.package;
-      description = ''
-        **opencode** package to use for AI tools.
-        Defaults to the version from the current nixpkgs.
-      '';
-      default = pkgs.opencode;
-      defaultText = "pkgs.opencode";
-    };
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      cfg.opencodePackage
-    ];
+    programs.opencode.enable = true;
 
-    xdg.configFile =
-      with lib.attrsets;
-      mapAttrs' (name: drv: nameValuePair "opencode/skills/${name}/SKILL.md" { source = drv; }) skills;
+    # TODO: Install using programs.opencode.skills after 26.05 release
+    xdg.configFile = lib.mapAttrs' (
+      name: drv: lib.nameValuePair "opencode/skills/${name}/SKILL.md" { source = drv; }
+    ) skills;
   };
 }
