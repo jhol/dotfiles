@@ -7,17 +7,26 @@
 let
   cfg = config.modules.jhol-dotfiles.ai-tools;
 
-  skills = {
-    "caveman" = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/JuliusBrussee/caveman/84cc3c14fa1e10182adaced856e003406ccd250d/skills/caveman/SKILL.md";
-      hash = "sha256-+cg6KyD8OzUDr50a4c8gmMn4w9MmwgPCNrFg6+gayPA=";
-    };
+  skills =
+    let
+      caveman-src = pkgs.fetchFromGitHub {
+        owner = "JuliusBrussee";
+        repo = "caveman";
+        rev = "84cc3c14fa1e10182adaced856e003406ccd250d";
+        hash = "sha256-M+NoWXxrhtbkbe/lmq7P0/KpmqOZzJjhgeUVjY+7N2k=";
+      };
 
-    "consolidate-test-suites" = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/regenrek/agent-skills/a1dce7f962b8bcb4f6215cf7fa4941c1cb50c426/skills/consolidate-test-suites/SKILL.md";
-      sha256 = "1nq2rjhmj1hc3p29ymyvl6x71chbr6g91gw14i3d6pa36kbm1qx6";
+      agent-skills-src = pkgs.fetchFromGitHub {
+        owner = "regenrek";
+        repo = "agent-skills";
+        rev = "a1dce7f962b8bcb4f6215cf7fa4941c1cb50c426";
+        hash = "sha256-UUVTpf9QXOAo5yrdGwjyX8N1MkaAAhwWJ2wXUYJnA8M=";
+      };
+    in
+    {
+      "caveman" = "${caveman-src}/skills/caveman/SKILL.md";
+      "consolidate-test-suites" = "${agent-skills-src}/skills/consolidate-test-suites/SKILL.md";
     };
-  };
 in
 {
   options.modules.jhol-dotfiles.ai-tools = {
