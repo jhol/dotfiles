@@ -22,11 +22,21 @@ in
 {
   options.modules.jhol-dotfiles.ai-tools = {
     enable = lib.mkEnableOption "Enable AI Tools";
+
+    opencodePackage = lib.mkOption {
+      type = lib.types.package;
+      description = ''
+        **opencode** package to use for AI tools.
+        Defaults to the version from the current nixpkgs.
+      '';
+      default = pkgs.opencode;
+      defaultText = "pkgs.opencode";
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      opencode
+    home.packages = [
+      cfg.opencodePackage
     ];
 
     xdg.configFile =
