@@ -37,6 +37,10 @@
     {
       homeManagerModules = listModules ./nix/home-manager-modules;
 
+      nixosModules.overlay = {
+        nixpkgs.overlays = [ self.overlays.default ];
+      };
+
       overlays.default = final: prev: listPackages final;
     }
     // attrs.flake-utils.lib.eachDefaultSystem (
