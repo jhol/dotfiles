@@ -214,6 +214,7 @@ in
     };
 
     home.packages = with pkgs; [
+      git-absorb
       git-filter-repo
     ];
 
