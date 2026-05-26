@@ -30,9 +30,14 @@
             value = p;
           }) files
         );
+
+      listPackages =
+        pkgs: builtins.mapAttrs (name: value: pkgs.callPackage value { }) (listModules ./nix/packages);
     in
     {
       homeManagerModules = listModules ./nix/home-manager-modules;
+
+      overlays.default = final: prev: listPackages final;
     }
     // attrs.flake-utils.lib.eachDefaultSystem (
       system:
@@ -41,6 +46,7 @@
       in
       {
         formatter = pkgs.nixfmt-rfc-style;
+        packages = listPackages pkgs;
       }
     );
 }
