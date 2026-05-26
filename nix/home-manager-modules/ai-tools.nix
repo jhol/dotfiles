@@ -55,6 +55,7 @@ let
       "caveman" = "${caveman-src}/skills/caveman/SKILL.md";
       "consolidate-test-suites" = "${agent-skills-src}/skills/consolidate-test-suites/SKILL.md";
       "git-surgeon" = "${pkgs.git-surgeon.src}/skills/git-surgeon/SKILL.md";
+      "jj-surgeon" = "${pkgs.jj-hunk-tool.src}/skills/jj-surgeon/SKILL.md";
     };
 in
 {
@@ -75,7 +76,15 @@ in
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/opencode \
-            --suffix PATH : ${lib.makeBinPath (lspPackages ++ [ pkgs.git-surgeon ])} \
+            --suffix PATH : ${
+              lib.makeBinPath (
+                lspPackages
+                ++ [
+                  pkgs.git-surgeon
+                  pkgs.jj-hunk-tool
+                ]
+              )
+            } \
             --set OPENCODE_DISABLE_LSP_DOWNLOAD true
         '';
       };
