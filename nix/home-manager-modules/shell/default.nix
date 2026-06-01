@@ -66,7 +66,7 @@ in
           }
         ];
 
-        initContent = ''
+        initExtra = ''
           #
           # Key Bindings
           #
