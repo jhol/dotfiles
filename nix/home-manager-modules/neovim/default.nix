@@ -504,7 +504,7 @@ in
         }
       ];
 
-      extraLuaConfig = ''
+      initLua = ''
         --
         -- GUI Configuration
         --
