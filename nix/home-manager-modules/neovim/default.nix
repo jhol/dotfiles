@@ -580,6 +580,8 @@ in
         ccls
         cmake-language-server
         neovim-remote
+        nodejs
+        (python3.withPackages (ps: with ps; [ pynvim ]))
         pyright
         ripgrep
         tree-sitter
@@ -589,9 +591,6 @@ in
       vimAlias = true;
       vimdiffAlias = true;
       defaultEditor = true;
-
-      withNodeJs = true;
-      withPython3 = true;
     };
 
     home.file."${config.xdg.configHome}/nvim/lua" = {
