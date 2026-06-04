@@ -226,7 +226,7 @@ in
           plugin = which-key-nvim;
           type = "lua";
           config = ''
-            vim.api.nvim_set_option("timeoutlen", 300)
+            vim.o.timeoutlen = 300
             require("which-key").setup({})
           '';
         }
