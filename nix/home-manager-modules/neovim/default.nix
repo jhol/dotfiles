@@ -130,9 +130,6 @@ in
         ];
         asyncrun_status = "";
 
-        # errormarker.vim
-        errormarker_disablemappings = 1;
-
         # localvimrc
         localvimrc_persistent = 1;
         localvimrc_sandbox = 0;
@@ -372,7 +369,6 @@ in
         asyncrun-vim
         close-buffers-vim
         cmake-tools-nvim
-        errormarker-vim
         lens-vim
         mini-icons
         mkdir-nvim
