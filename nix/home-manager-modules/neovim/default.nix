@@ -93,7 +93,6 @@ in
       plugins = with pkgs.vimPlugins; [
         SmartCase
         bufexplorer
-        editorconfig-vim
         errormarker-vim
         mini-icons
         mkdir-nvim
