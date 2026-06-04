@@ -378,7 +378,6 @@ in
         vim-localvimrc
         vim-nix
         vim-qml
-        vim-repeat
         vim-rooter
       ];
 
