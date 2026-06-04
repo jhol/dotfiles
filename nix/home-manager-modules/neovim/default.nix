@@ -351,7 +351,6 @@ in
 
       plugins.fugitive.enable = true;
       plugins.sleuth.enable = true;
-      plugins.web-devicons.enable = true;
       plugins.undotree.enable = true;
 
       plugins.nvim-tree = {
