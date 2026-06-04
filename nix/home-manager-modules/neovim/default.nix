@@ -347,6 +347,10 @@ in
 
       plugins.fugitive.enable = true;
       plugins.sleuth.enable = true;
+      plugins.mini-icons = {
+        enable = true;
+        mockDevIcons = true;
+      };
       plugins.undotree.enable = true;
 
       plugins.nvim-tree = {
@@ -369,7 +373,6 @@ in
         close-buffers-vim
         cmake-tools-nvim
         focus-nvim
-        mini-icons
         mkdir-nvim
         openscad-nvim
         vim-autosource
