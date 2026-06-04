@@ -127,7 +127,7 @@ vim.api.nvim_set_keymap('n', '<leader>F', '<cmd>Focus<cr>', { noremap = false })
 -- neovim-remote
 --
 
-if vim.fn.has('nvim') then
+if vim.fn.has('nvim') == 1 then
   vim.env.NVIM_LISTEN_ADDRESS = vim.v.servername
   vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait'
 end
