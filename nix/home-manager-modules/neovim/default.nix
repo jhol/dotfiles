@@ -325,13 +325,8 @@ in
             --
             -- Tree Sitter
             --
-
-            require 'nvim-treesitter.configs'.setup {
-              highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false
-              }
-            }
+            -- Neovim 0.12+ has built-in tree-sitter highlighting that activates
+            -- automatically when parsers are available. No setup call needed.
 
             vim.api.nvim_command("highlight Error guibg=#572321")
           '';
@@ -345,19 +340,10 @@ in
             -- Tree Sitter Text Objects
             --
 
-            require 'nvim-treesitter.configs'.setup {
-              textobjects = {
-                swap = {
-                  enable = true,
-                  swap_next = {
-                    ["g>"] = "@parameter.inner",
-                  },
-                  swap_previous = {
-                    ["g<"] = "@parameter.inner",
-                  },
-                },
-              },
-            }
+            local swap = require('nvim-treesitter-textobjects.swap')
+
+            vim.keymap.set('n', 'g>', function() swap.swap_next('@parameter.inner') end, { desc = 'Swap Next' })
+            vim.keymap.set('n', 'g<', function() swap.swap_previous('@parameter.inner') end, { desc = 'Swap Previous' })
 
             require("which-key").add({
               { 'g>', desc = 'Swap Next' },
