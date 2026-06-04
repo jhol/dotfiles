@@ -84,458 +84,323 @@ in
     home.packages = with pkgs; [
       neovide
       neovim-remote
-      (neovim-qt.override { neovim = config.programs.neovim.finalPackage; })
+      (neovim-qt.override { neovim = config.programs.nixvim.build.package; })
     ];
 
-    programs.neovim = {
+    programs.nixvim = {
       enable = true;
 
-      plugins = with pkgs.vimPlugins; [
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      defaultEditor = true;
+
+      opts = {
+        cmdheight = 1;
+        hidden = true;
+        backup = false;
+        writebackup = false;
+        signcolumn = "yes";
+        updatetime = 300;
+        undofile = true;
+        colorcolumn = "120";
+        mouse = "a";
+        foldmethod = "indent";
+        foldnestmax = 10;
+        foldenable = false;
+        foldlevel = 2;
+        shell = "zsh";
+        timeoutlen = 300;
+        number = true;
+        relativenumber = true;
+      };
+
+      globals = {
+        # Disable netrw (nvim-tree takes over)
+        loaded_netrw = 1;
+        loaded_netrwPlugin = 1;
+
+        # AsyncRun
+        asyncrun_auto = "make";
+        asyncrun_open = 10;
+        asyncrun_rootmarks = [
+          "build"
+          "_build"
+          ".git"
+        ];
+        asyncrun_status = "";
+
+        # errormarker.vim
+        errormarker_disablemappings = 1;
+
+        # localvimrc
+        localvimrc_persistent = 1;
+        localvimrc_sandbox = 0;
+
+        # lens.vim
+        "lens#width_resize_min" = 20;
+        "lens#width_resize_max" = 128;
+
+        # vim-rooter
+        rooter_patterns = [ ".git" ];
+      };
+
+      keymaps = [
+        # Disable Help
+        { mode = ""; key = "<F1>"; action = ""; options.noremap = true; }
+
+        # Disable XON/XOFF
+        { mode = ""; key = "<C-q>"; action = ""; options.noremap = true; }
+        { mode = ""; key = "<C-s>"; action = ""; options.noremap = true; }
+
+        # Clear search highlight
+        { mode = "n"; key = "z/"; action = "<cmd>nohlsearch<cr>"; options.desc = "Clear search highlight"; }
+
+        # Buffer management
+        { mode = "n"; key = "<leader>bd"; action = "<cmd>bp|bd #<cr>"; options.desc = "Close buffer, keep split"; }
+
+        # Quickfix
+        { mode = "n"; key = "<leader>qo"; action = "<cmd>copen<cr>"; options.desc = "Open quickfix list"; }
+        { mode = "n"; key = "<leader>qc"; action = "<cmd>cclose<cr>"; options.desc = "Close quickfix list"; }
+
+        # Terminal escape
+        { mode = "t"; key = "<C-Space>"; action = "<C-\\><C-n>"; options.desc = "Exit terminal mode"; }
+
+        # Window navigation
+        { mode = "n"; key = "<C-h>"; action = "<C-w>h"; options.desc = "Go to the left window"; }
+        { mode = "n"; key = "<C-j>"; action = "<C-w>j"; options.desc = "Go to the down window"; }
+        { mode = "n"; key = "<C-k>"; action = "<C-w>k"; options.desc = "Go to the up window"; }
+        { mode = "n"; key = "<C-l>"; action = "<C-w>l"; options.desc = "Go to the right window"; }
+
+        # Window resizing
+        { mode = "n"; key = "<A-h>"; action = "<C-w><"; options.desc = "Decrease width"; }
+        { mode = "n"; key = "<A-j>"; action = "<C-w>+"; options.desc = "Increase height"; }
+        { mode = "n"; key = "<A-k>"; action = "<C-w>-"; options.desc = "Decrease height"; }
+        { mode = "n"; key = "<A-l>"; action = "<C-w>>"; options.desc = "Increase width"; }
+        { mode = "n"; key = "<A-w>"; action = "<C-w>w"; options.desc = "Switch windows"; }
+
+        # Focus command
+        { mode = "n"; key = "<leader>F"; action = "<cmd>Focus<cr>"; options.desc = "Focus (close side panels)"; }
+
+        # Full screen toggle
+        { mode = "n"; key = "<F11>"; action = "<cmd>GuiFullScreenToggle<cr>"; options.desc = "Toggle Full Screen"; }
+
+        # Diagnostics
+        { mode = "n"; key = "<space>e"; action = "<cmd>lua vim.diagnostic.open_float()<cr>"; options = { silent = true; desc = "Buffer Diagnostics"; }; }
+        { mode = "n"; key = "[d"; action = "<cmd>lua vim.diagnostic.jump({count=-1, float=true})<cr>"; options = { silent = true; desc = "Previous Diagnostic"; }; }
+        { mode = "n"; key = "]d"; action = "<cmd>lua vim.diagnostic.jump({count=1, float=true})<cr>"; options = { silent = true; desc = "Next Diagnostic"; }; }
+        { mode = "n"; key = "<space>q"; action = "<cmd>lua vim.diagnostic.setloclist()<cr>"; options = { silent = true; desc = "Diagnostics to Location List"; }; }
+
+        # AsyncRun (generic make)
+        { mode = "n"; key = "<leader>mm"; action = "<cmd>AsyncRun -cwd=<root> -program=make<cr>"; options.desc = "Make"; }
+        { mode = "n"; key = "<leader>mc"; action = "<cmd>AsyncStop<cr>"; options.desc = "Cancel Make"; }
+
+        # Fugitive
+        { mode = "n"; key = "<leader>ga"; action = "<cmd>Gwrite<cr>"; options.desc = "Git Add File"; }
+        { mode = "n"; key = "<leader>gc"; action = "<cmd>Git commit<cr>"; options.desc = "Git Commit"; }
+        { mode = "n"; key = "<leader>gd"; action = "<cmd>Git diff<cr>"; options.desc = "Git Diff"; }
+        { mode = "n"; key = "<leader>gg"; action = "<cmd>Git config set commit.gpgsign false<cr>"; options.desc = "Disable GPG signing"; }
+        { mode = "n"; key = "<leader>gG"; action = "<cmd>Git config unset commit.gpgsign<cr>"; options.desc = "Restore GPG signing"; }
+        { mode = "n"; key = "<leader>gl"; action = "<cmd>Git log --decorate<cr>"; options.desc = "Git Log"; }
+        { mode = "n"; key = "<leader>gp"; action = "<cmd>Git add -p<cr>"; options.desc = "Git Add Patch"; }
+        { mode = "n"; key = "<leader>gs"; action = "<cmd>Git<cr>"; options.desc = "Git Status"; }
+        { mode = "n"; key = "<leader>gra"; action = "<cmd>Git rebase --abort<cr>"; options.desc = "Git Rebase Abort"; }
+        { mode = "n"; key = "<leader>grc"; action = "<cmd>Git rebase --continue<cr>"; options.desc = "Git Rebase Continue"; }
+
+        # Flog
+        { mode = "n"; key = "<leader>gv"; action = "<cmd>Flogsplit<cr>"; options.desc = "Git Visualize Branch"; }
+        { mode = "n"; key = "<leader>gV"; action = "<cmd>Flogsplit -all<cr>"; options.desc = "Git Visualize All Branches"; }
+
+        # NvimTree
+        { mode = "n"; key = "<leader>n"; action = "<cmd>NvimTreeFindFileToggle<cr>"; options.desc = "Toggle NvimTree"; }
+
+        # Undotree
+        { mode = "n"; key = "<leader>u"; action = "<cmd>UndotreeToggle<cr>"; options.desc = "Toggle undotree"; }
+
+        # Treesitter text objects (swap)
+        { mode = "n"; key = "g>"; action.__raw = "function() require('nvim-treesitter-textobjects.swap').swap_next('@parameter.inner') end"; options.desc = "Swap Next"; }
+        { mode = "n"; key = "g<"; action.__raw = "function() require('nvim-treesitter-textobjects.swap').swap_previous('@parameter.inner') end"; options.desc = "Swap Previous"; }
+
+        # CMake
+        { mode = "n"; key = "<leader>cg"; action = "<cmd>CMakeGenerate<cr>"; options.desc = "CMake Generate"; }
+        { mode = "n"; key = "<leader>cm"; action = "<cmd>CMakeBuild<cr>"; options.desc = "CMake Build"; }
+        { mode = "n"; key = "<leader>cr"; action = "<cmd>CMakeRun<cr>"; options.desc = "CMake Run"; }
+        { mode = "n"; key = "<leader>cd"; action = "<cmd>CMakeDebug<cr>"; options.desc = "CMake Debug"; }
+        { mode = "n"; key = "<leader>cc"; action = "<cmd>CMakeStopExecutor<cr>"; options.desc = "CMake Cancel"; }
+        { mode = "n"; key = "<leader>ct"; action = "<cmd>CMakeSelectBuildTarget<cr>"; options.desc = "Select Build Target"; }
+        { mode = "n"; key = "<leader>cl"; action = "<cmd>CMakeSelectLaunchTarget<cr>"; options.desc = "Select Launch Target"; }
+        { mode = "n"; key = "<leader>cb"; action = "<cmd>CMakeSelectBuildType<cr>"; options.desc = "Select Build Type"; }
+      ];
+
+      colorschemes.base16 = {
+        enable = true;
+        colorscheme = {
+          base00 = "#000000";
+          base01 = "#282828";
+          base02 = "#383838";
+          base03 = "#585858";
+          base04 = "#b8b8b8";
+          base05 = "#d8d8d8";
+          base06 = "#e8e8e8";
+          base07 = "#f8f8f8";
+          base08 = "#ab4642";
+          base09 = "#dc9656";
+          base0A = "#f7ca88";
+          base0B = "#a1b56c";
+          base0C = "#86c1b9";
+          base0D = "#7cafc2";
+          base0E = "#ba8baf";
+          base0F = "#a16946";
+        };
+      };
+
+      highlightOverride = {
+        LineNrAbove = { fg = "#585858"; bold = false; };
+        LineNr = { fg = "#585858"; bold = true; };
+        LineNrBelow = { fg = "#585858"; bold = false; };
+        Error = { bg = "#572321"; };
+        ColorColumn = { bg = "#282828"; };
+      };
+
+      plugins.telescope = {
+        enable = true;
+        keymaps = {
+          "<leader>fa" = { action = "live_grep"; options.desc = "Telescope Grep Search"; };
+          "<leader>fb" = { action = "buffers"; options.desc = "Telescope Buffer Search"; };
+          "<leader>ff" = { action = "find_files"; options.desc = "Telescope File Search"; };
+          "<leader>fq" = { action = "command_history"; options.desc = "Telescope Command History"; };
+        };
+      };
+
+      plugins.treesitter = {
+        enable = true;
+        settings.highlight.enable = true;
+      };
+
+      plugins.treesitter-textobjects = {
+        enable = true;
+      };
+
+      plugins.lsp = {
+        enable = true;
+        servers = {
+          cmake.enable = true;
+          pyright.enable = true;
+        };
+        keymaps = {
+          silent = true;
+          lspBuf = {
+            K = { action = "hover"; desc = "LSP Hover"; };
+            gd = { action = "definition"; desc = "LSP Definition"; };
+            gD = { action = "declaration"; desc = "LSP Declaration"; };
+            gi = { action = "implementation"; desc = "LSP Implementation"; };
+            gr = { action = "references"; desc = "LSP References"; };
+            "<C-k>" = { action = "signature_help"; desc = "LSP Signature Help"; };
+            "<space>D" = { action = "type_definition"; desc = "LSP Type Definition"; };
+            "<space>ca" = { action = "code_action"; desc = "LSP Code Action"; };
+            "<space>f" = { action = "format"; desc = "LSP Format"; };
+            "<space>rn" = { action = "rename"; desc = "LSP Rename"; };
+            "<space>wa" = { action = "add_workspace_folder"; desc = "LSP Add Workspace Folder"; };
+            "<space>wr" = { action = "remove_workspace_folder"; desc = "LSP Remove Workspace Folder"; };
+          };
+        };
+        onAttach = ''
+          vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
+        '';
+      };
+
+      plugins.lualine = {
+        enable = true;
+        settings = {
+          options = {
+            icons_enabled = true;
+            theme = "base16";
+            component_separators = { left = ""; right = ""; };
+            section_separators = { left = ""; right = ""; };
+            globalstatus = false;
+          };
+          sections = {
+            lualine_a = [ "mode" ];
+            lualine_b = [ "branch" "diff" "diagnostics" ];
+            lualine_c = [ "filename" ];
+            lualine_x = [ "encoding" "fileformat" "filetype" ];
+            lualine_y = [ "progress" ];
+            lualine_z = [ "location" ];
+          };
+          inactive_sections = {
+            lualine_a = [ ];
+            lualine_b = [ ];
+            lualine_c = [ "filename" ];
+            lualine_x = [ "location" ];
+            lualine_y = [ ];
+            lualine_z = [ ];
+          };
+        };
+      };
+
+      plugins.which-key = {
+        enable = true;
+        settings.spec = [
+          { __unkeyed-1 = "<leader>f"; group = "telescope"; }
+          { __unkeyed-1 = "<leader>m"; group = "make"; }
+          { __unkeyed-1 = "<leader>g"; group = "git"; }
+          { __unkeyed-1 = "<leader>gr"; group = "git rebase"; }
+          { __unkeyed-1 = "<leader>c"; group = "cmake"; }
+        ];
+      };
+
+      plugins.fugitive.enable = true;
+      plugins.sleuth.enable = true;
+      plugins.web-devicons.enable = true;
+      plugins.undotree.enable = true;
+
+      plugins.nvim-tree = {
+        enable = true;
+        settings = {
+          actions.open_file.quit_on_open = true;
+          sync_root_with_cwd = true;
+          update_focused_file.enable = true;
+          view.width = 30;
+          renderer.group_empty = true;
+        };
+      };
+
+      extraPlugins = with pkgs.vimPlugins; [
         SmartCase
+        asyncrun-vim
         bufexplorer
+        cmake-tools-nvim
         errormarker-vim
+        lens-vim
         mini-icons
         mkdir-nvim
-        nvim-web-devicons
         openscad-nvim
         vim-autosource
-        vim-devicons
+        vim-flog
         vim-gas
+        vim-localvimrc
         vim-nix
         vim-qml
         vim-repeat
-        vim-sleuth
-
-        {
-          plugin = vim-localvimrc;
-          type = "lua";
-          config = ''
-            --
-            -- localvimrc
-            --
-
-            vim.g.localvimrc_persistent = 1
-            vim.g.localvimrc_sandbox = 0
-          '';
-        }
-
-        {
-          plugin = telescope-nvim;
-          type = "lua";
-          config = ''
-            --
-            -- telescope.nvim
-            --
-
-            require("which-key").add({
-              { '<leader>f', group = 'telescope' },
-              { '<leader>fa', '<cmd>Telescope live_grep<cr>', desc = 'Telescope Grep Search' },
-              { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'Telescope Buffer Search' },
-              { '<leader>ff', '<cmd>Telescope find_files<cr>', desc = 'Telescope File Search' },
-              { '<leader>fq', '<cmd>Telescope command_history<cr>', desc = 'Telescope Command History Search' }
-            });
-          '';
-        }
-
-        {
-          plugin = asyncrun-vim;
-          type = "lua";
-          config = ''
-            --
-            -- AsyncRun
-            --
-
-            vim.g.asyncrun_auto = "make"
-            vim.g.asyncrun_open = 10
-            vim.g.asyncrun_rootmarks = {"build", "_build", ".git"}
-            vim.g.asyncrun_status = ""
-
-            require("which-key").add({
-              { '<leader>m', group = 'make' },
-              { '<leader>mm', '<cmd>AsyncRun -cwd=<root> -program=make<cr>', desc = 'Make' },
-              { '<leader>mc', '<cmd>AsyncStop<cr>', desc = 'Cancel Make' }
-            });
-          '';
-        }
-
-        {
-          plugin = vim-fugitive;
-          type = "lua";
-          config = ''
-            --
-            -- vim-fugitive
-            --
-
-            require("which-key").add({
-              { '<leader>g', group = 'git' },
-              { '<leader>ga', '<cmd>Gwrite<cr>', desc = 'Git Add File' },
-              { '<leader>gc', '<cmd>Git commit<cr>', desc = 'Git Commit' },
-              { '<leader>gd', '<cmd>Git diff<cr>', desc = 'Git Diff' },
-              { '<leader>gg', '<cmd>Git config set commit.gpgsign false<cr>', desc = 'Disable GPG signing' },
-              { '<leader>gG', '<cmd>Git config unset commit.gpgsign<cr>', desc = 'Restore GPG signing' },
-              { '<leader>gl', '<cmd>Git log --decorate<cr>', desc = 'Git Log' },
-              { '<leader>gp', '<cmd>Git add -p<cr>', desc = 'Git Add Patch' },
-              { '<leader>gs', '<cmd>Git<cr>', desc = 'Git Status' },
-
-              { '<leader>gr', group = 'git rebase' },
-              { '<leader>gra', '<cmd>Git rebase --abort<cr>', desc = 'Git Rebase Abort' },
-              { '<leader>grc', '<cmd>Git rebase --continue<cr>', desc = 'Git Rebase Continue' }
-            });
-          '';
-        }
-
-        {
-          plugin = vim-flog;
-          type = "lua";
-          config = ''
-            require("which-key").add({
-              { '<leader>gv', '<cmd>Flogsplit<cr>', desc = 'Git Visualize Branch' },
-              { '<leader>gV', '<cmd>Flogsplit -all<cr>', desc = 'Git Visualize All Branches' }
-            });
-          '';
-        }
-
-        {
-          plugin = lens-vim;
-          type = "lua";
-          config = ''
-            --
-            -- lens.vim
-            --
-
-            vim.g['lens#width_resize_min'] = 20
-            vim.g['lens#width_resize_max'] = 128
-          '';
-        }
-
-        {
-          plugin = cmake-tools-nvim;
-          type = "lua";
-          config = ''
-            --
-            -- cmake-tools.nvim
-            --
-
-            require("cmake-tools").setup({
-              cmake_command = "cmake",
-              cmake_regenerate_on_save = true,
-              cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
-              cmake_build_directory = "build",
-              cmake_soft_link_compile_commands = true,
-              cmake_executor = {
-                name = "quickfix",
-                opts = {},
-                default_opts = {
-                  quickfix = {
-                    show = "always",
-                    position = "belowright",
-                    size = 10,
-                    auto_close_when_success = true,
-                  },
-                },
-              },
-              cmake_runner = {
-                name = "terminal",
-                opts = {},
-                default_opts = {
-                  terminal = {
-                    split_direction = "horizontal",
-                    split_size = 11,
-                  },
-                },
-              },
-              cmake_notifications = {
-                runner = { enabled = true },
-                executor = { enabled = true },
-              },
-            })
-
-            require("which-key").add({
-              { '<leader>c', group = 'cmake' },
-              { '<leader>cg', '<cmd>CMakeGenerate<cr>', desc = 'CMake Generate' },
-              { '<leader>cm', '<cmd>CMakeBuild<cr>', desc = 'CMake Build' },
-              { '<leader>cr', '<cmd>CMakeRun<cr>', desc = 'CMake Run' },
-              { '<leader>cd', '<cmd>CMakeDebug<cr>', desc = 'CMake Debug' },
-              { '<leader>cc', '<cmd>CMakeStopExecutor<cr>', desc = 'CMake Cancel' },
-              { '<leader>ct', '<cmd>CMakeSelectBuildTarget<cr>', desc = 'Select Build Target' },
-              { '<leader>cl', '<cmd>CMakeSelectLaunchTarget<cr>', desc = 'Select Launch Target' },
-              { '<leader>cb', '<cmd>CMakeSelectBuildType<cr>', desc = 'Select Build Type' },
-            })
-          '';
-        }
-
-        {
-          plugin = which-key-nvim;
-          type = "lua";
-          config = ''
-            vim.o.timeoutlen = 300
-            require("which-key").setup({})
-          '';
-        }
-
-        {
-          plugin = base16-nvim;
-          type = "lua";
-          config = ''
-            --
-            -- Colour Scheme
-            --
-
-            require('base16-colorscheme').setup({
-                base00 = '#000000', base01 = '#282828', base02 = '#383838', base03 = '#585858',
-                base04 = '#b8b8b8', base05 = '#d8d8d8', base06 = '#e8e8e8', base07 = '#f8f8f8',
-                base08 = '#ab4642', base09 = '#dc9656', base0A = '#f7ca88', base0B = '#a1b56c',
-                base0C = '#86c1b9', base0D = '#7cafc2', base0E = '#ba8baf', base0F = '#a16946'
-              })
-
-            vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#585858', bold = false })
-            vim.api.nvim_set_hl(0, 'LineNr', { fg='#585858', bold = true })
-            vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#585858', bold = false })
-
-            vim.o.termguicolors = (not vim.env.TMUX and vim.fn.has('termguicolors') == 1)
-
-            vim.g.terminal_color_0  = '#2e3436'
-            vim.g.terminal_color_1  = '#cc0000'
-            vim.g.terminal_color_2  = '#4e9a06'
-            vim.g.terminal_color_3  = '#c4a000'
-            vim.g.terminal_color_4  = '#3465a4'
-            vim.g.terminal_color_5  = '#75507b'
-            vim.g.terminal_color_6  = '#0b939b'
-            vim.g.terminal_color_7  = '#d3d7cf'
-            vim.g.terminal_color_8  = '#555753'
-            vim.g.terminal_color_9  = '#ef2929'
-            vim.g.terminal_color_10 = '#8ae234'
-            vim.g.terminal_color_11 = '#fce94f'
-            vim.g.terminal_color_12 = '#729fcf'
-            vim.g.terminal_color_13 = '#ad7fa8'
-            vim.g.terminal_color_14 = '#00f5e9'
-            vim.g.terminal_color_15 = '#eeeeec'
-          '';
-        }
-
-        {
-          plugin = lualine-nvim;
-          type = "lua";
-          config = ''
-            require('lualine').setup {
-              options = {
-                icons_enabled = true,
-                theme = 'base16',
-                component_separators = { left = '', right = ''},
-                section_separators = { left = '', right = ''},
-                disabled_filetypes = {
-                  statusline = {},
-                  winbar = {},
-                },
-                ignore_focus = {},
-                always_divide_middle = true,
-                globalstatus = false,
-                refresh = {
-                  statusline = 1000,
-                  tabline = 1000,
-                  winbar = 1000,
-                }
-              },
-              sections = {
-                lualine_a = {'mode'},
-                lualine_b = {'branch', 'diff', 'diagnostics'},
-                lualine_c = {'filename'},
-                lualine_x = {'encoding', 'fileformat', 'filetype'},
-                lualine_y = {'progress'},
-                lualine_z = {'location'}
-              },
-              inactive_sections = {
-                lualine_a = {},
-                lualine_b = {},
-                lualine_c = {'filename'},
-                lualine_x = {'location'},
-                lualine_y = {},
-                lualine_z = {}
-              },
-              tabline = {},
-              winbar = {},
-              inactive_winbar = {},
-              extensions = {}
-            }
-          '';
-        }
-
-        {
-          plugin = nvim-treesitter.withAllGrammars;
-          type = "lua";
-          config = ''
-            --
-            -- Tree Sitter
-            --
-            -- Neovim 0.12+ has built-in tree-sitter highlighting that activates
-            -- automatically when parsers are available. No setup call needed.
-
-            vim.api.nvim_command("highlight Error guibg=#572321")
-          '';
-        }
-
-        {
-          plugin = nvim-treesitter-textobjects;
-          type = "lua";
-          config = ''
-            --
-            -- Tree Sitter Text Objects
-            --
-
-            local swap = require('nvim-treesitter-textobjects.swap')
-
-            vim.keymap.set('n', 'g>', function() swap.swap_next('@parameter.inner') end, { desc = 'Swap Next' })
-            vim.keymap.set('n', 'g<', function() swap.swap_previous('@parameter.inner') end, { desc = 'Swap Previous' })
-
-            require("which-key").add({
-              { 'g>', desc = 'Swap Next' },
-              { 'g<', desc = 'Swap Previous' }
-            })
-          '';
-        }
-
-        {
-          plugin = nvim-lspconfig;
-          type = "lua";
-          config = ''
-            --
-            -- LSP
-            --
-
-            local opts = { noremap=true, silent=true }
-            vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-            vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.jump({count=-1, float=true})<cr>', opts)
-            vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.jump({count=1, float=true})<cr>', opts)
-            vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
-
-            local servers = { 'cmake', 'pyright' }
-
-            for _, server in ipairs(servers) do
-              vim.lsp.enable(server)
-            end
-
-            vim.api.nvim_create_autocmd("LspAttach", {
-              callback = function(args)
-                local client = vim.lsp.get_client_by_id(args.data.client_id)
-                if not client then
-                  return
-                end
-
-                local bufnr = args.buf
-
-                -- Enable completion triggered by <c-x><c-o>
-                vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
-
-                -- Mappings.
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-
-                -- Update which-key
-                require("which-key").add({
-                  { '<C-k>', vim.lsp.buf.signature_help, desc = "LSP Signature Help" },
-                  { '<space>D', vim.lsp.buf.type_definition, desc = "LSP Type Definitions" },
-                  { '<space>ca', vim.lsp.buf.code_action, desc = "LSP Code Action" },
-                  { '<space>f', vim.lsp.buf.format, desc = "LSP Formatting" },
-                  { '<space>rn', vim.lsp.buf.rename, desc = "LSP Rename" },
-                  { '<space>wa', vim.lsp.buf.add_workspace_folder, desc = "LSP Add Workspace Folder" },
-                  { '<space>wl', vim.lsp.buf.list_workspace_folders, desc = "LSP List Workspace Folders" },
-                  { 'K', vim.lsp.buf.hover, desc = "LSP Hover" },
-                  { 'gD', vim.lsp.buf.declaration, desc = "LSP Declaration" },
-                  { 'gd', vim.lsp.buf.definition, desc = "LSP Definition" },
-                  { 'gi', vim.lsp.buf.implementation, desc = "LSP Implementation" },
-                  { 'gr', vim.lsp.buf.references, desc = "LSP References" }
-                });
-
-              end,
-            })
-
-            -- Update which-key
-            require("which-key").add({
-              { '<space>e', vim.diagnostic.open_float, desc = 'Buffer Diagnostics' },
-              { '[d', function() vim.diagnostic.jump({count=-1, float=true}) end, desc = 'Previous Diagnostic' },
-              { ']d', function() vim.diagnostic.jump({count=1, float=true}) end, desc = 'Next Diagnostic' },
-              { '<space>q', vim.diagnostic.setloclist, desc = 'Add Buffer Diagnostics to Location List' }
-            })
-          '';
-        }
-
-        {
-          plugin = nvim-tree-lua;
-          type = "lua";
-          config = ''
-            -- Disable netrw (recommended by nvim-tree)
-            vim.g.loaded_netrw = 1
-            vim.g.loaded_netrwPlugin = 1
-
-            require("nvim-tree").setup({
-              actions = {
-                open_file = {
-                  quit_on_open = true,
-                },
-              },
-              sync_root_with_cwd = true,
-              update_focused_file = {
-                enable = true,
-              },
-              view = {
-                width = 30,
-              },
-              renderer = {
-                group_empty = true,
-              },
-            })
-
-            -- Redefine :Ex
-            vim.cmd('command! Ex NvimTreeFindFileToggle')
-
-            require("which-key").add({
-              { '<leader>n', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Toggle NvimTree' }
-            })
-          '';
-        }
-
-        {
-          plugin = undotree;
-          type = "lua";
-          config = ''
-            vim.g.undotree_SetFocusWhenToggle = 1
-
-            require("which-key").add({
-              { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'Toggle undotree' }
-            })
-          '';
-        }
-
-        {
-          plugin = vim-rooter;
-          type = "lua";
-          config = ''
-            --
-            -- vim-rooter
-            --
-
-            vim.g.rooter_patterns = {'.git'};
-          '';
-        }
+        vim-rooter
       ];
 
-      initLua = ''
+      extraPackages = with pkgs; [
+        fd
+        ccls
+        neovim-remote
+        nodejs
+        (python3.withPackages (ps: with ps; [ pynvim ]))
+        ripgrep
+        tree-sitter
+      ];
+
+      extraConfigLuaPre = ''
         --
         -- GUI Configuration
         --
 
-        -- Font
+        -- Font (neovim-qt)
         if (vim.fn.exists('GuiFont') == 1) then
           vim.cmd('GuiFont ${cfg.neovim-qt.fontName}:h${builtins.toString cfg.neovim-qt.fontSize}')
         end
@@ -545,83 +410,142 @@ in
 
         -- Neovide Configuration
         if vim.g.neovide then
-          -- Font
           vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-${cfg.neovide.fontAntiAliasing}:#h-${cfg.neovide.fontHinting}';
-
-          -- Animation
           vim.g.neovide_refresh_rate = 60;
           vim.g.neovide_cursor_animation_length = 0.01;
-
-          -- Misc
           vim.g.neovide_hide_mouse_when_typing = true;
         end
 
         -- Full Screen Toggle
         if vim.g.neovide then
-          vim.api.nvim_exec2(
-          [[
-
-          function! s:GuiFullScreenToggle()
-            let g:neovide_fullscreen=!g:neovide_fullscreen
-          endfunction
-
-          command! GuiFullScreenToggle call s:GuiFullScreenToggle()
-
+          vim.api.nvim_exec2([[
+            function! s:GuiFullScreenToggle()
+              let g:neovide_fullscreen=!g:neovide_fullscreen
+            endfunction
+            command! GuiFullScreenToggle call s:GuiFullScreenToggle()
           ]], {})
-
         else
-          vim.api.nvim_exec2(
-          [[
-
-          let g:GuiWindowFullScreen = 0
-
-          function! s:GuiFullScreenToggle()
-            if g:GuiWindowFullScreen == 0
-              call rpcnotify(0, 'Gui', 'WindowFullScreen', 1)
-            else
-              call rpcnotify(0, 'Gui', 'WindowFullScreen', 0)
-            endif
-          endfunction
-
-          command! GuiFullScreenToggle call s:GuiFullScreenToggle()
-
+          vim.api.nvim_exec2([[
+            let g:GuiWindowFullScreen = 0
+            function! s:GuiFullScreenToggle()
+              if g:GuiWindowFullScreen == 0
+                call rpcnotify(0, 'Gui', 'WindowFullScreen', 1)
+              else
+                call rpcnotify(0, 'Gui', 'WindowFullScreen', 0)
+              endif
+            endfunction
+            command! GuiFullScreenToggle call s:GuiFullScreenToggle()
           ]], {})
-
         end
-
-        -- Update which-key
-        require("which-key").add({
-          { "<F11>", "<cmd>GuiFullScreenToggle<cr>", desc = "Toggle Full Screen" }
-        })
-
-        --
-        -- Main Configuration
-        --
-
-        require('config')
       '';
 
-      extraPackages = with pkgs; [
-        fd
-        ccls
-        cmake-language-server
-        neovim-remote
-        nodejs
-        (python3.withPackages (ps: with ps; [ pynvim ]))
-        pyright
-        ripgrep
-        tree-sitter
-      ];
+      extraConfigLua = ''
+        --
+        -- Undo directory
+        --
+        vim.o.undodir = string.format("%s/.vim/undo", vim.env.HOME)
 
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      defaultEditor = true;
-    };
+        --
+        -- cmake-tools.nvim
+        --
+        require("cmake-tools").setup({
+          cmake_command = "cmake",
+          cmake_regenerate_on_save = true,
+          cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
+          cmake_build_directory = "build",
+          cmake_soft_link_compile_commands = true,
+          cmake_executor = {
+            name = "quickfix",
+            opts = {},
+            default_opts = {
+              quickfix = {
+                show = "always",
+                position = "belowright",
+                size = 10,
+                auto_close_when_success = true,
+              },
+            },
+          },
+          cmake_runner = {
+            name = "terminal",
+            opts = {},
+            default_opts = {
+              terminal = {
+                split_direction = "horizontal",
+                split_size = 11,
+              },
+            },
+          },
+          cmake_notifications = {
+            runner = { enabled = true },
+            executor = { enabled = true },
+          },
+        })
 
-    home.file."${config.xdg.configHome}/nvim/lua" = {
-      source = ./lua;
-      recursive = true;
+        -- Redefine :Ex
+        vim.cmd('command! Ex NvimTreeFindFileToggle')
+
+        -- undotree
+        vim.g.undotree_SetFocusWhenToggle = 1
+
+        --
+        -- Focus command
+        --
+        vim.api.nvim_exec2([[
+          function! s:Focus()
+            :cclose
+            for buf in filter(
+                \ range(1, bufnr('$')),
+                \ 'bufexists(v:val)
+                \ && (
+                \     getbufvar(v:val, "fugitive_type") != ""
+                \  || getbufvar(v:val, "&filetype") ==# "floggraph"
+                \    )')
+              silent execute 'bwipeout' buf
+            endfor
+            NvimTreeClose
+            UndotreeHide
+          endfunction
+          command! Focus call s:Focus()
+        ]], {})
+
+        --
+        -- neovim-remote
+        --
+        if vim.fn.has('nvim') == 1 then
+          vim.env.NVIM_LISTEN_ADDRESS = vim.v.servername
+          vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait'
+        end
+
+        -- termguicolors (disable in tmux)
+        vim.o.termguicolors = (not vim.env.TMUX and vim.fn.has('termguicolors') == 1)
+
+        -- Terminal colors (Tango palette, set after colorscheme to prevent override)
+        vim.g.terminal_color_0  = '#2e3436'
+        vim.g.terminal_color_1  = '#cc0000'
+        vim.g.terminal_color_2  = '#4e9a06'
+        vim.g.terminal_color_3  = '#c4a000'
+        vim.g.terminal_color_4  = '#3465a4'
+        vim.g.terminal_color_5  = '#75507b'
+        vim.g.terminal_color_6  = '#0b939b'
+        vim.g.terminal_color_7  = '#d3d7cf'
+        vim.g.terminal_color_8  = '#555753'
+        vim.g.terminal_color_9  = '#ef2929'
+        vim.g.terminal_color_10 = '#8ae234'
+        vim.g.terminal_color_11 = '#fce94f'
+        vim.g.terminal_color_12 = '#729fcf'
+        vim.g.terminal_color_13 = '#ad7fa8'
+        vim.g.terminal_color_14 = '#00f5e9'
+        vim.g.terminal_color_15 = '#eeeeec'
+
+        -- Hide line numbers in terminal buffers
+        vim.api.nvim_create_autocmd("TermOpen", {
+          callback = function()
+            vim.wo.number = false
+            vim.wo.relativenumber = false
+          end,
+        })
+      '';
     };
   };
 }

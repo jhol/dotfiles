@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
     flake-utils.url = "github:numtide/flake-utils";
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -35,7 +39,11 @@
         pkgs: builtins.mapAttrs (name: value: pkgs.callPackage value { }) (listModules ./nix/packages);
     in
     {
-      homeManagerModules = listModules ./nix/home-manager-modules;
+      homeManagerModules =
+        (listModules ./nix/home-manager-modules)
+        // {
+          nixvim = attrs.nixvim.homeModules.nixvim;
+        };
 
       nixosModules.overlay = {
         nixpkgs.overlays = [ self.overlays.default ];
