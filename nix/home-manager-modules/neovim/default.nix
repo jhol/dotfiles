@@ -210,15 +210,58 @@ in
         }
 
         {
-          plugin = vim-cmake;
+          plugin = cmake-tools-nvim;
           type = "lua";
           config = ''
             --
-            -- vim-cmake
+            -- cmake-tools.nvim
             --
 
-            vim.g.cmake_export_compile_commands = true
-            vim.g.cmake_ycm_symlinks = true
+            require("cmake-tools").setup({
+              cmake_command = "cmake",
+              cmake_regenerate_on_save = true,
+              cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
+              cmake_build_directory = "build",
+              cmake_soft_link_compile_commands = true,
+              cmake_executor = {
+                name = "quickfix",
+                opts = {},
+                default_opts = {
+                  quickfix = {
+                    show = "always",
+                    position = "belowright",
+                    size = 10,
+                    auto_close_when_success = true,
+                  },
+                },
+              },
+              cmake_runner = {
+                name = "terminal",
+                opts = {},
+                default_opts = {
+                  terminal = {
+                    split_direction = "horizontal",
+                    split_size = 11,
+                  },
+                },
+              },
+              cmake_notifications = {
+                runner = { enabled = true },
+                executor = { enabled = true },
+              },
+            })
+
+            require("which-key").add({
+              { '<leader>c', group = 'cmake' },
+              { '<leader>cg', '<cmd>CMakeGenerate<cr>', desc = 'CMake Generate' },
+              { '<leader>cm', '<cmd>CMakeBuild<cr>', desc = 'CMake Build' },
+              { '<leader>cr', '<cmd>CMakeRun<cr>', desc = 'CMake Run' },
+              { '<leader>cd', '<cmd>CMakeDebug<cr>', desc = 'CMake Debug' },
+              { '<leader>cc', '<cmd>CMakeStopExecutor<cr>', desc = 'CMake Cancel' },
+              { '<leader>ct', '<cmd>CMakeSelectBuildTarget<cr>', desc = 'Select Build Target' },
+              { '<leader>cl', '<cmd>CMakeSelectLaunchTarget<cr>', desc = 'Select Launch Target' },
+              { '<leader>cb', '<cmd>CMakeSelectBuildType<cr>', desc = 'Select Build Type' },
+            })
           '';
         }
 
