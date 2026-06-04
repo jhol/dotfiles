@@ -367,7 +367,6 @@ in
 
       extraPlugins = with pkgs.vimPlugins; [
         asyncrun-vim
-        bufexplorer
         cmake-tools-nvim
         errormarker-vim
         lens-vim
