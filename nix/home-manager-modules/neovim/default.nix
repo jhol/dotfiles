@@ -138,8 +138,7 @@ in
         "lens#width_resize_min" = 20;
         "lens#width_resize_max" = 128;
 
-        # vim-rooter
-        rooter_patterns = [ ".git" ];
+
       };
 
       keymaps = [
@@ -358,7 +357,11 @@ in
         settings = {
           actions.open_file.quit_on_open = true;
           sync_root_with_cwd = true;
-          update_focused_file.enable = true;
+          respect_buf_cwd = true;
+          update_focused_file = {
+            enable = true;
+            update_root.enable = true;
+          };
           view.width = 30;
           renderer.group_empty = true;
         };
@@ -378,7 +381,7 @@ in
         vim-localvimrc
         vim-nix
         vim-qml
-        vim-rooter
+        project-nvim
       ];
 
       extraPackages = with pkgs; [
@@ -490,6 +493,16 @@ in
 
         -- Redefine :Ex
         vim.cmd('command! Ex NvimTreeFindFileToggle')
+
+        --
+        -- project.nvim
+        --
+        require("project").setup({
+          detection_methods = { "lsp", "pattern" },
+          patterns = { ".git", "Makefile", "CMakeLists.txt" },
+          scope_chdir = "global",
+          silent_chdir = true,
+        })
 
         -- undotree
         vim.g.undotree_SetFocusWhenToggle = 1
