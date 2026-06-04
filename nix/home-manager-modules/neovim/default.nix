@@ -158,6 +158,8 @@ in
 
         # Buffer management
         { mode = "n"; key = "<leader>bd"; action = "<cmd>bp|bd #<cr>"; options.desc = "Close buffer, keep split"; }
+        { mode = "n"; key = "<leader>bh"; action = "<cmd>Bdelete hidden<cr>"; options.desc = "Close hidden buffers"; }
+        { mode = "n"; key = "<leader>bn"; action = "<cmd>Bdelete nameless<cr>"; options.desc = "Close nameless buffers"; }
 
         # Quickfix
         { mode = "n"; key = "<leader>qo"; action = "<cmd>copen<cr>"; options.desc = "Open quickfix list"; }
@@ -342,6 +344,7 @@ in
         enable = true;
         settings.spec = [
           { __unkeyed-1 = "<leader>f"; group = "telescope"; }
+          { __unkeyed-1 = "<leader>b"; group = "buffer"; }
           { __unkeyed-1 = "<leader>m"; group = "make"; }
           { __unkeyed-1 = "<leader>g"; group = "git"; }
           { __unkeyed-1 = "<leader>gr"; group = "git rebase"; }
@@ -367,6 +370,7 @@ in
 
       extraPlugins = with pkgs.vimPlugins; [
         asyncrun-vim
+        close-buffers-vim
         cmake-tools-nvim
         errormarker-vim
         lens-vim
