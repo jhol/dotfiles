@@ -96,6 +96,7 @@ in
       defaultEditor = true;
 
       opts = {
+        background = "dark";
         cmdheight = 1;
         hidden = true;
         backup = false;
@@ -410,6 +411,7 @@ in
         -- Neovide Configuration
         if vim.g.neovide then
           vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-${cfg.neovide.fontAntiAliasing}:#h-${cfg.neovide.fontHinting}';
+          vim.g.neovide_theme = 'dark';
           vim.g.neovide_refresh_rate = 60;
           vim.g.neovide_cursor_animation_length = 0.01;
           vim.g.neovide_hide_mouse_when_typing = true;
