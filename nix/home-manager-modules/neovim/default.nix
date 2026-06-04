@@ -366,21 +366,16 @@ in
             vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.jump({count=1, float=true})<cr>', opts)
             vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
 
-            local lspconfig = require('lspconfig')
+            local servers = { 'cmake', 'pyright' }
 
-            local servers = {
-              cmake = true,
-              pyright = true
-            }
-
-            for server, _ in pairs(servers) do
-              lspconfig[server].setup({})
+            for _, server in ipairs(servers) do
+              vim.lsp.enable(server)
             end
 
             vim.api.nvim_create_autocmd("LspAttach", {
               callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
-                if not client or not servers[client.name] then
+                if not client then
                   return
                 end
 
@@ -403,9 +398,6 @@ in
                 vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
                 vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
                 vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-
-                -- Use LSP as the handler for omnifunc
-                vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 
                 -- Update which-key
                 require("which-key").add({
