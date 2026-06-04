@@ -89,7 +89,7 @@ vim.api.nvim_command('let g:netrw_liststyle = 3')
 -- Focus
 --
 
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
 [[
 
 function! s:Focus()
@@ -118,7 +118,7 @@ endfunction
 
 command! Focus call s:Focus()
 
-]], true)
+]], {})
 
 vim.api.nvim_set_keymap('n', '<leader>F', '<cmd>Focus<cr>', { noremap = false })
 

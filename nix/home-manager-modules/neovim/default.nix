@@ -441,7 +441,7 @@ in
           type = "lua";
           config = ''
             -- Define NERDTreeToggleInCurDir command
-            vim.api.nvim_exec(
+            vim.api.nvim_exec2(
             [[
 
             function! s:NERDTreeToggleInCurDir()
@@ -459,7 +459,7 @@ in
 
             command! NERDTreeToggleInCurDir call s:NERDTreeToggleInCurDir()
 
-            ]], true)
+            ]], {})
 
             -- Close after opening a file or bookmark
             vim.g.NERDTreeQuitOnOpen = 3
@@ -526,7 +526,7 @@ in
 
         -- Full Screen Toggle
         if vim.g.neovide then
-          vim.api.nvim_exec(
+          vim.api.nvim_exec2(
           [[
 
           function! s:GuiFullScreenToggle()
@@ -535,10 +535,10 @@ in
 
           command! GuiFullScreenToggle call s:GuiFullScreenToggle()
 
-          ]], true)
+          ]], {})
 
         else
-          vim.api.nvim_exec(
+          vim.api.nvim_exec2(
           [[
 
           let g:GuiWindowFullScreen = 0
@@ -553,7 +553,7 @@ in
 
           command! GuiFullScreenToggle call s:GuiFullScreenToggle()
 
-          ]], true)
+          ]], {})
 
         end
 
