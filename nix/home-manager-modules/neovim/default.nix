@@ -505,7 +505,7 @@ in
 
         -- Font
         if (vim.fn.exists('GuiFont') == 1) then
-          vim.cmd('GuiFont', '${cfg.neovim-qt.fontName}:h${builtins.toString cfg.neovim-qt.fontSize}')
+          vim.cmd('GuiFont ${cfg.neovim-qt.fontName}:h${builtins.toString cfg.neovim-qt.fontSize}')
         end
 
         -- Disable the GUI tab-line
