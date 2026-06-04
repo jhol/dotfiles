@@ -442,6 +442,16 @@ in
         --
         vim.o.undodir = string.format("%s/.vim/undo", vim.env.HOME)
 
+        -- Auto-create parent directories on save
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          callback = function(ev)
+            local dir = vim.fn.fnamemodify(ev.match, ":p:h")
+            if vim.fn.isdirectory(dir) == 0 then
+              vim.fn.mkdir(dir, "p")
+            end
+          end,
+        })
+
         --
         -- cmake-tools.nvim
         --
