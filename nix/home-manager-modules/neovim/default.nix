@@ -134,9 +134,6 @@ in
         localvimrc_persistent = 1;
         localvimrc_sandbox = 0;
 
-        # lens.vim
-        "lens#width_resize_min" = 20;
-        "lens#width_resize_max" = 128;
 
 
       };
@@ -371,7 +368,7 @@ in
         asyncrun-vim
         close-buffers-vim
         cmake-tools-nvim
-        lens-vim
+        focus-nvim
         mini-icons
         mkdir-nvim
         openscad-nvim
@@ -506,6 +503,22 @@ in
 
         -- undotree
         vim.g.undotree_SetFocusWhenToggle = 1
+
+        --
+        -- focus.nvim
+        --
+        require("focus").setup({
+          ui = {
+            number = false,
+            relativenumber = false,
+            cursorline = false,
+            signcolumn = false,
+          },
+          autoresize = {
+            minwidth = 20,
+            maxwidth = 128,
+          },
+        })
 
         --
         -- Focus command
