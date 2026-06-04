@@ -366,15 +366,21 @@ in
             vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
             vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
 
+            local lspconfig = require('lspconfig')
+
             local servers = {
               cmake = true,
               pyright = true
             }
 
+            for server, _ in pairs(servers) do
+              lspconfig[server].setup({})
+            end
+
             vim.api.nvim_create_autocmd("LspAttach", {
               callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
-                if not client or not servers[client] then
+                if not client or not servers[client.name] then
                   return
                 end
 
