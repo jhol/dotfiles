@@ -80,12 +80,6 @@ vim.api.nvim_command('set number relativenumber')
 vim.api.nvim_command("au TermOpen * setlocal nonumber norelativenumber")
 
 --
--- netrw File Browser
---
-
-vim.api.nvim_command('let g:netrw_liststyle = 3')
-
---
 -- Focus
 --
 
@@ -108,8 +102,8 @@ function! s:Focus()
     silent execute 'bwipeout' buf
   endfor
 
-  " Close NERDTree
-  NERDTreeClose
+  " Close NvimTree
+  NvimTreeClose
 
   " Close undotree
   UndotreeHide

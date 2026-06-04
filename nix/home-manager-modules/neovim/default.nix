@@ -429,38 +429,36 @@ in
         }
 
         {
-          plugin = nerdtree;
+          plugin = nvim-tree-lua;
           type = "lua";
           config = ''
-            -- Define NERDTreeToggleInCurDir command
-            vim.api.nvim_exec2(
-            [[
+            -- Disable netrw (recommended by nvim-tree)
+            vim.g.loaded_netrw = 1
+            vim.g.loaded_netrwPlugin = 1
 
-            function! s:NERDTreeToggleInCurDir()
-              " If NERDTree is open in the current buffer
-              if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-                exe ":NERDTreeClose"
-              else
-                if (expand("%:t") != "")
-                  exe ":NERDTreeFind"
-                else
-                  exe ":NERDTreeToggle"
-                endif
-              endif
-            endfunction
-
-            command! NERDTreeToggleInCurDir call s:NERDTreeToggleInCurDir()
-
-            ]], {})
-
-            -- Close after opening a file or bookmark
-            vim.g.NERDTreeQuitOnOpen = 3
+            require("nvim-tree").setup({
+              actions = {
+                open_file = {
+                  quit_on_open = true,
+                },
+              },
+              sync_root_with_cwd = true,
+              update_focused_file = {
+                enable = true,
+              },
+              view = {
+                width = 30,
+              },
+              renderer = {
+                group_empty = true,
+              },
+            })
 
             -- Redefine :Ex
-            vim.cmd('command! Ex NERDTreeToggleInCurDir')
+            vim.cmd('command! Ex NvimTreeFindFileToggle')
 
             require("which-key").add({
-              { '<leader>n', '<cmd>NERDTreeToggleInCurDir<cr>', desc = 'Toggle NERDTree' }
+              { '<leader>n', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Toggle NvimTree' }
             })
           '';
         }
