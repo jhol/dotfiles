@@ -366,7 +366,6 @@ in
       };
 
       extraPlugins = with pkgs.vimPlugins; [
-        SmartCase
         asyncrun-vim
         bufexplorer
         cmake-tools-nvim
