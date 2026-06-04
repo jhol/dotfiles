@@ -362,8 +362,8 @@ in
 
             local opts = { noremap=true, silent=true }
             vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-            vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
-            vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+            vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.jump({count=-1, float=true})<cr>', opts)
+            vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.jump({count=1, float=true})<cr>', opts)
             vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
 
             local lspconfig = require('lspconfig')
@@ -429,8 +429,8 @@ in
             -- Update which-key
             require("which-key").add({
               { '<space>e', vim.diagnostic.open_float, desc = 'Buffer Diagnostics' },
-              { '[d', vim.diagnostic.goto_prev, desc = 'Previous Diagnostic' },
-              { ']d', vim.diagnostic.goto_next, desc = 'Next Diagnostic' },
+              { '[d', function() vim.diagnostic.jump({count=-1, float=true}) end, desc = 'Previous Diagnostic' },
+              { ']d', function() vim.diagnostic.jump({count=1, float=true}) end, desc = 'Next Diagnostic' },
               { '<space>q', vim.diagnostic.setloclist, desc = 'Add Buffer Diagnostics to Location List' }
             })
           '';
