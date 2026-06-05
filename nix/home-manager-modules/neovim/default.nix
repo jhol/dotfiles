@@ -520,8 +520,8 @@ in
             signcolumn = false,
           },
           autoresize = {
-            minwidth = 20,
-            maxwidth = 128,
+            minwidth = 80,
+            maxwidth = 122,
           },
         })
 
