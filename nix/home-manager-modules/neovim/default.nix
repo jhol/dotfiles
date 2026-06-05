@@ -226,6 +226,13 @@ in
         { mode = "n"; key = "<leader>ct"; action = "<cmd>CMakeSelectBuildTarget<cr>"; options.desc = "Select Build Target"; }
         { mode = "n"; key = "<leader>cl"; action = "<cmd>CMakeSelectLaunchTarget<cr>"; options.desc = "Select Launch Target"; }
         { mode = "n"; key = "<leader>cb"; action = "<cmd>CMakeSelectBuildType<cr>"; options.desc = "Select Build Type"; }
+
+        # CodeCompanion (AI)
+        { mode = [ "n" "v" ]; key = "<leader>aa"; action = "<cmd>CodeCompanionActions<cr>"; options.desc = "AI Actions"; }
+        { mode = [ "n" "v" ]; key = "<leader>ac"; action = "<cmd>CodeCompanionChat Toggle<cr>"; options.desc = "AI Chat Toggle"; }
+        { mode = "v"; key = "<leader>ai"; action = "<cmd>CodeCompanion<cr>"; options.desc = "AI Inline"; }
+        { mode = "v"; key = "<leader>ad"; action = "<cmd>CodeCompanionChat Add<cr>"; options.desc = "AI Add Selection to Chat"; }
+        { mode = "n"; key = "<leader>ab"; action = "<cmd>CodeCompanionChat<cr>"; options.desc = "AI New Chat Buffer"; }
       ];
 
       colorschemes.base16 = {
@@ -343,6 +350,7 @@ in
           { __unkeyed-1 = "<leader>g"; group = "git"; }
           { __unkeyed-1 = "<leader>gr"; group = "git rebase"; }
           { __unkeyed-1 = "<leader>c"; group = "cmake"; }
+          { __unkeyed-1 = "<leader>a"; group = "ai"; }
         ];
       };
 
@@ -383,6 +391,8 @@ in
         vim-nix
         vim-qml
         project-nvim
+        plenary-nvim
+        codecompanion-nvim
       ];
 
       extraPackages = with pkgs; [
@@ -504,6 +514,17 @@ in
           patterns = { ".git", "Makefile", "CMakeLists.txt" },
           scope_chdir = "global",
           silent_chdir = true,
+        })
+
+        --
+        -- codecompanion.nvim (OpenCode via ACP)
+        --
+        require("codecompanion").setup({
+          interactions = {
+            chat = {
+              adapter = "opencode",
+            },
+          },
         })
 
         -- undotree
