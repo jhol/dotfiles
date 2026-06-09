@@ -381,7 +381,6 @@ in
         asyncrun-vim
         close-buffers-vim
         cmake-tools-nvim
-        focus-nvim
         mkdir-nvim
         openscad-nvim
         vim-autosource
@@ -529,22 +528,6 @@ in
 
         -- undotree
         vim.g.undotree_SetFocusWhenToggle = 1
-
-        --
-        -- focus.nvim
-        --
-        require("focus").setup({
-          ui = {
-            number = false,
-            relativenumber = false,
-            cursorline = false,
-            signcolumn = false,
-          },
-          autoresize = {
-            minwidth = 80,
-            maxwidth = 122,
-          },
-        })
 
         --
         -- Focus command
