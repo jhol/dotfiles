@@ -60,6 +60,7 @@ let
 
   plugins = {
     "opencode-supermemory" = "${pkgs.opencode-supermemory}/lib/opencode-supermemory/index.js";
+    "opencode-notify" = "${pkgs.opencode-notify}/lib/opencode-notify/index.js";
   };
 in
 {
@@ -86,6 +87,8 @@ in
                 ++ [
                   pkgs.git-surgeon
                   pkgs.jj-hunk-tool
+                  # `notify-send` backend used by opencode-notify on Linux.
+                  pkgs.libnotify
                 ]
               )
             } \

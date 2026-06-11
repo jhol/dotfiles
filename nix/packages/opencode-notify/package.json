@@ -1,0 +1,9 @@
+{
+  "name": "opencode-notify",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "detect-terminal": "2.0.0",
+    "node-notifier": "10.0.1"
+  }
+}
