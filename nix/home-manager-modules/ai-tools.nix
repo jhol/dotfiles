@@ -57,6 +57,10 @@ let
       "git-surgeon" = "${pkgs.git-surgeon.src}/skills/git-surgeon/SKILL.md";
       "jj-surgeon" = "${pkgs.jj-hunk-tool.src}/skills/jj-surgeon/SKILL.md";
     };
+
+  plugins = {
+    "opencode-supermemory" = "${pkgs.opencode-supermemory}/lib/opencode-supermemory/index.js";
+  };
 in
 {
   options.modules.jhol-dotfiles.ai-tools = {
@@ -93,8 +97,12 @@ in
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release
-    xdg.configFile = lib.mapAttrs' (
-      name: drv: lib.nameValuePair "opencode/skills/${name}/SKILL.md" { source = drv; }
-    ) skills;
+    xdg.configFile =
+      lib.mapAttrs' (
+        name: drv: lib.nameValuePair "opencode/skills/${name}/SKILL.md" { source = drv; }
+      ) skills
+      // lib.mapAttrs' (
+        name: source: lib.nameValuePair "opencode/plugin/${name}.js" { inherit source; }
+      ) plugins;
   };
 }
