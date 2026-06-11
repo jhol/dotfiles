@@ -61,6 +61,8 @@ let
   plugins = {
     "opencode-supermemory" = "${pkgs.opencode-supermemory}/lib/opencode-supermemory/index.js";
     "opencode-notify" = "${pkgs.opencode-notify}/lib/opencode-notify/index.js";
+    "opencode-background-agents" =
+      "${pkgs.opencode-background-agents}/lib/opencode-background-agents/index.js";
   };
 in
 {
@@ -97,6 +99,11 @@ in
       };
 
       settings.lsp = lspSettings;
+
+      # opencode-background-agents provides its own task-delegation tool, so
+      # the native `task` tool is disabled to avoid conflicting delegation
+      # mechanisms (per the OCX registry recommendation).
+      settings.permission.task = "deny";
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release

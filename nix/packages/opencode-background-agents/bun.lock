@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "opencode-background-agents",
+      "dependencies": {
+        "unique-names-generator": "4.7.1",
+      },
+    },
+  },
+  "packages": {
+    "unique-names-generator": ["unique-names-generator@4.7.1", "", {}, "sha512-lMx9dX+KRmG8sq6gulYYpKWZc9RlGsgBR6aoO8Qsm3qvkSJ+3rAymr+TnV8EDMrIrwuFJ4kruzMWM/OpYzPoow=="],
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "opencode-background-agents",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "unique-names-generator": "4.7.1"
+  }
+}
