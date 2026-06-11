@@ -59,7 +59,6 @@ let
     };
 
   plugins = {
-    "opencode-supermemory" = "${pkgs.opencode-supermemory}/lib/opencode-supermemory/index.js";
     "opencode-notify" = "${pkgs.opencode-notify}/lib/opencode-notify/index.js";
     "opencode-background-agents" =
       "${pkgs.opencode-background-agents}/lib/opencode-background-agents/index.js";
