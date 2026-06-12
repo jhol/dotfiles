@@ -58,7 +58,9 @@ let
       "jj-surgeon" = "${pkgs.jj-hunk-tool.src}/skills/jj-surgeon/SKILL.md";
     };
 
-  plugins = {
+  mcpServers = { };
+
+  opencodePlugins = {
     "opencode-notify" = "${pkgs.opencode-notify}/lib/opencode-notify/index.js";
     "opencode-background-agents" =
       "${pkgs.opencode-background-agents}/lib/opencode-background-agents/index.js";
@@ -69,6 +71,7 @@ in
     enable = lib.mkEnableOption "Enable AI Tools";
 
     opencodePackage = lib.mkPackageOption pkgs "opencode" { };
+    forgecodePackage = lib.mkPackageOption pkgs "forgecode" { };
   };
 
   config = lib.mkIf cfg.enable {
@@ -98,11 +101,19 @@ in
       };
 
       settings.lsp = lspSettings;
+      settings.mcp = mcpServers;
 
       # opencode-background-agents provides its own task-delegation tool, so
       # the native `task` tool is disabled to avoid conflicting delegation
       # mechanisms (per the OCX registry recommendation).
       settings.permission.task = "deny";
+    };
+
+    programs.forgecode = {
+      enable = true;
+      package = cfg.forgecodePackage;
+      skills = skills;
+      mcp = mcpServers;
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release
@@ -112,6 +123,6 @@ in
       ) skills
       // lib.mapAttrs' (
         name: source: lib.nameValuePair "opencode/plugin/${name}.js" { inherit source; }
-      ) plugins;
+      ) opencodePlugins;
   };
 }
