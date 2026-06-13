@@ -58,6 +58,11 @@ let
       "jj-surgeon" = "${pkgs.jj-hunk-tool.src}/skills/jj-surgeon/SKILL.md";
     };
 
+  skillPackages = [
+    pkgs.git-surgeon
+    pkgs.jj-hunk-tool
+  ];
+
   mcpServers = { };
 
   opencodePlugins = {
@@ -88,9 +93,8 @@ in
             --suffix PATH : ${
               lib.makeBinPath (
                 lspPackages
+                ++ skillPackages
                 ++ [
-                  pkgs.git-surgeon
-                  pkgs.jj-hunk-tool
                   # `notify-send` backend used by opencode-notify on Linux.
                   pkgs.libnotify
                 ]
@@ -112,6 +116,7 @@ in
     programs.forgecode = {
       enable = true;
       package = cfg.forgecodePackage;
+      extraPackages = skillPackages;
       skills = skills;
       mcp = mcpServers;
     };
