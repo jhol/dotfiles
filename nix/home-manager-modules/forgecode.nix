@@ -72,12 +72,6 @@ in
       description = "Extra packages available on forge's PATH.";
     };
 
-    enableZshIntegration = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable the ForgeCode ZSH plugin (: prefix commands).";
-    };
-
     credentialFiles = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       default = { };
@@ -131,14 +125,14 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = lib.optional (packageWithExtras != null) packageWithExtras;
 
-    programs.zsh.plugins = lib.mkIf cfg.enableZshIntegration [
+    programs.zsh.plugins = [
       {
         name = "forge";
         src = "${cfg.package}/share/forgecode/shell-plugin";
       }
     ];
 
-    programs.zsh.sessionVariables = lib.mkIf cfg.enableZshIntegration {
+    programs.zsh.sessionVariables = {
       FORGE_BIN = "${packageWithExtras}/bin/forge";
     };
 
