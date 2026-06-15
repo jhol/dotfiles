@@ -116,6 +116,7 @@ in
     programs.forgecode = {
       enable = true;
       package = cfg.forgecodePackage;
+      editorCommand = "${pkgs.neovim-remote}/bin/nvr -s -cc split --remote-wait";
       extraPackages = skillPackages;
       skills = skills;
       mcp = mcpServers;

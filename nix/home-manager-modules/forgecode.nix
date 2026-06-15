@@ -50,6 +50,7 @@ let
         postBuild = ''
           wrapProgram $out/bin/forge \
             --set FORGE_CONFIG "${config.xdg.configHome}/${configDir}" \
+            ${lib.optionalString (cfg.editorCommand != null) "--set FORGE_EDITOR \"${cfg.editorCommand}\""} \
             ${
               lib.optionalString (cfg.extraPackages != [ ]) "--suffix PATH : ${lib.makeBinPath cfg.extraPackages}"
             } \
@@ -70,6 +71,17 @@ in
       default = [ ];
       example = lib.literalExpression "[ pkgs.fd ]";
       description = "Extra packages available on forge's PATH.";
+    };
+
+    editorCommand = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "nvr --remote-wait";
+      description = ''
+        Command used by the `:edit` prompt command.
+        Sets the `FORGE_EDITOR` environment variable.
+        When null, ForgeCode falls back to `$EDITOR`.
+      '';
     };
 
     credentialFiles = lib.mkOption {
@@ -123,6 +135,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Disable auto-update by default since the package is managed by Nix.
+    programs.forgecode.settings.updates.auto_update = lib.mkDefault false;
+
     home.packages = lib.optional (packageWithExtras != null) packageWithExtras;
 
     programs.zsh.plugins = [
@@ -132,9 +147,14 @@ in
       }
     ];
 
-    programs.zsh.sessionVariables = {
-      FORGE_BIN = "${packageWithExtras}/bin/forge";
-    };
+   programs.zsh.sessionVariables = (
+      {
+        FORGE_BIN = "${packageWithExtras}/bin/forge";
+      }
+      // lib.optionalAttrs (cfg.editorCommand != null) {
+        FORGE_EDITOR = cfg.editorCommand;
+      }
+    );
 
     xdg.configFile = {
       "${configDir}/.forge.toml" = lib.mkIf (cfg.settings != { }) {
