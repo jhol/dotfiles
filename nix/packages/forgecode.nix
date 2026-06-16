@@ -15,13 +15,13 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "forgecode";
-  version = "2.13.9";
+  version = "2.13.11";
 
   src = fetchFromGitHub {
     owner = "tailcallhq";
     repo = "forgecode";
     rev = "v${version}";
-    hash = "sha256-DOTMZX1/ElIQItUMl9Mg7na2MecVzaN52+B5Jq34L1o=";
+    hash = "sha256-fCVgErQwBClKoHdfDJy/PI6x0L/R6TuaUpsWTMbaUMk=";
   };
 
   cargoLock = {
