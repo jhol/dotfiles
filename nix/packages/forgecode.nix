@@ -38,6 +38,16 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
+  # Nix pins the version — disable the built-in auto-update that would
+  # prompt "Confirm upgrade from X -> Y (latest)?" on every launch and
+  # attempt to curl the upstream installer script.
+  postPatch = ''
+    substituteInPlace crates/forge_main/src/update.rs \
+      --replace-fail \
+        'let update = update.cloned().unwrap_or_default();' \
+        'return; let update = update.cloned().unwrap_or_default();'
+  '';
+
   nativeBuildInputs = [
     cmake
     nasm
@@ -68,6 +78,12 @@ rustPlatform.buildRustPackage rec {
     # Install the ZSH plugin for shell integration
     mkdir -p $out/share/forgecode
     cp -r shell-plugin $out/share/forgecode/
+
+    # The shell plugin spawns `forge update --no-confirm` in a background
+    # process after every interactive command.  The Rust patch above already
+    # makes that a no-op, but there is no reason to fork the process at all.
+    substituteInPlace $out/share/forgecode/shell-plugin/lib/dispatcher.zsh \
+      --replace-fail '_forge_start_background_update' ':'
   '';
 
   passthru = { inherit src; };
