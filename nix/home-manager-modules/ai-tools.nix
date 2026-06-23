@@ -112,6 +112,25 @@ in
       settings.permission.task = "deny";
     };
 
+    programs.pi-coding-agent = {
+      enable = true;
+
+      package = pkgs.symlinkJoin {
+        inherit (pkgs.pi-coding-agent) meta;
+        name = "${lib.getName pkgs.pi-coding-agent}-wrapped";
+        paths = [ pkgs.pi-coding-agent ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/pi \
+            --set PI_SKIP_VERSION_CHECK 1
+        '';
+      };
+
+      extraPackages = skillPackages;
+
+      settings.skills = lib.mapAttrsToList (_: builtins.dirOf) skills;
+    };
+
     # TODO: Install using programs.opencode.skills after 26.05 release
     xdg.configFile =
       lib.mapAttrs' (
