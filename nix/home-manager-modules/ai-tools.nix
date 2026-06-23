@@ -76,7 +76,6 @@ in
     enable = lib.mkEnableOption "Enable AI Tools";
 
     opencodePackage = lib.mkPackageOption pkgs "opencode" { };
-    forgecodePackage = lib.mkPackageOption pkgs "forgecode" { };
   };
 
   config = lib.mkIf cfg.enable {
@@ -111,15 +110,6 @@ in
       # the native `task` tool is disabled to avoid conflicting delegation
       # mechanisms (per the OCX registry recommendation).
       settings.permission.task = "deny";
-    };
-
-    programs.forgecode = {
-      enable = true;
-      package = cfg.forgecodePackage;
-      editorCommand = "${pkgs.neovim-remote}/bin/nvr -s -cc split --remote-wait";
-      extraPackages = skillPackages;
-      skills = skills;
-      mcp = mcpServers;
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release
