@@ -510,7 +510,7 @@ in
         --
         require("project").setup({
           detection_methods = { "lsp", "pattern" },
-          patterns = { ".git", "Makefile", "CMakeLists.txt" },
+          patterns = { ".git" },
           scope_chdir = "global",
           silent_chdir = true,
         })
