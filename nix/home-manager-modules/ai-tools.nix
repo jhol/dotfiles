@@ -115,6 +115,8 @@ in
     programs.pi-coding-agent = {
       enable = true;
 
+      settings.packages = [ "npm:@dreki-gg/pi-plan-mode" ];
+
       package = pkgs.symlinkJoin {
         inherit (pkgs.pi-coding-agent) meta;
         name = "${lib.getName pkgs.pi-coding-agent}-wrapped";
@@ -139,5 +141,8 @@ in
       // lib.mapAttrs' (
         name: source: lib.nameValuePair "opencode/plugin/${name}.js" { inherit source; }
       ) opencodePlugins;
+
+    home.file."${config.programs.pi-coding-agent.configDir}/npm/node_modules/@dreki-gg/pi-plan-mode".source =
+      pkgs.pi-plan-mode;
   };
 }
