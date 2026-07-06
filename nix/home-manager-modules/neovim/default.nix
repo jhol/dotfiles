@@ -287,6 +287,7 @@ in
       plugins.lsp = {
         enable = true;
         servers = {
+          clangd.enable = true;
           cmake.enable = true;
           pyright.enable = true;
         };
@@ -396,7 +397,6 @@ in
 
       extraPackages = with pkgs; [
         fd
-        ccls
         neovim-remote
         nodejs
         (python3.withPackages (ps: with ps; [ pynvim ]))
