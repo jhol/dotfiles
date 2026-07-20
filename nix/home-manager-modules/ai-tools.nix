@@ -137,8 +137,14 @@ in
 
       skills = lib.mapAttrsToList (_: builtins.dirOf) skills;
 
-      extensions = [
-        "${narumitw-pi-extensions-src}/extensions/pi-plan-mode/src/plan-mode.ts"
+      extensions = map (name: "${narumitw-pi-extensions-src}/extensions/pi-${name}/src/${name}.ts") [
+        "btw"
+        "firecrawl"
+        "goal"
+        "plan-mode"
+        "retry"
+        "statusline"
+        "subagents"
       ];
     };
 
