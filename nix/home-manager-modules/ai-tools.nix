@@ -84,6 +84,26 @@ let
     rev = "27a5195eaf90e4e2ca1302e3a31d4bb14df982a5"; # v3.0.3
     hash = "sha256-/XVD/VqEC8XFn8bu8R+f1Wah0SSm7yDdkR5NBuG94oA=";
   };
+
+  # rpiv-todo and rpiv-ask-user-question import @juicesharp/rpiv-config (hard)
+  # and dynamically import @juicesharp/rpiv-i18n (soft-optional; English
+  # fallback if missing). The shim below makes both resolvable via node's
+  # parent-dir node_modules walk; typebox and @earendil-works/* resolve from
+  # pi's bundled NODE_PATH.
+  rpiv-mono-src = pkgs.fetchFromGitHub {
+    owner = "juicesharp";
+    repo = "rpiv-mono";
+    rev = "060373d9292aeb46aeedc23a6d818a997200a6e5"; # v1.20.0
+    hash = "sha256-t2WVwhyT7x5D049iot4UDUWp+oM+XDudHbq/nBL/b84=";
+  };
+
+  rpiv-extensions = pkgs.runCommand "rpiv-extensions" { } ''
+    mkdir -p $out/node_modules/@juicesharp
+    cp -R ${rpiv-mono-src}/packages/rpiv-todo $out/rpiv-todo
+    cp -R ${rpiv-mono-src}/packages/rpiv-ask-user-question $out/rpiv-ask-user-question
+    cp -R ${rpiv-mono-src}/packages/rpiv-config $out/node_modules/@juicesharp/rpiv-config
+    cp -R ${rpiv-mono-src}/packages/rpiv-i18n $out/node_modules/@juicesharp/rpiv-i18n
+  '';
 in
 {
   options.modules.jhol-dotfiles.ai-tools = {
@@ -157,6 +177,8 @@ in
         ++ [
           "${narumitw-pi-extensions-src}/extensions/pi-lsp/src/pi-lsp.ts"
           "${pi-observational-memory-src}/src/index.ts"
+          "${rpiv-extensions}/rpiv-todo/index.ts"
+          "${rpiv-extensions}/rpiv-ask-user-question/index.ts"
         ];
     };
 
