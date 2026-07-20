@@ -7,6 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pi.url = "github:lukasl-dev/pi.nix";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -41,6 +42,7 @@
         (builtins.mapAttrs (name: value: pkgs.callPackage value { }) (listModules ./nix/packages))
         // {
           pi-coding-agent = attrs.pi.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent;
+          hermes-agent = attrs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent;
         };
     in
     {
