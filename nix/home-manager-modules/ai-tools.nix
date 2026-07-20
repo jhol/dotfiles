@@ -136,7 +136,7 @@ in
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/pi \
-            --suffix PATH : ${lib.makeBinPath skillPackages}
+            --suffix PATH : ${lib.makeBinPath (skillPackages ++ lspPackages)}
         '';
       };
 
@@ -154,7 +154,10 @@ in
           "statusline"
           "subagents"
         ])
-        ++ [ "${pi-observational-memory-src}/src/index.ts" ];
+        ++ [
+          "${narumitw-pi-extensions-src}/extensions/pi-lsp/src/pi-lsp.ts"
+          "${pi-observational-memory-src}/src/index.ts"
+        ];
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release
