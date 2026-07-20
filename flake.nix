@@ -6,6 +6,7 @@
       url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pi.url = "github:lukasl-dev/pi.nix";
   };
 
   outputs =
@@ -36,14 +37,17 @@
         );
 
       listPackages =
-        pkgs: builtins.mapAttrs (name: value: pkgs.callPackage value { }) (listModules ./nix/packages);
+        pkgs:
+        (builtins.mapAttrs (name: value: pkgs.callPackage value { }) (listModules ./nix/packages))
+        // {
+          pi-coding-agent = attrs.pi.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent;
+        };
     in
     {
-      homeManagerModules =
-        (listModules ./nix/home-manager-modules)
-        // {
-          nixvim = attrs.nixvim.homeModules.nixvim;
-        };
+      homeManagerModules = (listModules ./nix/home-manager-modules) // {
+        nixvim = attrs.nixvim.homeModules.nixvim;
+        pi = attrs.pi.homeModules.default;
+      };
 
       nixosModules.overlay = {
         nixpkgs.overlays = [ self.overlays.default ];
@@ -54,7 +58,10 @@
     // attrs.flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        };
       in
       {
         formatter = pkgs.nixfmt-rfc-style;

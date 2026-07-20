@@ -50,7 +50,7 @@ let
     outputHash = "sha256-Q9e/pMUqu1hNCZHqxsBHY7GMo/g8YXDMh+w6K8CDj1s=";
   };
 
-  piNodeModules = "${pi-coding-agent}/lib/node_modules/pi-monorepo/node_modules/@earendil-works";
+  piNodeModules = "${pi-coding-agent}/lib/node_modules/@earendil-works";
 in
 stdenvNoCC.mkDerivation {
   inherit pname version src;

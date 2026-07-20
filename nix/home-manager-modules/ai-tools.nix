@@ -112,10 +112,8 @@ in
       settings.permission.task = "deny";
     };
 
-    programs.pi-coding-agent = {
+    programs.pi.coding-agent = {
       enable = true;
-
-      settings.packages = [ "npm:@dreki-gg/pi-plan-mode" ];
 
       package = pkgs.symlinkJoin {
         inherit (pkgs.pi-coding-agent) meta;
@@ -124,13 +122,15 @@ in
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/pi \
-            --set PI_SKIP_VERSION_CHECK 1
+            --suffix PATH : ${lib.makeBinPath skillPackages}
         '';
       };
 
-      extraPackages = skillPackages;
+      environment.PI_SKIP_VERSION_CHECK.value = "1";
 
-      settings.skills = lib.mapAttrsToList (_: builtins.dirOf) skills;
+      skills = lib.mapAttrsToList (_: builtins.dirOf) skills;
+
+      settings.packages = [ "npm:@dreki-gg/pi-plan-mode" ];
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release
@@ -142,7 +142,6 @@ in
         name: source: lib.nameValuePair "opencode/plugin/${name}.js" { inherit source; }
       ) opencodePlugins;
 
-    home.file."${config.programs.pi-coding-agent.configDir}/npm/node_modules/@dreki-gg/pi-plan-mode".source =
-      pkgs.pi-plan-mode;
+    home.file.".pi/agent/npm/node_modules/@dreki-gg/pi-plan-mode".source = pkgs.pi-plan-mode;
   };
 }
