@@ -179,6 +179,7 @@ in
           "${pi-observational-memory-src}/src/index.ts"
           "${rpiv-extensions}/rpiv-todo/index.ts"
           "${rpiv-extensions}/rpiv-ask-user-question/index.ts"
+          "${pkgs.pi-mcp-adapter}/lib/node_modules/pi-mcp-adapter/index.ts"
         ];
     };
 
