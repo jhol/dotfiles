@@ -77,6 +77,13 @@ let
     rev = "20c9525ec270394c7f22410b3ed3ef9ede6ced4f"; # v0.22.0
     hash = "sha256-GJuihw8eFNKtG/rGrvgKJJwDPIS5sKUZNRUh+6CDifE=";
   };
+
+  pi-observational-memory-src = pkgs.fetchFromGitHub {
+    owner = "elpapi42";
+    repo = "pi-observational-memory";
+    rev = "27a5195eaf90e4e2ca1302e3a31d4bb14df982a5"; # v3.0.3
+    hash = "sha256-/XVD/VqEC8XFn8bu8R+f1Wah0SSm7yDdkR5NBuG94oA=";
+  };
 in
 {
   options.modules.jhol-dotfiles.ai-tools = {
@@ -137,15 +144,17 @@ in
 
       skills = lib.mapAttrsToList (_: builtins.dirOf) skills;
 
-      extensions = map (name: "${narumitw-pi-extensions-src}/extensions/pi-${name}/src/${name}.ts") [
-        "btw"
-        "firecrawl"
-        "goal"
-        "plan-mode"
-        "retry"
-        "statusline"
-        "subagents"
-      ];
+      extensions =
+        (map (name: "${narumitw-pi-extensions-src}/extensions/pi-${name}/src/${name}.ts") [
+          "btw"
+          "firecrawl"
+          "goal"
+          "plan-mode"
+          "retry"
+          "statusline"
+          "subagents"
+        ])
+        ++ [ "${pi-observational-memory-src}/src/index.ts" ];
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release
