@@ -85,6 +85,13 @@ let
     hash = "sha256-/XVD/VqEC8XFn8bu8R+f1Wah0SSm7yDdkR5NBuG94oA=";
   };
 
+  pi-openrouter-realtime-src = pkgs.fetchFromGitHub {
+    owner = "olixis";
+    repo = "pi-openrouter-plus";
+    rev = "eb29f6864f63152d19d39dae86d8a59afa583a54"; # v0.3.7
+    hash = "sha256-Z7WGmOllKAIArtxiuP0lvNWtWXm+3y21257ud1sBqG8=";
+  };
+
   # rpiv-todo and rpiv-ask-user-question import @juicesharp/rpiv-config (hard)
   # and dynamically import @juicesharp/rpiv-i18n (soft-optional; English
   # fallback if missing). The shim below makes both resolvable via node's
@@ -177,6 +184,7 @@ in
         ++ [
           "${narumitw-pi-extensions-src}/extensions/pi-lsp/src/pi-lsp.ts"
           "${pi-observational-memory-src}/src/index.ts"
+          "${pi-openrouter-realtime-src}/extensions/openrouter-routing/index.ts"
           "${rpiv-extensions}/rpiv-todo/index.ts"
           "${rpiv-extensions}/rpiv-ask-user-question/index.ts"
           "${pkgs.pi-mcp-adapter}/lib/node_modules/pi-mcp-adapter/index.ts"
