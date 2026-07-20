@@ -7,6 +7,168 @@
 let
   cfg = config.modules.jhol-dotfiles.ai-tools;
 
+  # --- Shared provider types ---------------------------------------------------
+
+  modelModule = lib.types.submodule {
+    options = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        description = "Human-readable model name.";
+      };
+      context = lib.mkOption {
+        type = lib.types.int;
+        description = "Context window size in tokens.";
+      };
+      output = lib.mkOption {
+        type = lib.types.int;
+        description = "Maximum output tokens.";
+      };
+      reasoning = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether the model supports extended thinking.";
+      };
+      input = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ "text" ];
+        description = "Supported input modalities.";
+      };
+    };
+  };
+
+  opencodeProviderModule = lib.types.submodule {
+    options = {
+      npm = lib.mkOption {
+        type = lib.types.str;
+        description = "NPM package implementing the AI SDK provider.";
+        example = "@ai-sdk/openai-compatible";
+      };
+    };
+  };
+
+  piProviderModule = lib.types.submodule {
+    options = {
+      api = lib.mkOption {
+        type = lib.types.str;
+        description = "Pi API type (openai-completions, anthropic-messages, etc).";
+        example = "openai-completions";
+      };
+      apiKey = lib.mkOption {
+        type = lib.types.str;
+        description = "API key: literal, env var name, or '!cmd' shell command.";
+        example = "!cat /run/secrets/api-key";
+      };
+      compat = lib.mkOption {
+        type = lib.types.attrsOf lib.types.bool;
+        default = { };
+        description = "Pi compatibility flags for the provider.";
+        example = {
+          supportsDeveloperRole = false;
+          supportsReasoningEffort = false;
+        };
+      };
+    };
+  };
+
+  hermesProviderModule = lib.types.submodule {
+    options = {
+      keyEnv = lib.mkOption {
+        type = lib.types.str;
+        description = "Environment variable name containing the API key for Hermes.";
+        example = "NVIDIA_API_KEY";
+      };
+      transport = lib.mkOption {
+        type = lib.types.str;
+        default = "chat_completions";
+        description = "Hermes wire transport (chat_completions, codex_responses, etc).";
+      };
+    };
+  };
+
+  providerModule = lib.types.submodule {
+    options = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        description = "Human-readable provider name.";
+      };
+      baseUrl = lib.mkOption {
+        type = lib.types.str;
+        description = "Provider API base URL.";
+      };
+      models = lib.mkOption {
+        type = lib.types.attrsOf modelModule;
+        default = { };
+        description = "Model definitions keyed by model ID.";
+      };
+      opencode = lib.mkOption {
+        type = opencodeProviderModule;
+        description = "OpenCode-specific provider configuration.";
+      };
+      pi = lib.mkOption {
+        type = piProviderModule;
+        description = "Pi-specific provider configuration.";
+      };
+      hermes = lib.mkOption {
+        type = hermesProviderModule;
+        description = "Hermes-specific provider configuration.";
+      };
+    };
+  };
+
+  # --- Provider transformations ------------------------------------------------
+
+  # Transform providers into OpenCode settings.provider format.
+  mkOpencodeProviders = lib.mapAttrs (_id: prov: {
+    npm = prov.opencode.npm;
+    name = prov.name;
+    options.baseURL = prov.baseUrl;
+    models = lib.mapAttrs (_mid: m: {
+      inherit (m) name;
+      limit = {
+        inherit (m) context output;
+      };
+    }) prov.models;
+  }) cfg.providers;
+
+  # Transform providers into Pi models.json format.
+  mkPiModelsJson =
+    let
+      piProviders = lib.mapAttrs (
+        _id: prov:
+        {
+          baseUrl = prov.baseUrl;
+          inherit (prov.pi) api apiKey;
+        }
+        // lib.optionalAttrs (prov.pi.compat != { }) { inherit (prov.pi) compat; }
+        // {
+          models = lib.mapAttrsToList (
+            id: m:
+            {
+              inherit id;
+              inherit (m) name reasoning;
+              contextWindow = m.context;
+              maxTokens = m.output;
+            }
+            // lib.optionalAttrs (m.input != [ "text" ]) { inherit (m) input; }
+          ) prov.models;
+        }
+      ) cfg.providers;
+    in
+    (pkgs.formats.json { }).generate "pi-coding-agent-models.json" { providers = piProviders; };
+
+  # Transform providers into Hermes config.yaml providers format.
+  mkHermesProviders = lib.mapAttrs (_id: prov: {
+    name = prov.name;
+    base_url = prov.baseUrl;
+    key_env = prov.hermes.keyEnv;
+    transport = prov.hermes.transport;
+    models = lib.mapAttrs (_mid: m: {
+      context_length = m.context;
+    }) prov.models;
+  }) cfg.providers;
+
+  hasProviders = cfg.providers != { };
+
   lspServers = {
     clangd = {
       package = pkgs.clang-tools;
@@ -117,6 +279,16 @@ in
     enable = lib.mkEnableOption "Enable AI Tools";
 
     opencodePackage = lib.mkPackageOption pkgs "opencode" { };
+
+    providers = lib.mkOption {
+      type = lib.types.attrsOf providerModule;
+      default = { };
+      description = ''
+        Shared provider definitions that are rendered into both OpenCode
+        and Pi configurations. Each provider is keyed by a unique ID that
+        appears in model selectors (e.g. "nvidia-hub/gcp/google/gemini-2.5-flash").
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -151,10 +323,18 @@ in
       # the native `task` tool is disabled to avoid conflicting delegation
       # mechanisms (per the OCX registry recommendation).
       settings.permission.task = "deny";
+
+      settings.provider = lib.mkIf hasProviders mkOpencodeProviders;
     };
+
+    programs.hermes-agent.settings.providers = lib.mkIf hasProviders mkHermesProviders;
+
+    programs.hermes-agent.enable = true;
 
     programs.pi.coding-agent = {
       enable = true;
+
+      models = lib.mkIf hasProviders mkPiModelsJson;
 
       package = pkgs.symlinkJoin {
         inherit (pkgs.pi-coding-agent) meta;
