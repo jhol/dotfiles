@@ -70,6 +70,13 @@ let
     "opencode-background-agents" =
       "${pkgs.opencode-background-agents}/lib/opencode-background-agents/index.js";
   };
+
+  narumitw-pi-extensions-src = pkgs.fetchFromGitHub {
+    owner = "narumiruna";
+    repo = "pi-extensions";
+    rev = "20c9525ec270394c7f22410b3ed3ef9ede6ced4f"; # v0.22.0
+    hash = "sha256-GJuihw8eFNKtG/rGrvgKJJwDPIS5sKUZNRUh+6CDifE=";
+  };
 in
 {
   options.modules.jhol-dotfiles.ai-tools = {
@@ -130,7 +137,9 @@ in
 
       skills = lib.mapAttrsToList (_: builtins.dirOf) skills;
 
-      settings.packages = [ "npm:@dreki-gg/pi-plan-mode" ];
+      extensions = [
+        "${narumitw-pi-extensions-src}/extensions/pi-plan-mode/src/plan-mode.ts"
+      ];
     };
 
     # TODO: Install using programs.opencode.skills after 26.05 release
@@ -141,7 +150,5 @@ in
       // lib.mapAttrs' (
         name: source: lib.nameValuePair "opencode/plugin/${name}.js" { inherit source; }
       ) opencodePlugins;
-
-    home.file.".pi/agent/npm/node_modules/@dreki-gg/pi-plan-mode".source = pkgs.pi-plan-mode;
   };
 }
