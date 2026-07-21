@@ -39,15 +39,10 @@
 
       listPackages =
         pkgs:
-        (builtins.mapAttrs (name: value: pkgs.callPackage value { }) (listModules ./nix/packages))
-        // {
-          pi-coding-agent = attrs.pi.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent;
-          hermes-agent = attrs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent.overrideAttrs (prev: {
-            postPatch = (prev.postPatch or "") + ''
-              cp ${./nix/patches/hermes-daemon-pool-py314.py} tools/daemon_pool.py
-            '';
-          });
-        };
+        let
+          callPackage = pkgs.lib.callPackageWith (pkgs // { flakeInputs = attrs; });
+        in
+        builtins.mapAttrs (name: value: callPackage value { }) (listModules ./nix/packages);
     in
     {
       homeManagerModules = (listModules ./nix/home-manager-modules) // {
