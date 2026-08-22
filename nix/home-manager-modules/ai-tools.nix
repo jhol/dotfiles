@@ -327,9 +327,16 @@ in
       settings.provider = lib.mkIf hasProviders mkOpencodeProviders;
     };
 
-    programs.hermes-agent.settings.providers = lib.mkIf hasProviders mkHermesProviders;
+    programs.hermes-agent = {
+      enable = true;
 
-    programs.hermes-agent.enable = true;
+      settings = {
+        providers = lib.mkIf hasProviders mkHermesProviders;
+
+        # Launch the Ink TUI by default when running bare `hermes`.
+        display.interface = "tui";
+      };
+    };
 
     programs.pi.coding-agent = {
       enable = true;
