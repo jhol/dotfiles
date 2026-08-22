@@ -335,6 +335,9 @@ in
 
         # Launch the Ink TUI by default when running bare `hermes`.
         display.interface = "tui";
+
+        # Extend gateway clarify timeout so AFK users are not evicted.
+        gateway.clarify_timeout = 86400; # 24-hours
       };
     };
 
