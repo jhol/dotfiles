@@ -292,6 +292,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Hermes session/plan state should never be committed to any repo.
+    programs.git.ignores = [ ".hermes/" ];
+
     programs.opencode = {
       enable = true;
 
