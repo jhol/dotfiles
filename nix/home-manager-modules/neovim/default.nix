@@ -391,7 +391,6 @@ in
         vim-nix
         vim-qml
         project-nvim
-        plenary-nvim
         codecompanion-nvim
       ];
 
