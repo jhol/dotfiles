@@ -121,6 +121,8 @@ in
           "Mod+W".action = toggle-column-tabbed-display;
           "Mod+Comma".action = consume-window-into-column;
           "Mod+Period".action = expel-window-from-column;
+          "Mod+BracketLeft".action = consume-or-expel-window-left;
+          "Mod+BracketRight".action = consume-or-expel-window-right;
 
           # Focus.
           "Mod+Left".action = focus-column-left;
