@@ -85,6 +85,7 @@ in
           "Mod+T".action = spawn "kitty";
           "Mod+Return".action = spawn "kitty";
           "Mod+B".action = spawn "dms" "ipc" "call" "defaultApp" "browser";
+          "Mod+E".action = spawn "neovide";
           "Mod+Space".action = spawn "dms" "ipc" "call" "spotlight" "toggle";
           "Mod+Comma".action = spawn "dms" "ipc" "call" "settings" "focusOrToggle";
           "Mod+N".action = spawn "dms" "ipc" "call" "notepad" "toggle";
