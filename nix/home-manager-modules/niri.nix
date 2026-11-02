@@ -68,6 +68,18 @@ in
           border.enable = false;
         };
 
+        # Wine windows via xwayland-satellite: app-id is the WM_CLASS (exe name).
+        window-rules = [
+          {
+            matches = [
+              { app-id = "^wine$"; }
+              { app-id = "\\.exe$"; }
+              { title = "\\.exe$"; }
+            ];
+            open-floating = true;
+          }
+        ];
+
         prefer-no-csd = true;
         hotkey-overlay.skip-at-startup = true;
         clipboard.disable-primary = false;
