@@ -11,10 +11,11 @@ let
   # Dux Shell 2.0 needs Go >= 1.27.1; nixos-26.05 ships 1.27rc3. Take the Go
   # toolchain from Dux Shell's own nixpkgs pin for this package only rather
   # than bumping Go (and rebuilding every Go package) system-wide.
-  dmsPkgs = pkgs.extend (_final: _prev: {
-    go_1_27 =
-      inputs.dms.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.go_1_27;
-  });
+  dmsPkgs = pkgs.extend (
+    _final: _prev: {
+      go_1_27 = inputs.dms.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.go_1_27;
+    }
+  );
 in
 {
   # niri-flake supplies `programs.niri.settings` and `config.lib.niri.actions`
@@ -77,100 +78,98 @@ in
         # fragments (~/.config/niri/dms/*.kdl) only appear after `dms setup
         # binds`/`dms setup colors` etc. has been run once, so the essentials
         # are also declared here to keep the first session usable.
-        binds =
-          with config.lib.niri.actions;
-          {
-            "Mod+Shift+Slash".action = show-hotkey-overlay;
+        binds = with config.lib.niri.actions; {
+          "Mod+Shift+Slash".action = show-hotkey-overlay;
 
-            # Applications and Dux Shell surfaces.
-            "Mod+T".action = spawn "kitty";
-            "Mod+Return".action = spawn "kitty";
-            "Mod+Space".action = spawn "dms" "ipc" "call" "spotlight" "toggle";
-            "Mod+Comma".action = spawn "dms" "ipc" "call" "settings" "focusOrToggle";
-            "Mod+N".action = spawn "dms" "ipc" "call" "notepad" "toggle";
-            "Mod+X".action = spawn "dms" "ipc" "call" "powermenu" "toggle";
-            "Mod+Alt+L".action = spawn "dms" "ipc" "call" "lock" "lock";
-            "Mod+Shift+W".action = spawn "dms" "ipc" "call" "window-rules" "toggle";
+          # Applications and Dux Shell surfaces.
+          "Mod+T".action = spawn "kitty";
+          "Mod+Return".action = spawn "kitty";
+          "Mod+Space".action = spawn "dms" "ipc" "call" "spotlight" "toggle";
+          "Mod+Comma".action = spawn "dms" "ipc" "call" "settings" "focusOrToggle";
+          "Mod+N".action = spawn "dms" "ipc" "call" "notepad" "toggle";
+          "Mod+X".action = spawn "dms" "ipc" "call" "powermenu" "toggle";
+          "Mod+Alt+L".action = spawn "dms" "ipc" "call" "lock" "lock";
+          "Mod+Shift+W".action = spawn "dms" "ipc" "call" "window-rules" "toggle";
 
-            # Windows.
-            "Mod+Q".action = close-window;
-            "Mod+O".action = toggle-overview;
-            "Mod+O".repeat = false;
-            "Mod+Tab".action = toggle-overview;
-            "Mod+Tab".repeat = false;
-            "Mod+F".action = maximize-column;
-            "Mod+Shift+F".action = fullscreen-window;
-            "Mod+V".action = toggle-window-floating;
-            "Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
-            "Mod+W".action = toggle-column-tabbed-display;
+          # Windows.
+          "Mod+Q".action = close-window;
+          "Mod+O".action = toggle-overview;
+          "Mod+O".repeat = false;
+          "Mod+Tab".action = toggle-overview;
+          "Mod+Tab".repeat = false;
+          "Mod+F".action = maximize-column;
+          "Mod+Shift+F".action = fullscreen-window;
+          "Mod+V".action = toggle-window-floating;
+          "Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
+          "Mod+W".action = toggle-column-tabbed-display;
 
-            # Focus.
-            "Mod+Left".action = focus-column-left;
-            "Mod+Down".action = focus-window-down;
-            "Mod+Up".action = focus-window-up;
-            "Mod+Right".action = focus-column-right;
-            "Mod+H".action = focus-column-left;
-            "Mod+J".action = focus-window-down;
-            "Mod+K".action = focus-window-up;
-            "Mod+L".action = focus-column-right;
+          # Focus.
+          "Mod+Left".action = focus-column-left;
+          "Mod+Down".action = focus-window-down;
+          "Mod+Up".action = focus-window-up;
+          "Mod+Right".action = focus-column-right;
+          "Mod+H".action = focus-column-left;
+          "Mod+J".action = focus-window-down;
+          "Mod+K".action = focus-window-up;
+          "Mod+L".action = focus-column-right;
 
-            # Move the focused window/column.
-            "Mod+Ctrl+Left".action = move-column-left;
-            "Mod+Ctrl+Down".action = move-window-down;
-            "Mod+Ctrl+Up".action = move-window-up;
-            "Mod+Ctrl+Right".action = move-column-right;
-            "Mod+Ctrl+H".action = move-column-left;
-            "Mod+Ctrl+J".action = move-window-down;
-            "Mod+Ctrl+K".action = move-window-up;
-            "Mod+Ctrl+L".action = move-column-right;
+          # Move the focused window/column.
+          "Mod+Ctrl+Left".action = move-column-left;
+          "Mod+Ctrl+Down".action = move-window-down;
+          "Mod+Ctrl+Up".action = move-window-up;
+          "Mod+Ctrl+Right".action = move-column-right;
+          "Mod+Ctrl+H".action = move-column-left;
+          "Mod+Ctrl+J".action = move-window-down;
+          "Mod+Ctrl+K".action = move-window-up;
+          "Mod+Ctrl+L".action = move-column-right;
 
-            # Workspaces.
-            "Mod+Page_Down".action = focus-workspace-down;
-            "Mod+Page_Up".action = focus-workspace-up;
-            "Mod+Ctrl+Page_Down".action = move-column-to-workspace-down;
-            "Mod+Ctrl+Page_Up".action = move-column-to-workspace-up;
-            "Mod+1".action = focus-workspace 1;
-            "Mod+2".action = focus-workspace 2;
-            "Mod+3".action = focus-workspace 3;
-            "Mod+4".action = focus-workspace 4;
-            "Mod+5".action = focus-workspace 5;
-            "Mod+6".action = focus-workspace 6;
-            "Mod+7".action = focus-workspace 7;
-            "Mod+8".action = focus-workspace 8;
-            "Mod+9".action = focus-workspace 9;
+          # Workspaces.
+          "Mod+Page_Down".action = focus-workspace-down;
+          "Mod+Page_Up".action = focus-workspace-up;
+          "Mod+Ctrl+Page_Down".action = move-column-to-workspace-down;
+          "Mod+Ctrl+Page_Up".action = move-column-to-workspace-up;
+          "Mod+1".action = focus-workspace 1;
+          "Mod+2".action = focus-workspace 2;
+          "Mod+3".action = focus-workspace 3;
+          "Mod+4".action = focus-workspace 4;
+          "Mod+5".action = focus-workspace 5;
+          "Mod+6".action = focus-workspace 6;
+          "Mod+7".action = focus-workspace 7;
+          "Mod+8".action = focus-workspace 8;
+          "Mod+9".action = focus-workspace 9;
 
-            # Column sizing.
-            "Mod+R".action = switch-preset-column-width;
-            "Mod+Shift+R".action = switch-preset-column-width-back;
-            "Mod+Minus".action = set-column-width "-10%";
-            "Mod+Equal".action = set-column-width "+10%";
+          # Column sizing.
+          "Mod+R".action = switch-preset-column-width;
+          "Mod+Shift+R".action = switch-preset-column-width-back;
+          "Mod+Minus".action = set-column-width "-10%";
+          "Mod+Equal".action = set-column-width "+10%";
 
-            # Monitors.
-            "Mod+Shift+Left".action = focus-monitor-left;
-            "Mod+Shift+Down".action = focus-monitor-down;
-            "Mod+Shift+Up".action = focus-monitor-up;
-            "Mod+Shift+Right".action = focus-monitor-right;
+          # Monitors.
+          "Mod+Shift+Left".action = focus-monitor-left;
+          "Mod+Shift+Down".action = focus-monitor-down;
+          "Mod+Shift+Up".action = focus-monitor-up;
+          "Mod+Shift+Right".action = focus-monitor-right;
 
-            # Session.
-            "Mod+Shift+E".action = quit;
-            "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
-            "Mod+Escape".allow-inhibiting = false;
-            "Mod+Shift+P".action = power-off-monitors;
+          # Session.
+          "Mod+Shift+E".action = quit;
+          "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
+          "Mod+Escape".allow-inhibiting = false;
+          "Mod+Shift+P".action = power-off-monitors;
 
-            # Media keys drive the Dux Shell OSD even before `dms setup`.
-            "XF86AudioRaiseVolume".action = spawn "dms" "ipc" "call" "audio" "increment" "3";
-            "XF86AudioRaiseVolume".allow-when-locked = true;
-            "XF86AudioLowerVolume".action = spawn "dms" "ipc" "call" "audio" "decrement" "3";
-            "XF86AudioLowerVolume".allow-when-locked = true;
-            "XF86AudioMute".action = spawn "dms" "ipc" "call" "audio" "mute";
-            "XF86AudioMute".allow-when-locked = true;
-            "XF86AudioMicMute".action = spawn "dms" "ipc" "call" "audio" "micmute";
-            "XF86AudioMicMute".allow-when-locked = true;
-            "XF86MonBrightnessUp".action = spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
-            "XF86MonBrightnessUp".allow-when-locked = true;
-            "XF86MonBrightnessDown".action = spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
-            "XF86MonBrightnessDown".allow-when-locked = true;
-          };
+          # Media keys drive the Dux Shell OSD even before `dms setup`.
+          "XF86AudioRaiseVolume".action = spawn "dms" "ipc" "call" "audio" "increment" "3";
+          "XF86AudioRaiseVolume".allow-when-locked = true;
+          "XF86AudioLowerVolume".action = spawn "dms" "ipc" "call" "audio" "decrement" "3";
+          "XF86AudioLowerVolume".allow-when-locked = true;
+          "XF86AudioMute".action = spawn "dms" "ipc" "call" "audio" "mute";
+          "XF86AudioMute".allow-when-locked = true;
+          "XF86AudioMicMute".action = spawn "dms" "ipc" "call" "audio" "micmute";
+          "XF86AudioMicMute".allow-when-locked = true;
+          "XF86MonBrightnessUp".action = spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
+          "XF86MonBrightnessUp".allow-when-locked = true;
+          "XF86MonBrightnessDown".action = spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
+          "XF86MonBrightnessDown".allow-when-locked = true;
+        };
       };
     };
 
@@ -224,5 +223,3 @@ in
     ];
   };
 }
-
-
