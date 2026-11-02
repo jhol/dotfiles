@@ -99,6 +99,10 @@ in
           "Mod+Tab".action = toggle-overview;
           "Mod+Tab".repeat = false;
           "Mod+F".action = maximize-column;
+          "Mod+C".action = center-column;
+          "Mod+Shift+Minus".action = set-window-height "-10%";
+          "Mod+Shift+Equal".action = set-window-height "+10%";
+          "Mod+Ctrl+R".action = reset-window-height;
           "Mod+Shift+F".action = fullscreen-window;
           "Mod+V".action = toggle-window-floating;
           "Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
