@@ -25,6 +25,7 @@ in
     inputs.niri.homeModules.niri
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
+    inputs.dms-plugin-registry.homeModules.default
   ];
 
   options.modules.jhol-dotfiles.niri = {
@@ -204,11 +205,23 @@ in
       # empty: the module only writes those files when they are non-empty,
       # which keeps ~/.config/dms/settings.json writable by the shell's own
       # settings UI. Move keys here if you want them pinned declaratively.
+
+      # "Wallpaper of the Day" (max72bra/DankPluginBingWallpaper) from the
+      # registry: downloads a fresh daily image and sets it as the wallpaper.
+      # The registry module only copies the plugin; its runtime dependencies
+      # are provided below.
+      plugins.wallpaperBing.enable = true;
     };
 
     # niri spawns xwayland-satellite on demand for X11 clients, so it has to
-    # be on PATH.
-    home.packages = [ pkgs.xwayland-satellite ];
+    # be on PATH. curl, inotify-tools and libnotify (notify-send) are runtime
+    # dependencies of the Wallpaper of the Day plugin.
+    home.packages = [
+      pkgs.xwayland-satellite
+      pkgs.curl
+      pkgs.inotify-tools
+      pkgs.libnotify
+    ];
   };
 }
 

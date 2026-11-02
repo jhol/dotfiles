@@ -98,6 +98,26 @@
         "type": "github"
       }
     },
+    "dms-plugin-registry": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793585468,
+        "narHash": "sha256-MpT34BOibhMjSSFqH2Vl1yxmMOI5s1JYxugCMWm0CXU=",
+        "owner": "duxlabs-dev",
+        "repo": "dux-plugin-registry",
+        "rev": "8e9aa3ad3346ff1e1939b8973967583cc054cc2a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "duxlabs-dev",
+        "repo": "dux-plugin-registry",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -417,6 +437,7 @@
     "root": {
       "inputs": {
         "dms": "dms",
+        "dms-plugin-registry": "dms-plugin-registry",
         "flake-utils": "flake-utils",
         "llm-agents": "llm-agents",
         "niri": "niri",

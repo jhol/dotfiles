@@ -19,6 +19,11 @@
     dms = {
       url = "github:duxlabs-dev/dux-shell/stable";
     };
+
+    dms-plugin-registry = {
+      url = "github:duxlabs-dev/dux-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
