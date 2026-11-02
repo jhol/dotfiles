@@ -87,7 +87,6 @@ in
           "Mod+B".action = spawn "dms" "ipc" "call" "defaultApp" "browser";
           "Mod+E".action = spawn "neovide";
           "Mod+Space".action = spawn "dms" "ipc" "call" "spotlight" "toggle";
-          "Mod+Comma".action = spawn "dms" "ipc" "call" "settings" "focusOrToggle";
           "Mod+N".action = spawn "dms" "ipc" "call" "notepad" "toggle";
           "Mod+X".action = spawn "dms" "ipc" "call" "powermenu" "toggle";
           "Mod+Alt+L".action = spawn "dms" "ipc" "call" "lock" "lock";
@@ -104,6 +103,8 @@ in
           "Mod+V".action = toggle-window-floating;
           "Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
           "Mod+W".action = toggle-column-tabbed-display;
+          "Mod+Comma".action = consume-window-into-column;
+          "Mod+Period".action = expel-window-from-column;
 
           # Focus.
           "Mod+Left".action = focus-column-left;
