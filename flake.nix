@@ -8,6 +8,17 @@
     };
     pi.url = "github:lukasl-dev/pi.nix";
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # No nixpkgs follows: Dux Shell 2.0 needs Go >= 1.27.1 and its pin supplies
+    # the newer toolchain used by the niri module.
+    dms = {
+      url = "github:duxlabs-dev/dux-shell/stable";
+    };
   };
 
   outputs =
@@ -43,11 +54,19 @@
           callPackage = pkgs.lib.callPackageWith (pkgs // { flakeInputs = attrs; });
         in
         builtins.mapAttrs (name: value: callPackage value { }) (listModules ./nix/packages);
+
+      # Modules that need this flake's own inputs are wrapped here so the
+      # library is self-contained and consumers don't pass them via specialArgs.
+      withInputs =
+        path:
+        { config, lib, pkgs, ... }@args:
+        import path (args // { inputs = attrs; });
     in
     {
       homeManagerModules = (listModules ./nix/home-manager-modules) // {
         nixvim = attrs.nixvim.homeModules.nixvim;
         pi = attrs.pi.homeModules.default;
+        niri = withInputs ./nix/home-manager-modules/niri.nix;
       };
 
       nixosModules.overlay = {

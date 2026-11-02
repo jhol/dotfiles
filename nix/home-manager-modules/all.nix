@@ -17,6 +17,7 @@ in
       ai-tools.enable = true;
       git.enable = true;
       neovim.enable = true;
+      niri.enable = true;
       shell.enable = true;
       terminal.enable = true;
       tools.enable = true;
