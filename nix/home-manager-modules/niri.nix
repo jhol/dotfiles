@@ -164,6 +164,10 @@ in
           "Mod+Shift+Down".action = focus-monitor-down;
           "Mod+Shift+Up".action = focus-monitor-up;
           "Mod+Shift+Right".action = focus-monitor-right;
+          "Mod+Shift+H".action = focus-monitor-left;
+          "Mod+Shift+J".action = focus-monitor-down;
+          "Mod+Shift+K".action = focus-monitor-up;
+          "Mod+Shift+L".action = focus-monitor-right;
 
           # Session.
           "Mod+Shift+E".action = quit;
