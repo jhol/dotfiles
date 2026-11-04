@@ -1,0 +1,30 @@
+From e30ea21c8418d14a147eea4ecb7e226cf91250f0 Mon Sep 17 00:00:00 2001
+From: Joel Holdsworth <joel@airwebreathe.org.uk>
+Date: Wed, 4 Nov 2026 11:24:42 -0800
+Subject: [PATCH] fix(history): handle empty history file on read
+
+When read_history() finds an empty history file while session projects
+exist, it formats a warning containing two `%s` placeholders with only
+one argument. This raises "bad argument #2 to 'format'" before the
+deferred write_history() call can be scheduled.
+
+Pass MODSTR for both placeholders, and close the history file
+descriptor before returning from this branch.
+---
+ lua/project/util/history.lua | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/lua/project/util/history.lua b/lua/project/util/history.lua
+index 94a58f1..72c6ea6 100644
+--- a/lua/project/util/history.lua
++++ b/lua/project/util/history.lua
+@@ -546,7 +546,8 @@ function M.read_history()
+   end
+ 
+   if stat.size == 0 and not vim.tbl_isempty(M.session_projects) then
+-    Log.warn(('(%s.read_history): History file is empty. Defering call to `%s.write_history()`'):format(MODSTR))
++    uv.fs_close(fd)
++    Log.warn(('(%s.read_history): History file is empty. Defering call to `%s.write_history()`'):format(MODSTR, MODSTR))
+     vim.defer_fn(M.write_history, 10000)
+     return
+   end

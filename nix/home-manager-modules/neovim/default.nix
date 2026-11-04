@@ -390,7 +390,11 @@ in
         vim-localvimrc
         vim-nix
         vim-qml
-        project-nvim
+        (project-nvim.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [
+            ./0001-fix-history-handle-empty-history-file-on-read.patch
+          ];
+        }))
         codecompanion-nvim
       ];
 
