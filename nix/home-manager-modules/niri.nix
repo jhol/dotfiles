@@ -192,6 +192,14 @@ in
           "Mod+Shift+Ctrl+K".action = move-column-to-monitor-up;
           "Mod+Shift+Ctrl+L".action = move-column-to-monitor-right;
 
+          # Screenshots.
+          "Mod+Shift+S".action.screenshot = { };
+          "Mod+Ctrl+Shift+S".action.screenshot-screen = { };
+          "Mod+Alt+Shift+S".action.screenshot-window = { };
+          "Print".action.screenshot = { };
+          "Ctrl+Print".action.screenshot-screen = { };
+          "Alt+Print".action.screenshot-window = { };
+
           # Session.
           "Mod+Shift+E".action = quit;
           "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
