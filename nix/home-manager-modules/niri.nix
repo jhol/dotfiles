@@ -97,6 +97,7 @@ in
           "Mod+T".action = spawn "kitty";
           "Mod+Return".action = spawn "kitty";
           "Mod+B".action = spawn "dms" "ipc" "call" "defaultApp" "browser";
+          "Mod+F".action = spawn "dolphin";
           "Mod+E".action = spawn "neovide";
           "Mod+Space".action = spawn "dms" "ipc" "call" "spotlight" "toggle";
           "Mod+N".action = spawn "dms" "ipc" "call" "notepad" "toggle";
@@ -110,7 +111,7 @@ in
           "Mod+O".repeat = false;
           "Mod+Tab".action = toggle-overview;
           "Mod+Tab".repeat = false;
-          "Mod+F".action = maximize-column;
+          "Mod+Shift+M".action = maximize-column;
           "Mod+C".action = center-column;
           "Mod+Shift+Minus".action = set-window-height "-10%";
           "Mod+Shift+Equal".action = set-window-height "+10%";
