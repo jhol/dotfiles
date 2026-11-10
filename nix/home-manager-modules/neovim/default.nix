@@ -407,50 +407,53 @@ in
         tree-sitter
       ];
 
-      extraConfigLuaPre = ''
-        --
-        -- GUI Configuration
-        --
+      extraConfigLuaPre = lib.mkMerge [
+        (lib.mkBefore "vim.loader.enable()")
+        ''
+          --
+          -- GUI Configuration
+          --
 
-        -- Font (neovim-qt)
-        if (vim.fn.exists('GuiFont') == 1) then
-          vim.cmd('GuiFont ${cfg.neovim-qt.fontName}:h${builtins.toString cfg.neovim-qt.fontSize}')
-        end
+          -- Font (neovim-qt)
+          if (vim.fn.exists('GuiFont') == 1) then
+            vim.cmd('GuiFont ${cfg.neovim-qt.fontName}:h${builtins.toString cfg.neovim-qt.fontSize}')
+          end
 
-        -- Disable the GUI tab-line
-        vim.rpcnotify(0, 'Gui', 'Option', 'Tabline', 0)
+          -- Disable the GUI tab-line
+          vim.rpcnotify(0, 'Gui', 'Option', 'Tabline', 0)
 
-        -- Neovide Configuration
-        if vim.g.neovide then
-          vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-${cfg.neovide.fontAntiAliasing}:#h-${cfg.neovide.fontHinting}';
-          vim.g.neovide_theme = 'dark';
-          vim.g.neovide_refresh_rate = 60;
-          vim.g.neovide_cursor_animation_length = 0.01;
-          vim.g.neovide_hide_mouse_when_typing = true;
-        end
+          -- Neovide Configuration
+          if vim.g.neovide then
+            vim.o.guifont = '${cfg.neovide.fontName}:h${builtins.toString cfg.neovide.fontSize}:#e-${cfg.neovide.fontAntiAliasing}:#h-${cfg.neovide.fontHinting}';
+            vim.g.neovide_theme = 'dark';
+            vim.g.neovide_refresh_rate = 60;
+            vim.g.neovide_cursor_animation_length = 0.01;
+            vim.g.neovide_hide_mouse_when_typing = true;
+          end
 
-        -- Full Screen Toggle
-        if vim.g.neovide then
-          vim.api.nvim_exec2([[
-            function! s:GuiFullScreenToggle()
-              let g:neovide_fullscreen=!g:neovide_fullscreen
-            endfunction
-            command! GuiFullScreenToggle call s:GuiFullScreenToggle()
-          ]], {})
-        else
-          vim.api.nvim_exec2([[
-            let g:GuiWindowFullScreen = 0
-            function! s:GuiFullScreenToggle()
-              if g:GuiWindowFullScreen == 0
-                call rpcnotify(0, 'Gui', 'WindowFullScreen', 1)
-              else
-                call rpcnotify(0, 'Gui', 'WindowFullScreen', 0)
-              endif
-            endfunction
-            command! GuiFullScreenToggle call s:GuiFullScreenToggle()
-          ]], {})
-        end
-      '';
+          -- Full Screen Toggle
+          if vim.g.neovide then
+            vim.api.nvim_exec2([[
+              function! s:GuiFullScreenToggle()
+                let g:neovide_fullscreen=!g:neovide_fullscreen
+              endfunction
+              command! GuiFullScreenToggle call s:GuiFullScreenToggle()
+            ]], {})
+          else
+            vim.api.nvim_exec2([[
+              let g:GuiWindowFullScreen = 0
+              function! s:GuiFullScreenToggle()
+                if g:GuiWindowFullScreen == 0
+                  call rpcnotify(0, 'Gui', 'WindowFullScreen', 1)
+                else
+                  call rpcnotify(0, 'Gui', 'WindowFullScreen', 0)
+                endif
+              endfunction
+              command! GuiFullScreenToggle call s:GuiFullScreenToggle()
+            ]], {})
+          end
+        ''
+      ];
 
       extraConfigLua = ''
         --
