@@ -227,12 +227,6 @@ in
         { mode = "n"; key = "<leader>cl"; action = "<cmd>CMakeSelectLaunchTarget<cr>"; options.desc = "Select Launch Target"; }
         { mode = "n"; key = "<leader>cb"; action = "<cmd>CMakeSelectBuildType<cr>"; options.desc = "Select Build Type"; }
 
-        # CodeCompanion (AI)
-        { mode = [ "n" "v" ]; key = "<leader>aa"; action = "<cmd>CodeCompanionActions<cr>"; options.desc = "AI Actions"; }
-        { mode = [ "n" "v" ]; key = "<leader>ac"; action = "<cmd>CodeCompanionChat Toggle<cr>"; options.desc = "AI Chat Toggle"; }
-        { mode = "v"; key = "<leader>ai"; action = "<cmd>CodeCompanion<cr>"; options.desc = "AI Inline"; }
-        { mode = "v"; key = "<leader>ad"; action = "<cmd>CodeCompanionChat Add<cr>"; options.desc = "AI Add Selection to Chat"; }
-        { mode = "n"; key = "<leader>ab"; action = "<cmd>CodeCompanionChat<cr>"; options.desc = "AI New Chat Buffer"; }
       ];
 
       colorschemes.base16 = {
@@ -365,7 +359,6 @@ in
           { __unkeyed-1 = "<leader>g"; group = "git"; }
           { __unkeyed-1 = "<leader>gr"; group = "git rebase"; }
           { __unkeyed-1 = "<leader>c"; group = "cmake"; }
-          { __unkeyed-1 = "<leader>a"; group = "ai"; }
         ];
       };
 
@@ -490,48 +483,6 @@ in
               end
             '';
           }
-          {
-            __unkeyed-1 = "codecompanion.nvim";
-            before = ''
-              function()
-                require("lz.n").trigger_load("telescope.nvim")
-              end
-            '';
-            cmd = [
-              "CodeCompanion"
-              "CodeCompanionActions"
-              "CodeCompanionChat"
-              "CodeCompanionCLI"
-              "CodeCompanionCmd"
-            ];
-            after = ''
-              function()
-                require("codecompanion").setup({
-                  interactions = {
-                    chat = { adapter = "opencode" },
-                  },
-                })
-                _G.codecompanion_last_terminal = _M.codecompanion_last_terminal
-                local excluded = require("codecompanion.config")
-                  .interactions.shared.editor_context.opts.excluded
-                for _, buf in ipairs(_M.codecompanion_buffers or {}) do
-                  if vim.api.nvim_buf_is_valid(buf)
-                    and not vim.tbl_contains(excluded.fts, vim.bo[buf].filetype)
-                    and not vim.tbl_contains(excluded.buftypes, vim.bo[buf].buftype)
-                  then
-                    _G.codecompanion_current_context = buf
-                    break
-                  end
-                end
-                _M.codecompanion_buffers = nil
-                vim.api.nvim_del_augroup_by_name("nixvim_ai_context")
-                vim.api.nvim_exec_autocmds("BufEnter", {
-                  group = "codecompanion.buffers",
-                  buffer = vim.api.nvim_get_current_buf(),
-                })
-              end
-            '';
-          }
         ];
       };
 
@@ -555,10 +506,6 @@ in
             ./0001-fix-history-handle-empty-history-file-on-read.patch
           ];
         }))
-        {
-          plugin = codecompanion-nvim;
-          optional = true;
-        }
       ];
 
       extraPackages = with pkgs; [
@@ -619,32 +566,6 @@ in
       ];
 
       extraConfigLua = ''
-        local context_group = vim.api.nvim_create_augroup("nixvim_ai_context", { clear = true })
-        vim.api.nvim_create_autocmd("BufEnter", {
-          group = context_group,
-          callback = function(args)
-            if vim.g.loaded_codecompanion then
-              return
-            end
-            local buffers = _M.codecompanion_buffers or {}
-            for i = #buffers, 1, -1 do
-              if buffers[i] == args.buf or not vim.api.nvim_buf_is_valid(buffers[i]) then
-                table.remove(buffers, i)
-              end
-            end
-            table.insert(buffers, 1, args.buf)
-            _M.codecompanion_buffers = buffers
-          end,
-        })
-        vim.api.nvim_create_autocmd("TermEnter", {
-          group = context_group,
-          callback = function(args)
-            if vim.bo[args.buf].buftype == "terminal" then
-              _M.codecompanion_last_terminal = args.buf
-            end
-          end,
-        })
-
         local tree_group = vim.api.nvim_create_augroup("nixvim_tree_lazy", { clear = true })
         vim.api.nvim_create_autocmd("BufEnter", {
           group = tree_group,
