@@ -473,6 +473,29 @@ in
               end
             '';
           }
+          {
+            __unkeyed-1 = "codecompanion.nvim";
+            cmd = [
+              "CodeCompanion"
+              "CodeCompanionActions"
+              "CodeCompanionChat"
+              "CodeCompanionCLI"
+              "CodeCompanionCmd"
+            ];
+            after = ''
+              function()
+                require("codecompanion").setup({
+                  interactions = {
+                    chat = { adapter = "opencode" },
+                  },
+                })
+                vim.api.nvim_exec_autocmds("BufEnter", {
+                  group = "codecompanion.buffers",
+                  buffer = vim.api.nvim_get_current_buf(),
+                })
+              end
+            '';
+          }
         ];
       };
 
@@ -496,7 +519,10 @@ in
             ./0001-fix-history-handle-empty-history-file-on-read.patch
           ];
         }))
-        codecompanion-nvim
+        {
+          plugin = codecompanion-nvim;
+          optional = true;
+        }
       ];
 
       extraPackages = with pkgs; [
@@ -594,17 +620,6 @@ in
           patterns = { ".git" },
           scope_chdir = "global",
           silent_chdir = true,
-        })
-
-        --
-        -- codecompanion.nvim (OpenCode via ACP)
-        --
-        require("codecompanion").setup({
-          interactions = {
-            chat = {
-              adapter = "opencode",
-            },
-          },
         })
 
         -- undotree
