@@ -378,10 +378,92 @@ in
         };
       };
 
+      plugins.lz-n = {
+        enable = true;
+        plugins = [
+          {
+            __unkeyed-1 = "cmake-tools.nvim";
+            cmd = [
+              "CMakeGenerate"
+              "CMakeClean"
+              "CMakeBuild"
+              "CMakeQuickBuild"
+              "CMakeInstall"
+              "CMakeStopExecutor"
+              "CMakeStopRunner"
+              "CMakeCloseExecutor"
+              "CMakeCloseRunner"
+              "CMakeOpenExecutor"
+              "CMakeOpenRunner"
+              "CMakeOpenCache"
+              "CMakeRun"
+              "CMakeQuickRun"
+              "CMakeRunCurrentFile"
+              "CMakeBuildCurrentFile"
+              "CMakeLaunchArgs"
+              "CMakeSelectBuildType"
+              "CMakeSelectKit"
+              "CMakeSelectConfigurePreset"
+              "CMakeSelectBuildPreset"
+              "CMakeSelectTestPreset"
+              "CMakeSelectBuildTarget"
+              "CMakeSelectLaunchTarget"
+              "CMakeTargetSettings"
+              "CMakeSettings"
+              "CMakeSelectCwd"
+              "CMakeSelectBuildDir"
+              "CMakeRunTest"
+              "CMakeQuickStart"
+              "CMakeShowTargetFiles"
+            ];
+            after = ''
+              function()
+                require("cmake-tools").setup({
+                  cmake_command = "cmake",
+                  cmake_regenerate_on_save = true,
+                  cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
+                  cmake_build_directory = "build",
+                  cmake_soft_link_compile_commands = true,
+                  cmake_executor = {
+                    name = "quickfix",
+                    opts = {},
+                    default_opts = {
+                      quickfix = {
+                        show = "always",
+                        position = "belowright",
+                        size = 10,
+                        auto_close_when_success = true,
+                      },
+                    },
+                  },
+                  cmake_runner = {
+                    name = "terminal",
+                    opts = {},
+                    default_opts = {
+                      terminal = {
+                        split_direction = "horizontal",
+                        split_size = 11,
+                      },
+                    },
+                  },
+                  cmake_notifications = {
+                    runner = { enabled = true },
+                    executor = { enabled = true },
+                  },
+                })
+              end
+            '';
+          }
+        ];
+      };
+
       extraPlugins = with pkgs.vimPlugins; [
         asyncrun-vim
         close-buffers-vim
-        cmake-tools-nvim
+        {
+          plugin = cmake-tools-nvim;
+          optional = true;
+        }
         mkdir-nvim
         openscad-nvim
         vim-autosource
@@ -456,6 +538,17 @@ in
       ];
 
       extraConfigLua = ''
+        local cmake_group = vim.api.nvim_create_augroup("nixvim_cmake_lazy", { clear = true })
+        vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged", "BufEnter", "BufWritePost" }, {
+          group = cmake_group,
+          callback = function()
+            if vim.fn.filereadable(vim.fn.getcwd() .. "/CMakeLists.txt") == 1 then
+              require("lz.n").trigger_load("cmake-tools.nvim")
+              vim.api.nvim_del_augroup_by_id(cmake_group)
+            end
+          end,
+        })
+
         --
         -- Undo directory
         --
@@ -469,43 +562,6 @@ in
               vim.fn.mkdir(dir, "p")
             end
           end,
-        })
-
-        --
-        -- cmake-tools.nvim
-        --
-        require("cmake-tools").setup({
-          cmake_command = "cmake",
-          cmake_regenerate_on_save = true,
-          cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
-          cmake_build_directory = "build",
-          cmake_soft_link_compile_commands = true,
-          cmake_executor = {
-            name = "quickfix",
-            opts = {},
-            default_opts = {
-              quickfix = {
-                show = "always",
-                position = "belowright",
-                size = 10,
-                auto_close_when_success = true,
-              },
-            },
-          },
-          cmake_runner = {
-            name = "terminal",
-            opts = {},
-            default_opts = {
-              terminal = {
-                split_direction = "horizontal",
-                split_size = 11,
-              },
-            },
-          },
-          cmake_notifications = {
-            runner = { enabled = true },
-            executor = { enabled = true },
-          },
         })
 
         -- Redefine :Ex
