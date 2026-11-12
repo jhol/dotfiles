@@ -512,6 +512,19 @@ in
                   },
                 })
                 _G.codecompanion_last_terminal = _M.codecompanion_last_terminal
+                local excluded = require("codecompanion.config")
+                  .interactions.shared.editor_context.opts.excluded
+                for _, buf in ipairs(_M.codecompanion_buffers or {}) do
+                  if vim.api.nvim_buf_is_valid(buf)
+                    and not vim.tbl_contains(excluded.fts, vim.bo[buf].filetype)
+                    and not vim.tbl_contains(excluded.buftypes, vim.bo[buf].buftype)
+                  then
+                    _G.codecompanion_current_context = buf
+                    break
+                  end
+                end
+                _M.codecompanion_buffers = nil
+                vim.api.nvim_del_augroup_by_name("nixvim_ai_context")
                 vim.api.nvim_exec_autocmds("BufEnter", {
                   group = "codecompanion.buffers",
                   buffer = vim.api.nvim_get_current_buf(),
@@ -606,8 +619,25 @@ in
       ];
 
       extraConfigLua = ''
+        local context_group = vim.api.nvim_create_augroup("nixvim_ai_context", { clear = true })
+        vim.api.nvim_create_autocmd("BufEnter", {
+          group = context_group,
+          callback = function(args)
+            if vim.g.loaded_codecompanion then
+              return
+            end
+            local buffers = _M.codecompanion_buffers or {}
+            for i = #buffers, 1, -1 do
+              if buffers[i] == args.buf or not vim.api.nvim_buf_is_valid(buffers[i]) then
+                table.remove(buffers, i)
+              end
+            end
+            table.insert(buffers, 1, args.buf)
+            _M.codecompanion_buffers = buffers
+          end,
+        })
         vim.api.nvim_create_autocmd("TermEnter", {
-          group = vim.api.nvim_create_augroup("nixvim_ai_context", { clear = true }),
+          group = context_group,
           callback = function(args)
             if vim.bo[args.buf].buftype == "terminal" then
               _M.codecompanion_last_terminal = args.buf
