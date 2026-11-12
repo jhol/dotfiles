@@ -267,6 +267,20 @@ in
 
       plugins.telescope = {
         enable = true;
+        lazyLoad = {
+          enable = true;
+          settings.cmd = "Telescope";
+        };
+        luaConfig.post = ''
+          local command = require("telescope.command")
+          local load_command = command.load_command
+          command.load_command = function(name, ...)
+            if name == "cmake_tools" then
+              require("lz.n").trigger_load("cmake-tools.nvim")
+            end
+            return load_command(name, ...)
+          end
+        '';
         keymaps = {
           "<leader>fa" = { action = "live_grep"; options.desc = "Telescope Grep Search"; };
           "<leader>fb" = { action = "buffers"; options.desc = "Telescope Buffer Search"; };
@@ -383,6 +397,11 @@ in
         plugins = [
           {
             __unkeyed-1 = "cmake-tools.nvim";
+            before = ''
+              function()
+                require("lz.n").trigger_load("telescope.nvim")
+              end
+            '';
             cmd = [
               "CMakeGenerate"
               "CMakeClean"
