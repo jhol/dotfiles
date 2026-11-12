@@ -506,6 +506,7 @@ in
                     chat = { adapter = "opencode" },
                   },
                 })
+                _G.codecompanion_last_terminal = _M.codecompanion_last_terminal
                 vim.api.nvim_exec_autocmds("BufEnter", {
                   group = "codecompanion.buffers",
                   buffer = vim.api.nvim_get_current_buf(),
@@ -600,6 +601,15 @@ in
       ];
 
       extraConfigLua = ''
+        vim.api.nvim_create_autocmd("TermEnter", {
+          group = vim.api.nvim_create_augroup("nixvim_ai_context", { clear = true }),
+          callback = function(args)
+            if vim.bo[args.buf].buftype == "terminal" then
+              _M.codecompanion_last_terminal = args.buf
+            end
+          end,
+        })
+
         local tree_group = vim.api.nvim_create_augroup("nixvim_tree_lazy", { clear = true })
         vim.api.nvim_create_autocmd("BufEnter", {
           group = tree_group,
