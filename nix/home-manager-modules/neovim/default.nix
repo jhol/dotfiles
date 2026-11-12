@@ -492,6 +492,11 @@ in
           }
           {
             __unkeyed-1 = "codecompanion.nvim";
+            before = ''
+              function()
+                require("lz.n").trigger_load("telescope.nvim")
+              end
+            '';
             cmd = [
               "CodeCompanion"
               "CodeCompanionActions"
