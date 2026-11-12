@@ -379,6 +379,23 @@ in
 
       plugins.nvim-tree = {
         enable = true;
+        lazyLoad = {
+          enable = true;
+          settings.cmd = [
+            "NvimTreeOpen"
+            "NvimTreeClose"
+            "NvimTreeToggle"
+            "NvimTreeFocus"
+            "NvimTreeRefresh"
+            "NvimTreeClipboard"
+            "NvimTreeFindFile"
+            "NvimTreeFindFileToggle"
+            "NvimTreeResize"
+            "NvimTreeCollapse"
+            "NvimTreeCollapseKeepBuffers"
+            "NvimTreeHiTest"
+          ];
+        };
         settings = {
           actions.open_file.quit_on_open = true;
           sync_root_with_cwd = true;
@@ -583,6 +600,23 @@ in
       ];
 
       extraConfigLua = ''
+        local tree_group = vim.api.nvim_create_augroup("nixvim_tree_lazy", { clear = true })
+        vim.api.nvim_create_autocmd("BufEnter", {
+          group = tree_group,
+          callback = function(args)
+            if vim.g.NvimTreeSetup == 1 then
+              vim.api.nvim_del_augroup_by_id(tree_group)
+              return
+            end
+            local path = vim.api.nvim_buf_get_name(args.buf)
+            if vim.fn.isdirectory(path) == 1 then
+              vim.api.nvim_del_augroup_by_id(tree_group)
+              require("lz.n").trigger_load("nvim-tree.lua")
+              require("nvim-tree.api").tree.open({ path = path })
+            end
+          end,
+        })
+
         local cmake_group = vim.api.nvim_create_augroup("nixvim_cmake_lazy", { clear = true })
         vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged", "BufEnter", "BufWritePost" }, {
           group = cmake_group,
@@ -640,7 +674,9 @@ in
                 \    )')
               silent execute 'bwipeout' buf
             endfor
-            NvimTreeClose
+            if get(g:, "NvimTreeSetup", 0)
+              NvimTreeClose
+            endif
             UndotreeHide
           endfunction
           command! Focus call s:Focus()
