@@ -12,6 +12,18 @@ in
 {
   options.modules.jhol-dotfiles.web-browsers = {
     enable = mkEnableOption "Enable Web Browsers";
+    chromiumExtensions = mkOption {
+      type = types.attrsOf (
+        types.submodule {
+          options.id = mkOption {
+            type = types.strMatching "[a-zA-Z]{32}";
+            description = "Chrome Web Store extension ID.";
+          };
+        }
+      );
+      default = { };
+      description = "Named extensions shared by Brave and Chromium.";
+    };
   };
 
   config = mkIf cfg.enable (
@@ -23,14 +35,16 @@ in
         };
       };
 
-      chromiumExtensions = [
-          { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; } # DuckDuckGo Privacy Essentials
-          { id = "edibdbjcniadpccecjdfdjjppcpchdlm"; } # I still don't care about cookies
-          { id = "fnaicdffflnofjppbagibeoednhnbjhg"; } # Floccus
-          { id = "oboonakemofpalcgghocfoadofidjkkk"; } # KeePassXC-Browser
-      ];
+      chromiumExtensions = attrValues cfg.chromiumExtensions;
     in
     {
+      modules.jhol-dotfiles.web-browsers.chromiumExtensions = {
+        duckduckgo-privacy-essentials.id = "bkdgflcldnnnapblkhphbgpggdiikppg";
+        floccus.id = "fnaicdffflnofjppbagibeoednhnbjhg";
+        istilldontcareaboutcookies.id = "edibdbjcniadpccecjdfdjjppcpchdlm";
+        keepassxc-browser.id = "oboonakemofpalcgghocfoadofidjkkk";
+      };
+
       programs.brave = {
         enable = true;
         extensions = chromiumExtensions;
