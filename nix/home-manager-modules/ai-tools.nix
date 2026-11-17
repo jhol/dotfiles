@@ -225,7 +225,45 @@ let
     pkgs.jj-hunk-tool
   ];
 
-  mcpServers = { };
+  browsers = lib.filterAttrs (_: browser: browser.enable) {
+    brave = config.programs.brave;
+    chromium = config.programs.chromium;
+  };
+  servers = lib.mapAttrs' (
+    name: browser:
+    let
+      profileRoot = "${config.xdg.configHome}/${
+        if name == "brave" then "BraveSoftware/Brave-Browser" else "chromium"
+      }";
+      launcher = pkgs.writeShellScriptBin "playwright-${name}" ''
+        # Hermes filters graphical variables from MCP subprocess environments.
+        while IFS='=' read -r name value; do
+          case "$name" in
+            DISPLAY|WAYLAND_DISPLAY|XAUTHORITY|DBUS_SESSION_BUS_ADDRESS)
+              if [ -z "''${!name:-}" ]; then export "$name=$value"; fi
+              ;;
+          esac
+        done < <(${pkgs.systemd}/bin/systemctl --user show-environment 2>/dev/null || true)
+        export PLAYWRIGHT_MCP_USER_DATA_DIR=${lib.escapeShellArg profileRoot}
+        export PLAYWRIGHT_MCP_ISOLATED=false
+        exec ${lib.getExe cfg.playwright.package} --extension --browser chrome \
+          --executable-path ${lib.escapeShellArg (lib.getExe browser.finalPackage)} \
+          --profile-dir-name ${lib.escapeShellArg cfg.playwright.profileDirectory} "$@"
+      '';
+    in
+    lib.nameValuePair "playwright-${name}" {
+      command = lib.getExe launcher;
+      args = [ ];
+    }
+  ) browsers;
+  hermesServers = lib.mapAttrs (
+    _: server:
+    server
+    // {
+      timeout = 300;
+      supports_parallel_tool_calls = false;
+    }
+  ) servers;
 
   opencodePlugins = {
     "opencode-notify" = "${pkgs.opencode-notify}/lib/opencode-notify/index.js";
@@ -280,6 +318,20 @@ in
 
     opencodePackage = lib.mkPackageOption pkgs "opencode" { };
 
+    playwright = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = config.modules.jhol-dotfiles.web-browsers.enable;
+        description = "Enable Playwright MCP access to desktop browser profiles.";
+      };
+      package = lib.mkPackageOption pkgs "playwright-mcp" { };
+      profileDirectory = lib.mkOption {
+        type = lib.types.str;
+        default = "Default";
+        description = "Browser profile directory containing the Playwright extension.";
+      };
+    };
+
     providers = lib.mkOption {
       type = lib.types.attrsOf providerModule;
       default = { };
@@ -292,6 +344,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    modules.jhol-dotfiles.web-browsers.chromiumExtensions = lib.mkIf cfg.playwright.enable {
+      playwright.id = "mmlmfjhmonkocbjadbfplnigmagldckm";
+    };
+    programs.mcp = lib.mkIf cfg.playwright.enable {
+      enable = true;
+      inherit servers;
+    };
+    home.file.".cursor/mcp.json" = lib.mkIf cfg.playwright.enable {
+      text = builtins.toJSON { mcpServers = config.programs.mcp.servers; };
+    };
+
     # Hermes session/plan state should never be committed to any repo.
     programs.git.ignores = [ ".hermes/" ];
 
@@ -320,7 +383,7 @@ in
       };
 
       settings.lsp = lspSettings;
-      settings.mcp = mcpServers;
+      enableMcpIntegration = cfg.playwright.enable;
 
       # opencode-background-agents provides its own task-delegation tool, so
       # the native `task` tool is disabled to avoid conflicting delegation
@@ -335,6 +398,7 @@ in
 
       settings = {
         providers = lib.mkIf hasProviders mkHermesProviders;
+        mcp_servers = lib.mkIf cfg.playwright.enable hermesServers;
 
         # Launch the Ink TUI by default when running bare `hermes`.
         display.interface = "tui";
